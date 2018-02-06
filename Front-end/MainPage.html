@@ -333,6 +333,31 @@
 <style>
 @import url("https://fonts.googleapis.com/css?family=Poppins|Raleway|Roboto+Condensed");
 
+/* custom scrollbar  */
+::-webkit-scrollbar {
+    width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+     border-radius:5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+     border-radius:5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+
+}
+
+/*Animation Fade in from display:none*/
 @-webkit-keyframes fadeInFromNone {
   0% {
     display: none;
@@ -411,11 +436,14 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* link inherit*/
 a {
-  color: inherit; /* blue colors for links too */
+  color: inherit;
   text-decoration: inherit; /* no underline */
   font-size: inherit;
 }
+
+/* grey backdrop of the site*/
 #backdrop {
   width: 100vw;
   height: 100vh;
@@ -426,19 +454,17 @@ a {
   left: 0;
   z-index: 1;
   display: none;
-
-/*     display:block; */
   justify-content: center;
   align-items: center;
 }
 
-.ann-wrap {
+/*wrap div for pop-up content*/
+.wrap-div {
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   display: none;
-  /*   display:flex; */
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -450,6 +476,7 @@ a {
   animation: fadeInFromNone 0.5s ease-out;
 }
 
+/* container for the announcement */
 .new-ann-container {
   position: relative;
   border: 1px solid #d8dfea;
@@ -461,6 +488,7 @@ a {
   background: #d8dfea;
 }
 
+/* close button for the previous container (box)*/
 .new-ann-container .close {
   position: absolute;
   right: 15px;
@@ -468,6 +496,8 @@ a {
   font-size: 150%;
   cursor: pointer;
 }
+
+/* box title (New Announcement) */
 .box-title {
   display: block;
   text-align: center;
@@ -477,6 +507,7 @@ a {
   color: #3b5998;
 }
 
+/* modify input */
 .new-title {
   position: relative;
   margin-bottom: 40px;
@@ -490,6 +521,7 @@ a {
   background: transparent;
 }
 
+/* effect for the input */
 .effect-1 ~ .focus-border {
   position: absolute;
   bottom: 0;
@@ -504,6 +536,7 @@ a {
   transition: 0.4s;
 }
 
+/* modify text-area */
 .new-info {
   margin-bottom: 40px;
 }
@@ -524,6 +557,7 @@ a {
   background: white;
 }
 
+/* submit-button */
 .ann-submit {
   width: 70%;
   text-align: center;
@@ -537,6 +571,7 @@ a {
   cursor: pointer;
 }
 
+/* main-container */
 .container {
   position: relative;
   margin: 0 auto;
@@ -546,10 +581,14 @@ a {
   flex-direction: column;
   display: flex;
 }
+
+/* top navigation bar on desktop */
 .topnav {
   width: 100%;
   padding: 10px 0;
 }
+
+/* logo edit */
 .logo {
   display: inline-block;
   background-image: url("http://vhotelmanila.com/wp-content/uploads/2016/05/V-Hotel-Logo-3.png");
@@ -558,13 +597,17 @@ a {
   height: 70px;
 }
 
+/* dropdown icon hidden on desktop */
 #menu-icon {
   display: none;
 }
+
+/* contain all the nav buttons */
 .tabs {
   float: right;
 }
 
+/* edit nav Buttons */
 .navButton {
   display: inline-block;
   position: relative;
@@ -578,12 +621,17 @@ a {
   cursor: pointer;
 }
 
+/* last Nav button  */
 .profile:hover {
   background: #f0f0f5;
 }
+
+/* mobileNav contains only the logo on desktop */
 #mobileNav {
   display: inline-block;
 }
+
+/* modify avatar */
 .avatar {
   display: inline-block;
   background-image: url("https://twibbon.com/content/images/system/default-image.jpg");
@@ -597,6 +645,7 @@ a {
 
 }
 
+/* additional border in profile navButton */
 .profile .avatar {
   border:1px solid #f2fbfc;
 }
@@ -607,19 +656,20 @@ a {
   bottom:7px;
   font-size:60%;
 }
+
+/* 2 dropdowns display inline-block */
 #status-dropdown ,.dropdown {
   position: relative;
   display: inline-block;
 
 }
 
+/* overwrite the cursor pointer for navButton */
 .dropdown {
   cursor:default;
 }
 
-
-
-
+/* style the dropdown content divs  */
 .dropdown-content, #status-dropdown-content {
   display: none;
   position: absolute;
@@ -664,6 +714,8 @@ a {
 .dropdown-content a i, #status-dropdown-content a i {
   margin-right: 10px;
 }
+
+/* add effect for navButton on hover and focus */
 .underline a:before,
 .underline a:after {
   content: "";
@@ -725,7 +777,8 @@ a {
   transition: transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     opacity 0s 0.2s;
 }
-/* app-part */
+
+/* main app part */
 .app {
   display: flex;
   flex-direction: column;
@@ -743,6 +796,7 @@ a {
   box-shadow: 0px -1px 15px 1px rgba(212, 197, 212, 1);
 }
 
+/* section-button */
 .section-div {
   width: 100%;
   font-weight: 900;
@@ -774,6 +828,7 @@ a {
 
 /* main */
 
+/* user and group chat boxes on left column */
 .user-box,
 .group-box {
   padding: 20px 15px;
@@ -786,6 +841,7 @@ a {
   background: #e0e2e2;
 }
 
+/* smaller div inside left chat box */
 .user-box .chat-info {
   display: inline-block;
   position: relative;
@@ -808,6 +864,7 @@ a {
   color: #60666d;
 }
 
+/* modify colors for each status */
 .color-online {
   color:#1bd139;
 }
@@ -823,10 +880,14 @@ a {
 .color-invisible {
   color:#adbabc;
 }
+
+/* icon size */
 .status {
   font-size: 70%;
 
 }
+
+/* timestamp of the last msg */
 .timestamp {
   font-size: 80%;
   position: absolute;
@@ -834,6 +895,7 @@ a {
   color: #60666d;
 }
 
+/* modify username and group names left column */
 .username {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -849,6 +911,7 @@ a {
   margin-bottom: 3px;
 }
 
+/* main div where contents are shown */
 .main {
   display: flex;
   height: 100%;
@@ -875,6 +938,7 @@ a {
   flex-flow: column;
 }
 
+/* wrap div of displayer in right column */
 .header-displayer {
   padding: 5px;
   min-height: 55px;
@@ -900,6 +964,8 @@ a {
   vertical-align: middle;
   margin-right: 3px;
 }
+
+/* contain id and status displayers */
 .id-status {
   text-align: center;
   width: 100%;
@@ -914,6 +980,7 @@ a {
   white-space: nowrap;
 }
 
+/* specify when display groupname */
 .id-displayer-group {
   font-size: 90% !important;
   left: 20%;
@@ -924,6 +991,7 @@ a {
   color: #60666d;
 }
 
+/* middle div of right column, display chat msg */
 .chat-box {
 
   flex: 1;
@@ -934,13 +1002,14 @@ a {
    -webkit-overflow-scrolling: touch;
 }
 
+/* display message as default */
 .message-box {
   display: block;
 }
+
 .message-div {
   display: flex;
-
-  width: 100%;
+ width: 100%;
 }
 
 .new-msg {
@@ -973,6 +1042,8 @@ a {
   padding: 6px 12px;
   background: #d8dfea;
 }
+
+/* chat input box */
 .input-box {
   display: flex;
 }
@@ -984,6 +1055,7 @@ a {
   vertical-align: middle;
 }
 
+/* botton-icon */
 .icon {
   display: flex;
   justify-content: center;
@@ -1010,10 +1082,8 @@ a {
 #send {
   color: #16afe0;
 }
-.ann-column {
-  display: none;
-}
 
+/* display user chat column as default */
 .user-chat-column {
   display: block;
 }
@@ -1022,6 +1092,12 @@ a {
   display: none;
 }
 
+/* announcement column */
+.ann-column {
+  display: none;
+}
+
+/* make new ann div */
 .make-ann {
   height: 80px;
   display: flex;
@@ -1055,6 +1131,7 @@ a {
   /*   background-position: right center; */
 }
 
+/* announcement div */
 .ann-box {
   border-top: 1px solid #d9e4f9;
   border-bottom: 1px solid #d9e4f9;
@@ -1067,6 +1144,7 @@ a {
   background: #e0e2e2;
 }
 
+/* announcement title */
 .ann-title {
   font-family: "Roboto Condensed", sans-serif;
   font-size: 110%;
@@ -1076,6 +1154,7 @@ a {
   white-space: nowrap;
 }
 
+/* announcement details in short */
 .ann-intro {
   font-size: 85%;
   overflow: hidden;
@@ -1219,6 +1298,7 @@ border-bottom-left-radius: 5px;
     display: block;
   }
 }
+
 
 
 </style>
