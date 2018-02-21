@@ -1,24 +1,32 @@
 $(document).ready(function() {
   var key =
-      "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
+    "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
 
-    var objDiv = document.getElementById("chat-box");
-    objDiv.scrollTop = objDiv.scrollHeight;
+  var objDiv = document.getElementById("chat-box");
+  objDiv.scrollTop = objDiv.scrollHeight;
+  var navButtons = document.getElementsByClassName("navButton");
   // responsive nav
-  $("#menu-icon").on("click", function() {
-    var displayValue = $(".navButton").css("display");
-    if (displayValue === "none") {
-      $(".navButton").css("display", "block");
-      $(".navButton").css("opacity", "1");
-      $("#mobileNav").css("background", "#dfe3ee");
-      $("#backdrop").css("display", "block");
+
+  document.getElementById("menu-icon").onclick = function() {
+    let displayValue = navButtons[0].style.display;
+    console.log(displayValue);
+    if (displayValue !== "block") {
+      for (let value of navButtons) {
+        value.style.display = "block";
+        value.style.opacity = 1;
+      }
+      document.getElementById("backdrop").style.display = "block";
+      document.getElementById("tabs").style.height = "100%";
     } else {
-      $(".navButton").css("display", "none");
-      $(".navButton").css("opacity", "0");
-      $("#mobileNav").css("background", "#fff");
-      $("#backdrop").css("display", "none");
+      for (let value of navButtons) {
+        value.style.display = "none";
+        value.style.opacity = 0;
+      }
+      document.getElementById("backdrop").style.display = "none";
+      document.getElementById("tabs").style.height = "0";
     }
-  });
+  };
+
   $(window).resize(function() {
     if (window.innerWidth > 1000) {
       $(".navButton").css("display", "inline-block");
@@ -28,17 +36,23 @@ $(document).ready(function() {
   });
 
   //button push
-  var lastButtonPushed = $("#section1");
-  $("#section1,#section2,#section3").click(function() {
-    var thisButtonPushed = $(this);
 
-    if (lastButtonPushed !== thisButtonPushed) {
-      lastButtonPushed.toggleClass("pushed").toggleClass("unpushed");
-      thisButtonPushed.toggleClass("pushed").toggleClass("unpushed");
+  var lastButtonPushed = document.getElementById("section1");
 
-      lastButtonPushed = thisButtonPushed;
-    }
-  });
+  var section = document.getElementsByClassName("section");
+  for (var i = 0; i < section.length; i++) {
+    // Here we have the same onclick
+    section[i].onclick = function() {
+      var thisButtonPushed = event.target;
+      if (lastButtonPushed !== thisButtonPushed) {
+        lastButtonPushed.classList.toggle("pushed");
+        thisButtonPushed.classList.toggle("pushed");
+        lastButtonPushed.classList.toggle("unpushed");
+        thisButtonPushed.classList.toggle("unpushed");
+        lastButtonPushed = thisButtonPushed;
+      }
+    };
+  }
 
   //section display
   $("#section1").click(function() {
@@ -51,6 +65,7 @@ $(document).ready(function() {
       $(".id-displayer").removeClass("id-displayer-group");
     }
   });
+
 
   $("#section2").click(function() {
     $(".main").css("transform", " translateX(0)");
@@ -76,30 +91,35 @@ $(document).ready(function() {
 
   $(".back-button").click(function() {
     $(".main").css("transform", " translateX(0)");
+    $(".section-div").css("display", "block");
   });
 
   $(".user-box").click(function() {
     var text = $(this)
-    .find(".username")
-    .text();
+      .find(".username")
+      .text();
     $(".id-displayer").text(text);
     $(".status-displayer").css("display", "block");
     $(".ann-info").css("display", "none");
     $(".message-box").css("display", "block");
+
     if (window.innerWidth < 1000) {
       $(".main").css("transform", " translateX(-100%)");
+      $(".section-div").css("display", "none");
     }
   });
 
   $(".group-box").click(function() {
     var text = $(this)
-    .find(".groupname")
-    .text();
+      .find(".groupname")
+      .text();
     $(".ann-info").css("display", "none");
     $(".message-box").css("display", "block");
+
     if (window.innerWidth < 1000) {
       console.log("a");
       $(".main").css("transform", " translateX(-100%)");
+      $(".section-div").css("display", "none");
     }
     $(".id-displayer").text(text);
     $(".status-displayer").css("display", "none");
@@ -107,16 +127,20 @@ $(document).ready(function() {
 
   function openAnnContainer() {
     $("#backdrop").css("display", "block");
-    $(".ann-wrap").css("display", "flex");
-    $(".ann-wrap").css("opacity", "1");
+    $(".wrap-div").css("display", "flex");
+    $(".wrap-div").css("opacity", "1");
+    $(".new-ann-container").css("display", "block");
     if (window.innerWidth < 1000) {
       $(".mobileNav").css("opacity", "0");
     }
   }
+
   function closeAnnContainer() {
     $("#backdrop").css("display", "none");
-    $(".ann-wrap").css("display", "none");
-    $(".ann-wrap").css("opacity", "0");
+    $(".wrap-div").css("opacity", "0");
+    $(".wrap-div").css("display", "none");
+
+    $(".new-ann-container").css("display", "none");
     if (window.innerWidth < 1000) {
       $(".mobileNav").css("opacity", "1");
     }
@@ -126,8 +150,8 @@ $(document).ready(function() {
     console.log("val =" + val);
     $(".chat-box").append(
       '<div class="message-div animated new-msg slideInRight msg-send"> <div class="chat-message ">' +
-      val +
-      "</div></div>"
+        val +
+        "</div></div>"
     );
     $(".inputbox").val("");
 
@@ -144,9 +168,11 @@ $(document).ready(function() {
     // });
   }
   $(".ann-button").click(function() {
+    console.log("open");
     openAnnContainer();
   });
-  $(".new-ann-container .close").click(function() {
+
+  $(document).on("click", ".close", function() {
     closeAnnContainer();
   });
 
@@ -156,16 +182,15 @@ $(document).ready(function() {
 
     $(".ann-list").prepend(
       '<div class="ann-box"><div class="ann-title">' +
-      annTitle +
-      '</div><div class="ann-intro">' +
-      annTextarea +
-      "</div></div>"
+        annTitle +
+        '</div><div class="ann-intro">' +
+        annTextarea +
+        "</div></div>"
     );
     closeAnnContainer();
   });
 
   $("input").keypress(function(e) {
-
     if (e.which == 13) {
       sendMsg();
     }
@@ -179,13 +204,15 @@ $(document).ready(function() {
     if (window.innerWidth < 1000) {
       $(".main").css("transform", " translateX(-100%)");
       $(".id-displayer").addClass("id-displayer-group");
+      $(".section-div").css("display", "none");
     }
+
     var title = $(this)
-    .find(".ann-title")
-    .text();
+      .find(".ann-title")
+      .text();
     var intro = $(this)
-    .find(".ann-intro")
-    .text();
+      .find(".ann-intro")
+      .text();
     console.log("title = " + title + "intro =" + intro);
     $(".id-displayer").text(title);
     $(".status-displayer").css("display", "none");
@@ -194,16 +221,11 @@ $(document).ready(function() {
     $(".ann-info").text(intro);
   });
 
+  $("#status-dropdown-content a").click(function() {
+    var color = $(this)
+      .find(".status")
+      .css("color");
 
-  $("#status-dropdown-content a").click(function(){
-
-    var color = $(this).find('i').css('color');
-
-    $(".avatar i").css('color',color);
-
+    $(".avatar .status").css("color", color);
   });
-
-
-
-
 });

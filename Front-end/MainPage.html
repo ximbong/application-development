@@ -4,357 +4,394 @@
   <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <script src="mainpage.js"></script>
 
 </head>
 <body>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1,  user-scalable=no">
+  <!-- <meta name="apple-mobile-web-app-capable" content="yes" /> -->
+  <div id="backdrop">
 
-<div id="backdrop">
-
-</div>
-
-<div class="ann-wrap">
-  <div class="new-ann-container">
-    <i class="fa fa-times close" aria-hidden="true"></i>
-    <span class="box-title"> New Announcement</span>
-    <div class="new-title">
-      <span>Title</span>
-      <input class="effect-1" type="text" placeholder="Announcement title">
-      <span class="focus-border">
-
-
-</div>
-     <div class="new-info">
-     <span>Details</span>
-      <textarea name="" id="ann-textarea" cols="30" rows="8" placeholder="Announcement details"></textarea></div>
-    <div class="ann-submit">Submit</div>
   </div>
-</div>
 
-<div class="container">
+  <div class="wrap-div">
+    <div class="new-ann-container">
+      <i class="fa fa-times close" id="close" aria-hidden="true"></i>
+      <span class="box-title"> New Announcement</span>
+      <div class="new-title">
+        <span>Title</span>
+        <input class="effect-1" type="text" placeholder="Announcement title">
+        <span class="focus-border">
 
-  <div class="topnav">
-    <div id="mobileNav"><a href=""><img class="logo" src="http://vhotelmanila.com/wp-content/uploads/2016/05/V-Hotel-Logo-3.png"></a><i class="fa fa-bars" id="menu-icon" aria-hidden="true"></i></div>
-    <div class="tabs">
 
-      <div class="navButton underline"><a href="#">Home</a></div>
-      <div class="navButton underline"><a href="#">Schedule a meeting</a></div>
-      <div class="navButton underline"><a href="#">Help</a></div>
+  </div>
+       <div class="new-info">
+       <span>Details</span>
+        <textarea name="" id="ann-textarea" cols="30" rows="8" placeholder="Announcement details"></textarea></div>
+      <div class="ann-submit">Submit</div>
+    </div>
+    <div class="new-task-container">
+      <i class="fa fa-times close" aria-hidden="true"></i>
+      <span class="box-title"> New Task</span>
+      <div class="new-title">
+        <span>Task name</span>
+        <input class="effect-1" type="text">
+        <span class="focus-border">
+
+
+  </div>
+        <div class="new-title">
+        <span>Location</span>
+        <input class="effect-1" type="text" placeholder="">
+        <span class="focus-border">
+
+
+  </div>
+          <div class="new-title">
+        <span>Time</span>
+        <input class="effect-1" type="text">
+        <span class="focus-border">
+
+
+  </div>
+
+             <div class="new-info">
+       <span>Details</span>
+        <textarea name="" id="ann-textarea" rows="3" placeholder="Announcement details"></textarea></div>
+      <div class="ann-submit">Send</div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="topnav">
+      <div id="mobileNav">
+        <img class="logo" src="http://vhotelmanila.com/wp-content/uploads/2016/05/V-Hotel-Logo-3.png">
+
+      </div>
+      <div id="tabs">
+        <div class="space"></div>
+        <div class="navButton underline"><a href="#">Home</a></div>
+        <div class="navButton underline"><a href="#">Schedule a meeting</a></div>
+        <div class="navButton underline"><a href="#">Help</a></div>
 
         <div class="navButton profile">
           <div id="status-dropdown">
-          <div class="avatar"><i class="fa fa-circle status color-busy" aria-hidden="true"></i></div>
-                  <div id="status-dropdown-content">
-          <a href="#">  <i class="fa fa-circle status color-online" aria-hidden="true"></i>Online</a>
-          <a href="#"> <i class="fa fa-circle status color-idle" aria-hidden="true"></i>Idle</a>
-          <a href="#"> <i class="fa fa-circle status color-busy" aria-hidden="true"></i>Busy</a>
-          <a href="#"> <i class="fa fa-circle status color-invisible" aria-hidden="true"></i>Insivible</a>
-        </div>
+            <div class="avatar"><i class="fa fa-circle status color-busy" aria-hidden="true"></i></div>
+            <div id="status-dropdown-content">
+              <a href="#">  <i class="fa fa-circle status color-online" aria-hidden="true"></i>Online</a>
+              <a href="#"> <i class="fa fa-circle status color-idle" aria-hidden="true"></i>Idle</a>
+              <a href="#"> <i class="fa fa-circle status color-busy" aria-hidden="true"></i>Busy</a>
+              <a href="#"> <i class="fa fa-circle status color-invisible" aria-hidden="true"></i>Insivible</a>
             </div>
+          </div>
 
-              <div class="dropdown">
-          <span class="nav-username">ximbong91023</span>
+          <div class="dropdown">
+            <span class="nav-username">ximbong91023</span>
 
-          <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
 
-        <div class="dropdown-content">
-          <a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i>Account Info</a>
-          <a href="#"><i class="fa fa-cog" aria-hidden="true"></i>Account Settings</a>
-          <a href="#"><i class="fa fa-flag" aria-hidden="true"></i>Report a problem</a>
-          <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>Log out</a>
+            <div id="dropdown-content">
+
+              <a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i>Account Info</a>
+              <a href="#"><i class="fa fa-cog" aria-hidden="true"></i>Account Settings</a>
+              <a href="#"><i class="fa fa-flag" aria-hidden="true"></i>Report a problem</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i>Log out</a>
+            </div>
+          </div>
         </div>
       </div>
-      </div></div>
-  </div>
-  <div class="app">
-    <div class="section-div">
-      <div class="section pushed" id="section1">Users</div>
-      <div class="section unpushed" id="section2">Groups</div>
-      <div class="section unpushed" id="section3">Announcements</div>
     </div>
-    <div class="main">
-      <div class="main-left">
-        <div class="user-chat-column">
+    <div class="app">
+      <img id="menu-icon" src="http://vhotelmanila.com/wp-content/uploads/2016/05/V-Hotel-Logo-3.png">
+      <div class="section-div">
 
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">Imbamikko</span> <i class="fa fa-circle status color-busy" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
+        <div class="section pushed" id="section1">Users</div>
+        <div class="section unpushed" id="section2">Groups</div>
+        <div class="section unpushed" id="section3">Announcements</div>
+      </div>
+      <div class="main">
+        <div class="main-left">
+          <div class="user-chat-column">
 
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">shiryy</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">yadavr</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-invisible" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-busy" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-invisible" aria-hidden="true"></i></div>
-
-              <div class="last-msg">hello
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
                 <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">Imbamikko</span> <i class="fa fa-circle status color-busy" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">shiryy</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">yadavr</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-invisible" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-busy" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-invisible" aria-hidden="true"></i></div>
+
+                <div class="last-msg">hello
+                  <div class="timestamp">17:30</div>
+                </div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            <!--         user-chat-box -->
+            <div class="user-box">
+              <div class="avatar"></div>
+              <div class="chat-info">
+                <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status" aria-hidden="true"></i></div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="group-chat-column">
+            <div class="group-box">
+              <div class="chat-info">
+                <div class="id"> <span class="groupname">ximbong91023, Imbamikko, shiryy, yadavr, ximbong91023</span> </div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
               </div>
             </div>
           </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
+          <div class="ann-column">
+            <div class="make-ann">
+              <div class="ann-button">Make an announcement</div>
+            </div>
+            <div class="ann-list">
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow 1</div>
+                <div class="ann-intro">The title says it all. The title says it all. The title says it all. </div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow 2</div>
+                <div class="ann-intro">The title says it all </div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow</div>
+                <div class="ann-intro">The title says it all</div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow</div>
+                <div class="ann-intro">The title says it all</div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow</div>
+                <div class="ann-intro">The title says it all</div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow</div>
+                <div class="ann-intro">The title says it all</div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow</div>
+                <div class="ann-intro">The title says it all</div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow</div>
+                <div class="ann-intro">The title says it all</div>
+              </div>
+              <div class="ann-box">
+                <div class="ann-title">No school tomorrow</div>
+                <div class="ann-intro">The title says it all</div>
+              </div>
+
             </div>
           </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
+        </div>
+        <div class="main-right">
+
+          <div class="header-displayer">
+            <div class="back-button"><i id="back-button" class="fa fa-chevron-left" aria-hidden="true"></i><span>Back</span> </div>
+            <div class="id-status">
+
+              <div class="id-displayer announcement">ximbong91023</div>
+              <div class="status-displayer">Active now</div>
             </div>
           </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
+          <div class="chat-box" id="chat-box">
+            <div class="message-box">
+              <div class="message-div">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-receive">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-send">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-receive">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-send">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-receive">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-send">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-receive">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-send">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-receive">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
+              <div class="message-div msg-send">
+                <div class="chat-message float-right">Hello ximbong91023</div>
+              </div>
             </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-idle" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-          <!--         user-chat-box -->
-          <div class="user-box">
-            <div class="avatar"></div>
-            <div class="chat-info">
-              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status" aria-hidden="true"></i></div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
+            <div class="ann-info"> </div>
           </div>
 
-        </div>
-        <div class="group-chat-column">
-          <div class="group-box">
-            <div class="chat-info">
-              <div class="id"> <span class="groupname">ximbong91023, Imbamikko, shiryy, yadavr, ximbong91023</span> </div>
-              <div class="timestamp">17:30</div>
-              <div class="last-msg">hello</div>
-            </div>
-          </div>
-        </div>
-        <div class="ann-column">
-          <div class="make-ann">
-            <div class="ann-button">Make an announcement</div>
-          </div>
-          <div class="ann-list">
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow 1</div>
-              <div class="ann-intro">The title says it all. The title says it all. The title says it all. </div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow 2</div>
-              <div class="ann-intro">The title says it all </div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow</div>
-              <div class="ann-intro">The title says it all</div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow</div>
-              <div class="ann-intro">The title says it all</div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow</div>
-              <div class="ann-intro">The title says it all</div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow</div>
-              <div class="ann-intro">The title says it all</div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow</div>
-              <div class="ann-intro">The title says it all</div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow</div>
-              <div class="ann-intro">The title says it all</div>
-            </div>
-            <div class="ann-box">
-              <div class="ann-title">No school tomorrow</div>
-              <div class="ann-intro">The title says it all</div>
-            </div>
+          <div class="input-box"><input class="inputbox" type="text" placeholder="Type a message">
+
+            <div class="icon"><i id="task" class="fas fa-tasks"></i></div>
+            <div class="icon"><i class="far fa-image"></i></div>
+            <div class="icon"><i id="file" class="fa fa-file" aria-hidden="true"></i></div>
+            <div class="icon"><i id="microphone" class="fa fa-microphone" aria-hidden="true"></i></div>
+            <div class="icon">
+              <i id="send" class="fa fa-paper-plane" aria-hidden="true"></i></div>
 
           </div>
         </div>
+
       </div>
-      <div class="main-right">
-
-        <div class="header-displayer">
-          <div class="back-button"><i id="back-button" class="fa fa-chevron-left" aria-hidden="true"></i><span>Back</span> </div>
-          <div class="id-status">
-
-            <div class="id-displayer announcement">ximbong91023</div>
-            <div class="status-displayer">Active now</div>
-          </div>
-        </div>
-        <div class="chat-box" id="chat-box">
-          <div class="message-box">
-            <div class="message-div">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-receive">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-send">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-receive">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-send">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-receive">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-send">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-receive">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-send">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-receive">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-            <div class="message-div msg-send">
-              <div class="chat-message float-right">Hello ximbong91023</div>
-            </div>
-          </div>
-          <div class="ann-info"> </div>
-        </div>
-
-        <div class="input-box"><input class="inputbox" type="text" placeholder="Type a message">
-
-          <div class="icon"><i id="image" class="fa fa-file-image-o" aria-hidden="true"></i></div>
-
-          <div class="icon"><i id="file" class="fa fa-file" aria-hidden="true"></i></div>
-          <div class="icon"><i id="microphone" class="fa fa-microphone" aria-hidden="true"></i></div>
-          <div class="icon">
-            <i id="send" class="fa fa-paper-plane" aria-hidden="true"></i></div>
-
-        </div>
-      </div>
-
     </div>
-  </div>
 
-</div>
+  </div>
 </body>
 </html>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Poppins|Raleway|Roboto+Condensed");
+
+@import url("https://fonts.googleapis.com/css?family=Poppins|Raleway|Roboto+Condensed|Patua+One");
 
 /* custom scrollbar  */
 ::-webkit-scrollbar {
-    width: 10px;
-
+  width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-     border-radius:5px;
+  background: #f1f1f1;
+  border-radius: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
-     border-radius:5px;
+  background: #888;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-
+  background: #555;
 }
 
 /*Animation Fade in from display:none*/
@@ -469,7 +506,7 @@ a {
   justify-content: center;
   align-items: center;
   z-index: 2;
-  opacity: 0;
+  opacity: 1;
   -webkit-animation: fadeInFromNone 0.5s ease-out;
   -moz-animation: fadeInFromNone 0.5s ease-out;
   -o-animation: fadeInFromNone 0.5s ease-out;
@@ -485,15 +522,30 @@ a {
   border-radius: 4px;
   overflow: hidden;
   font-family: "Roboto Condensed", sans-serif;
-  background: #d8dfea;
+  background: #e8eef2;
+  display: none;
+  border: 1px solid #1f6696;
+}
+
+.new-task-container {
+  position: relative;
+  border: 1px solid #d8dfea;
+  width: 400px;
+  padding: 30px 45px 35px 45px;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: "Roboto Condensed", sans-serif;
+  background: #e8eef2;
+  border: 1px solid #1f6696;
+  display: none;
 }
 
 /* close button for the previous container (box)*/
-.new-ann-container .close {
+.close {
   position: absolute;
   right: 15px;
   top: 15px;
-  font-size: 150%;
+  font-size: 140%;
   cursor: pointer;
 }
 
@@ -603,9 +655,10 @@ a {
 }
 
 /* contain all the nav buttons */
-.tabs {
+#tabs {
   float: right;
 }
+
 
 /* edit nav Buttons */
 .navButton {
@@ -642,35 +695,35 @@ a {
   border-radius: 30px;
   margin-right: 5px;
   vertical-align: middle;
-
 }
 
 /* additional border in profile navButton */
 .profile .avatar {
-  border:1px solid #f2fbfc;
+  border: 1px solid #f2fbfc;
 }
 
-.avatar i {
-  position:absolute;
-   right:7px;
-  bottom:7px;
-  font-size:60%;
+.avatar > .status {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  font-size: 60%;
 }
 
 /* 2 dropdowns display inline-block */
-#status-dropdown ,.dropdown {
+#status-dropdown,
+.dropdown {
   position: relative;
   display: inline-block;
-
 }
 
 /* overwrite the cursor pointer for navButton */
 .dropdown {
-  cursor:default;
+  cursor: default;
 }
 
 /* style the dropdown content divs  */
-.dropdown-content, #status-dropdown-content {
+#dropdown-content,
+#status-dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -682,28 +735,30 @@ a {
 }
 
 #status-dropdown-content {
-  left:-15px;
+  left: -15px;
   font-weight: 400;
 }
-.dropdown-content {
+#dropdown-content {
   right: -15px;
-  top:60px;
+  top: 60px;
   font-weight: 500;
 }
 
-.dropdown:hover .dropdown-content,
+.dropdown:hover #dropdown-content,
 #status-dropdown:hover #status-dropdown-content {
   display: block;
 }
 
-.dropdown-content a, #status-dropdown-content a {
+#dropdown-content a,
+#status-dropdown-content a {
   color: black;
   padding: 3px 9px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover, #status-dropdown-content a:hover {
+#dropdown-content a:hover,
+#status-dropdown-content a:hover {
   background-color: #f1f1f1;
 }
 
@@ -711,7 +766,8 @@ a {
   background: #f0f0f5;
 }
 
-.dropdown-content a i, #status-dropdown-content a i {
+#dropdown-content a > *,
+#status-dropdown-content a > * {
   margin-right: 10px;
 }
 
@@ -786,9 +842,9 @@ a {
   width: 100%;
   flex: 1;
   background: #f0f5f5;
-  border-radius: 10px 10px 0px 0px;
-  -moz-border-radius: 10px 10px 0px 0px;
-  -webkit-border-radius: 10px 10px 0px 0px;
+  border-radius: 5px  5px 0px 0px;
+  -moz-border-radius:  5px  5px 0px 0px;
+  -webkit-border-radius:  5px  5px 0px 0px;
 
   overflow: hidden;
   -webkit-box-shadow: 0px -1px 15px 1px rgba(212, 197, 212, 1);
@@ -800,8 +856,12 @@ a {
 .section-div {
   width: 100%;
   font-weight: 900;
+
 }
 
+.app img {
+  display:none;
+}
 .section {
   width: calc(100%/3);
   display: inline-block;
@@ -816,14 +876,14 @@ a {
 
 .pushed {
   background: #d8dfea;
-  border: 4px inset #afbdd4;
+  border: 3px inset #afbdd4;
   color: #3b5998;
 }
 
 .unpushed {
   background: #3b5998;
   color: white;
-  border: 4px outset #afbdd4;
+  border: 3px outset #afbdd4;
 }
 
 /* main */
@@ -866,25 +926,24 @@ a {
 
 /* modify colors for each status */
 .color-online {
-  color:#1bd139;
+  color: #1bd139;
 }
 
 .color-idle {
-  color:#ccb80c;
+  color: #ccb80c;
 }
 
 .color-busy {
-  color:#cc0c0c;
+  color: #cc0c0c;
 }
 
 .color-invisible {
-  color:#adbabc;
+  color: #adbabc;
 }
 
 /* icon size */
 .status {
   font-size: 70%;
-
 }
 
 /* timestamp of the last msg */
@@ -900,7 +959,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-right:10px;
+  margin-right: 10px;
 }
 
 .groupname {
@@ -924,7 +983,7 @@ a {
   display: inline-block;
   width: 30%;
   height: 100%;
-    overflow-x: hidden;
+  overflow-x: hidden;
   overflow-y: auto;
   border-right: 1px solid #d9e4f9;
 }
@@ -951,7 +1010,7 @@ a {
 }
 
 .back-button {
-  z-index:3;
+  z-index: 3;
   display: none;
   position: absolute;
   left: 10px;
@@ -993,13 +1052,12 @@ a {
 
 /* middle div of right column, display chat msg */
 .chat-box {
-
   flex: 1;
   padding: 20px;
   border-bottom: 1px solid #d9e4f9;
-  overflow-x:hidden;
-    overflow-y: auto;
-   -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* display message as default */
@@ -1009,7 +1067,7 @@ a {
 
 .message-div {
   display: flex;
- width: 100%;
+  width: 100%;
 }
 
 .new-msg {
@@ -1023,8 +1081,8 @@ a {
 }
 
 .msg-send .chat-message {
-  text-align:center;
-  min-width:50px;
+  text-align: center;
+  min-width: 50px;
   background: #16afe0;
   color: white;
 }
@@ -1049,10 +1107,15 @@ a {
 }
 .input-box input {
   background: transparent;
-  flex: 8;
+  flex: 15;
   padding: 5px 10px;
   cursor: text;
   vertical-align: middle;
+  transition: 1s;
+}
+
+.input-box input:focus {
+  background: #f9f9f9;
 }
 
 /* botton-icon */
@@ -1063,24 +1126,16 @@ a {
   flex: 1;
   width: 10%;
   cursor: pointer;
+  color: #3c4a4f;
+  padding: 15px 5px;
 }
 
-.icon i:hover {
+.icon:hover {
   background: #f0f0f5;
 }
 
-.icon i {
-  padding: 15px;
-}
-
-#image,
-#file,
-#microphone {
-  color: #3c4a4f;
-}
-
 #send {
-  color: #16afe0;
+  color: #16afe0 !important;
 }
 
 /* display user chat column as default */
@@ -1106,22 +1161,13 @@ a {
 }
 .ann-button {
   padding: 10px 25px;
-  border: 3px outset #6c888e;
+  border: 1px outset #6c888e;
   font-family: "Roboto Condensed", sans-serif;
 
   border-radius: 2px;
   cursor: pointer;
-  background: #6d84b4;
   color: white;
-  background: -moz-linear-gradient(left, #3b5998 0%, #6d84b4 51%, #3b5998 100%);
-  background: -webkit-linear-gradient(
-    left,
-    # #3b5998 0%,
-    #6d84b4 51%,
-    #3b5998 100%
-  );
-  background: linear-gradient(to right, #3b5998 0%, #6d84b4 51%, #3b5998 100%);
-  font-size: 120%;
+ background:#337ab7;
 }
 
 .ann-button:hover {
@@ -1162,11 +1208,10 @@ a {
   white-space: nowrap;
 }
 
-@media (max-width:1300px) {
+@media (max-width: 1300px) {
   .container {
-     width:85%;
+    width: 85%;
   }
-
 }
 @media (max-width: 1000px) {
   html {
@@ -1175,8 +1220,10 @@ a {
   }
   body {
     height: 100%;
-     overflow: hidden;
+    overflow: hidden;
   }
+
+
   .container {
     width: 100%;
   }
@@ -1189,34 +1236,43 @@ a {
     border-radius: 0px;
   }
 
+
   .profile:hover {
-  background: #3b5998	;
-}
-  .tabs {
-    float: none;
+    background: #3b5998;
+  }
+ #tabs {
+    display:flex;
+    flex-direction:column-reverse;
     position: absolute;
-    width: calc(100vw);
+    width: 80vw;
     z-index: 10;
-  -webkit-border-bottom-right-radius: 5px;
--webkit-border-bottom-left-radius: 5px;
--moz-border-radius-bottomright: 5px;
--moz-border-radius-bottomleft: 5px;
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
     -webkit-box-shadow: 0px 32px 36px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 32px 36px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 32px 36px 0px rgba(0, 0, 0, 0.75);
 
   }
+
+  .space {
+    flex:1;
+   background: 	#f4fafc;
+  }
   .navButton {
     display: none;
-    background: #6d84b4;
-    color: white;
-    opacity: 0;
-    -webkit-animation: fadeInFromNone 0.5s ease-out;
-    -moz-animation: fadeInFromNone 0.5s ease-out;
-    -o-animation: fadeInFromNone 0.5s ease-out;
-    animation: fadeInFromNone 0.5s ease-out;
+   background: #f4fafc;
+    color: black;
+
+  }
+
+  .navButton > * {
+    font-family: 'Patua One', cursive;
+    font-weight:400;
+    font-size:90%;
   }
   #mobileNav {
     position: relative;
@@ -1233,36 +1289,75 @@ border-bottom-left-radius: 5px;
   }
 
   .dropdown i {
-    display:none;
+    display: none;
   }
-  .pushed,
-  .unpushed {
-    border: 1px solid #afbdd4;
-  }
+
 
   .underline a:before,
   .underline a:after {
     height: 0;
   }
-  #menu-icon {
-    display: inline-block;
-    font-size: 200%;
-    color: #3b5998;
-    height: 100%;
-    padding: 5px 15px;
-    line-height: 60px;
-    float: right;
-  }
 
 
-  .dropdown-content {
+  #dropdown-content {
     left: 0;
   }
 
   .section {
-    font-size: 75%;
-    font-weight: 700;
+    font-size: 90%;
+    font-weight: 500;
+    border:none;
+ background:inherit;
+    color:#001230;
+font-family: 'Patua One', cursive;
   }
+
+  .pushed {
+    border-bottom:2px solid 	#8b9dc3;
+
+  }
+
+  .section-div {
+    width:calc(100% - 86px);
+    margin:0 auto;
+   position:relative;
+    padding-top:5px;
+
+  }
+
+  #status-dropdown, .dropdown {
+    display:block;
+    text-align:center;
+  }
+
+
+  #status-dropdown-content, #dropdown-content   {
+    text-align:start;
+    left:0;
+    right:0;
+  }
+  .profile {
+    height:auto;
+    border-bottom: 1px solid #d9e4f9;
+  }
+
+  .avatar {
+    position:relative;
+  }
+
+  .avatar .status {
+    right:0;
+    bottom:0;
+  }
+  .app img {
+ display:block;
+    position:absolute;
+    left:5px;
+    top:5px;
+    height:32px;
+    padding:0 2px;
+    width:auto;
+}
 
 
   .main-left {
@@ -1270,7 +1365,7 @@ border-bottom-left-radius: 5px;
     background: #f0f5f5;
     width: 100%;
 
-      -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
   }
   .main-right {
     height: 100%;
@@ -1281,8 +1376,9 @@ border-bottom-left-radius: 5px;
   }
 
   .new-ann-container {
-    width: 400px;
-    padding: 15px 20px 20px 10px;
+    max-width:400px;
+    width: auto;
+    padding: 15px 20px 20px 20px;
   }
   .box-title {
     font-size: 150%;
@@ -1294,11 +1390,23 @@ border-bottom-left-radius: 5px;
     margin-bottom: 10px;
   }
 
+  .ann-title{
+        font-family: 'Patua One', cursive;
+    font-weight:400;
+  }
   .back-button {
     display: block;
   }
+
+  .back-button span {
+    vertical-align:middle;
+  }
+  #menu-icon {
+  display: block;
 }
-
-
+  .wrap-div {
+    padding:5px;
+  }
+}
 
 </style>
