@@ -1,4 +1,4 @@
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function(event) {
   var key =
     "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
 
@@ -15,21 +15,17 @@ $(document).ready(function() {
     }
   };
 
-  $(window).resize(function() {
-    if (window.innerWidth > 1000) {
-      $(".navButton").css("display", "inline-block");
-    } else {
-      $(".navButton").css("display", "none");
-    }
-  });
+  // $(window).resize(function() {
+  //   if (window.innerWidth > 1000) {
+  //     $(".navButton").css("display", "inline-block");
+  //   } else {
+  //     $(".navButton").css("display", "none");
+  //   }
+  // });
 
   var navUsername = document.getElementById("nav-username");
-  //    dropdown.onclick = function(){
-  //     document.getElementById("dropdown-content").style.display='block';
 
-  //    }
-
-  window.onclick = function() {
+  window.onclick = function(event) {
     // console.log(event.target);
     if (document.getElementById("dropdown").contains(event.target))
       document.getElementById("dropdown-content").style.display = "block";
@@ -51,12 +47,14 @@ $(document).ready(function() {
   //button push
 
   var lastButtonPushed = document.getElementById("section1");
-
   var section = document.getElementsByClassName("section");
+
   for (var i = 0; i < section.length; i++) {
     // Here we have the same onclick
-    section[i].onclick = function() {
+
+    section[i].addEventListener("click", function(event) {
       var thisButtonPushed = event.target;
+      console.log(lastButtonPushed);
       if (lastButtonPushed !== thisButtonPushed) {
         lastButtonPushed.classList.toggle("pushed");
         thisButtonPushed.classList.toggle("pushed");
@@ -64,7 +62,7 @@ $(document).ready(function() {
         thisButtonPushed.classList.toggle("unpushed");
         lastButtonPushed = thisButtonPushed;
       }
-    };
+    });
   }
 
   //section display
@@ -194,14 +192,12 @@ $(document).ready(function() {
   // });
 
   document.querySelector(".ann-button").addEventListener("click", function() {
-    console.log("open");
     openAnnContainer();
   });
 
   document
     .querySelector(".new-ann-container")
     .addEventListener("click", function() {
-      console.log(event.target);
       if (
         event.target === document.getElementById("close") ||
         event.target === document.getElementById("close").childNodes[0]
@@ -211,85 +207,87 @@ $(document).ready(function() {
       if (event.target === document.querySelector(".ann-submit")) {
         let annTitle = document.querySelector(".ann-input-title").value;
         let annTextarea = document.getElementById("ann-textarea").value;
-
+        console.log(annTitle);
+        console.log(annTextarea);
         if (annTitle !== "" && annTextarea !== "") {
           let boxDiv = document.createElement("div");
           let titleDiv = document.createElement("div");
           let introDiv = document.createElement("div");
           boxDiv.classList.add("ann-box");
           titleDiv.classList.add("ann-title");
-          introDiv.classList.add("ann-into");
+          introDiv.classList.add("ann-intro");
           let textnode1 = document.createTextNode(annTitle);
           let textnode2 = document.createTextNode(annTextarea);
           titleDiv.appendChild(textnode1);
           introDiv.appendChild(textnode2);
           boxDiv.appendChild(titleDiv);
           boxDiv.appendChild(introDiv);
-          
+
           let list = document.querySelector(".ann-list");
           list.insertBefore(boxDiv, list.childNodes[0]);
           closeAnnContainer();
-          document.querySelector(".ann-input-title").value = "";
-          document.getElementById("ann-textarea").value = "";
+          // document.querySelector(".ann-input-title").value = "";
+          // document.getElementById("ann-textarea").value = "";
         }
       }
     });
 
-  $("input").keypress(function(e) {
-    if (e.which == 13) {
+  document.querySelector("#inputbox").addEventListener("keypress", function(e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) {
       sendMsg();
     }
   });
-  $("#send").click(function() {
+
+  document.querySelector("#send").addEventListener("click", function(e) {
     sendMsg();
   });
-         
-  
-//   document.querySelector('.ann-list').addEventListener("click", function() {
-//      if (window.innerWidth < 1000) {
-//       $(".main").css("transform", " translateX(-100%)");
-//       $(".id-displayer").addClass("id-displayer-group");
-//       $(".section-div").css("display", "none");
-//      }
-//     let el;
-//     if(event.target.classList.contains('ann-box')) el=event.target;
-//     if(event.target.classList.contains('ann-title')||event.target.classList.contains('ann-intro')) el=event.target.parentElement;
-//     let title, intro;
-//     title = el.childNodes[1].textContent;
-//     intro = el.childNodes[3].textContent;
-//     console.log(el)
-//     console.log(title)
-//     console.log(intro)
-//   });
-  
-   $(".ann-list").on("click", ".ann-box", function() {
-    console.log("ann box click");
+
+  document.querySelector(".ann-list").addEventListener("click", function(event) {
     if (window.innerWidth < 1000) {
-      $(".main").css("transform", " translateX(-100%)");
-      $(".id-displayer").addClass("id-displayer-group");
-      $(".section-div").css("display", "none");
+      document.querySelector(".main").style.transform = " translateX(-100%)";
+      document
+        .querySelector(".id-displayer")
+        .classList.add("id-displayer-group");
+      document.querySelector(".section-div").style.display = "none";
     }
+    let el;
+    console.log(event.target);
+    if (event.target.classList.contains("ann-box")) el = event.target;
+    if (
+      event.target.classList.contains("ann-title") ||
+      event.target.classList.contains("ann-intro")
+    )
+      el = event.target.parentElement;
+    let title, intro;
+    var children = el.childNodes;
+    title = children[0].textContent;
+    intro = children[1].textContent;
+    console.log("title = " + title);
+    console.log("intro = " + intro);
+    document.querySelector(".id-displayer").textContent = title;
+    document.querySelector(".status-displayer").style.display = "none";
+    document.querySelector(".message-box").style.display = "none";
 
-    var title = $(this)
-      .find(".ann-title")
-      .text();
-    var intro = $(this)
-      .find(".ann-intro")
-      .text();
-      
-    console.log("title = " + title + "intro =" + intro);
-    $(".id-displayer").text(title);
-    $(".status-displayer").css("display", "none");
-    $(".message-box").css("display", "none");
-    $(".ann-info").css("display", "block");
-    $(".ann-info").text(intro);
+    document.querySelector(".ann-info").style.display = "block";
+
+    document.querySelector(".ann-info").textContent = intro;
   });
 
-  $("#status-dropdown-content a").click(function() {
-    var color = $(this)
-      .find(".status")
-      .css("color");
-
-    $(".avatar .status").css("color", color);
-  });
+  document
+    .querySelector("#status-dropdown-content a")
+    .addEventListener("click", function() {
+      let color;
+      console.log(event.target.tagName);
+      if (event.target.tagName === "A") {
+        let child = event.target.childNodes;
+        let child2 = child[1].childNodes;
+        color = child2[0].style.color;
+        console.log(child[1]);
+      } else {
+        color = event.target.style.color;
+        console.log(event.target);
+      }
+      document.querySelector(".avatar .status").style.color = color;
+    });
 });

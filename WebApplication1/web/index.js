@@ -1,7 +1,7 @@
  document.addEventListener("DOMContentLoaded", function(event) {
-0    
+0
 
- 
+
 
 var data = {};
 
@@ -16,8 +16,9 @@ document.getElementById('submit').addEventListener('click',function(){
   fetch(url, {
     method: "POST"
   }).then(response => response.json())
-    .then(result => localStorage.setItem("user", result[0]))
-    .then(result => window.location.replace("http://localhost:8080/WebApplication1/MainPage.html"))
-
+     .then(result => (result.length===0)?alert('Wrong username or password.'): window.location.replace("http://localhost:8080/WebApplication1/MainPage.html"))
+      .then(result => localStorage.setItem("user", result[0]))
 })
+
+
   });
