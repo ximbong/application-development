@@ -87,8 +87,18 @@ display: inline-block;
 font-size: 18px;
 padding: 4px;
 cursor: text;
-background: transparent;
+width:calc(100% - 40px);
+background:transparent;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+
+}
+
 input ~ .focus-border {
 position: absolute;
 bottom: -2px;
