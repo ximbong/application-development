@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   var key =
-    "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
+  "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
 
   var objDiv = document.getElementById("chat-box");
   objDiv.scrollTop = objDiv.scrollHeight;
@@ -28,14 +28,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
   window.onclick = function(event) {
     // console.log(event.target);
     if (document.getElementById("dropdown").contains(event.target))
-      document.getElementById("dropdown-content").style.display = "block";
+    document.getElementById("dropdown-content").style.display = "block";
     else document.getElementById("dropdown-content").style.display = "none";
 
     if (document.getElementById("status-dropdown").contains(event.target))
-      document.getElementById("status-dropdown-content").style.display =
-        "block";
+    document.getElementById("status-dropdown-content").style.display =
+    "block";
     else
-      document.getElementById("status-dropdown-content").style.display = "none";
+    document.getElementById("status-dropdown-content").style.display = "none";
 
     if (document.getElementById("tabs").style.display === "flex") {
       if (document.getElementById("backdrop").contains(event.target)) {
@@ -74,8 +74,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".input-box").style.display = "flex";
     if (window.innerWidth < 1000) {
       document
-        .querySelector(".id-displayer")
-        .classList.remove("id-displayer-group");
+      .querySelector(".id-displayer")
+      .classList.remove("id-displayer-group");
     }
   });
 
@@ -86,8 +86,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".input-box").style.display = "flex";
     if (window.innerWidth < 1000) {
       document
-        .querySelector(".id-displayer")
-        .classList.add("id-displayer-group");
+      .querySelector(".id-displayer")
+      .classList.add("id-displayer-group");
     }
   });
 
@@ -98,8 +98,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".input-box").style.display = "none";
     if (window.innerWidth < 1000) {
       document
-        .querySelector(".id-displayer")
-        .classList.remove("id-displayer-group");
+      .querySelector(".id-displayer")
+      .classList.remove("id-displayer-group");
     }
   });
 
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     val.addEventListener("click", function() {
       let element = val.getElementsByTagName("span");
       document.querySelector(".id-displayer").textContent =
-        element[0].textContent;
+      element[0].textContent;
 
       document.querySelector(".status-displayer").style.display = "block";
       document.querySelector(".ann-info").style.display = "none";
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     val.addEventListener("click", function() {
       let element = val.getElementsByTagName("span");
       document.querySelector(".id-displayer").textContent =
-        element[0].textContent;
+      element[0].textContent;
 
       document.querySelector(".status-displayer").style.display = "none";
       document.querySelector(".ann-info").style.display = "none";
@@ -154,6 +154,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".wrap-div").style.display = "none";
     document.querySelector(".wrap-div").style.opacity = "0";
     document.querySelector(".new-ann-container").style.display = "none";
+  }
+
+  function openTaskContainer() {
+    document.getElementById("backdrop").style.display = "block";
+    document.querySelector(".wrap-div").style.display = "flex";
+    document.querySelector(".wrap-div").style.opacity = "1";
+    document.querySelector(".new-task-container").style.display = "block";
+  }
+
+  function closeTaskContainer() {
+    document.getElementById("backdrop").style.display = "none";
+    document.querySelector(".wrap-div").style.display = "none";
+    document.querySelector(".wrap-div").style.opacity = "0";
+    document.querySelector(".new-task-container").style.display = "none";
   }
 
   function sendMsg() {
@@ -195,42 +209,70 @@ document.addEventListener("DOMContentLoaded", function(event) {
     openAnnContainer();
   });
 
+  document.querySelector(".new-task-container").addEventListener("click", function(event) {
+    if (
+      event.target === document.getElementById("close2") ||
+      event.target === document.getElementById("close2").childNodes[0]
+    )
+    closeTaskContainer();
+  });
+
   document
-    .querySelector(".new-ann-container")
-    .addEventListener("click", function() {
-      if (
-        event.target === document.getElementById("close") ||
-        event.target === document.getElementById("close").childNodes[0]
-      )
+  .querySelector(".new-ann-container")
+  .addEventListener("click", function(event) {
+    console.log(event.target);
+    if (
+      event.target === document.getElementById("close") ||
+      event.target === document.getElementById("close").childNodes[0]
+    )
+    closeAnnContainer();
+
+    if (event.target === document.querySelector(".ann-submit")) {
+      let annTitle = document.querySelector(".ann-input-title").value;
+      let annTextarea = document.getElementById("ann-textarea").value;
+      console.log(annTitle);
+      console.log(annTextarea);
+      if (annTitle !== "" && annTextarea !== "") {
+        let boxDiv = document.createElement("div");
+        let titleDiv = document.createElement("div");
+        let introDiv = document.createElement("div");
+        boxDiv.classList.add("ann-box");
+        titleDiv.classList.add("ann-title");
+        introDiv.classList.add("ann-intro");
+        let textnode1 = document.createTextNode(annTitle);
+        let textnode2 = document.createTextNode(annTextarea);
+        titleDiv.appendChild(textnode1);
+        introDiv.appendChild(textnode2);
+        boxDiv.appendChild(titleDiv);
+        boxDiv.appendChild(introDiv);
+
+        let list = document.querySelector(".ann-list");
+        list.insertBefore(boxDiv, list.childNodes[0]);
         closeAnnContainer();
+        document.querySelector(".ann-input-title").value = "";
+        document.getElementById("ann-textarea").value = "";
 
-      if (event.target === document.querySelector(".ann-submit")) {
-        let annTitle = document.querySelector(".ann-input-title").value;
-        let annTextarea = document.getElementById("ann-textarea").value;
-        console.log(annTitle);
-        console.log(annTextarea);
-        if (annTitle !== "" && annTextarea !== "") {
-          let boxDiv = document.createElement("div");
-          let titleDiv = document.createElement("div");
-          let introDiv = document.createElement("div");
-          boxDiv.classList.add("ann-box");
-          titleDiv.classList.add("ann-title");
-          introDiv.classList.add("ann-intro");
-          let textnode1 = document.createTextNode(annTitle);
-          let textnode2 = document.createTextNode(annTextarea);
-          titleDiv.appendChild(textnode1);
-          introDiv.appendChild(textnode2);
-          boxDiv.appendChild(titleDiv);
-          boxDiv.appendChild(introDiv);
-
-          let list = document.querySelector(".ann-list");
-          list.insertBefore(boxDiv, list.childNodes[0]);
-          closeAnnContainer();
-          // document.querySelector(".ann-input-title").value = "";
-          // document.getElementById("ann-textarea").value = "";
-        }
+        let url =
+        "http://localhost:8080/WebApplication1/ws/announcement?title=" +
+        annTitle +
+        "&description=" +
+        annTextarea;
+        fetch(url, {
+          method: "POST"
+        }).then(response => response.json());
       }
-    });
+    }
+  });
+
+  document.querySelector('.input-box').addEventListener("click", function(event) {
+    console.log(event.target);
+    if (
+      event.target === document.getElementById("task") ||
+      event.target === document.getElementById("task").childNodes[0] ||
+      event.target === document.getElementById("task").parentElement
+    )
+    openTaskContainer();
+  });
 
   document.querySelector("#inputbox").addEventListener("keypress", function(e) {
     var key = e.which || e.keyCode;
@@ -243,12 +285,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     sendMsg();
   });
 
-  document.querySelector(".ann-list").addEventListener("click", function(event) {
+  document
+  .querySelector(".ann-list")
+  .addEventListener("click", function(event) {
     if (window.innerWidth < 1000) {
       document.querySelector(".main").style.transform = " translateX(-100%)";
       document
-        .querySelector(".id-displayer")
-        .classList.add("id-displayer-group");
+      .querySelector(".id-displayer")
+      .classList.add("id-displayer-group");
       document.querySelector(".section-div").style.display = "none";
     }
     let el;
@@ -258,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       event.target.classList.contains("ann-title") ||
       event.target.classList.contains("ann-intro")
     )
-      el = event.target.parentElement;
+    el = event.target.parentElement;
     let title, intro;
     var children = el.childNodes;
     title = children[0].textContent;
@@ -275,19 +319,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   document
-    .querySelector("#status-dropdown-content a")
-    .addEventListener("click", function() {
-      let color;
-      console.log(event.target.tagName);
-      if (event.target.tagName === "A") {
-        let child = event.target.childNodes;
-        let child2 = child[1].childNodes;
-        color = child2[0].style.color;
-        console.log(child[1]);
-      } else {
-        color = event.target.style.color;
-        console.log(event.target);
-      }
-      document.querySelector(".avatar .status").style.color = color;
-    });
+  .querySelector("#status-dropdown-content a")
+  .addEventListener("click", function(event) {
+    let color;
+    console.log(event.target.tagName);
+    if (event.target.tagName === "A") {
+      let child = event.target.childNodes;
+      let child2 = child[1].childNodes;
+      color = child2[0].style.color;
+      console.log(child[1]);
+    } else {
+      color = event.target.style.color;
+      console.log(event.target);
+    }
+    document.querySelector(".avatar .status").style.color = color;
+  });
 });

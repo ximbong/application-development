@@ -173,6 +173,10 @@ a {
   position: relative;
   margin-bottom: 40px;
 }
+
+.new-task-container > div {
+  margin-bottom:10px;
+}
 .new-title input {
   width: 100%;
   cursor: text;
@@ -669,7 +673,7 @@ a {
   padding: 15px 5px;
 }
 .icon:hover {
-  background: #f0f0f5;
+    background:#d5dfef;
 }
 #send {
   color: #16afe0 !important;
