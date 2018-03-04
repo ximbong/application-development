@@ -253,10 +253,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         document.getElementById("ann-textarea").value = "";
 
         let url =
-        "http://localhost:8080/WebApplication1/ws/announcement?title=" +
-        annTitle +
-        "&description=" +
-        annTextarea;
+        `http://localhost:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${JSON.parse(localStorage.user).id}`;
+
+
         fetch(url, {
           method: "POST"
         }).then(response => response.json());
