@@ -6,9 +6,7 @@
 package Database;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,11 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
     , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
     , @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")
-    , @NamedQuery(name = "Users.findByIsOnline", query = "SELECT u FROM Users u WHERE u.isOnline = :isOnline")
-    , @NamedQuery(name = "Users.findByIsBusy", query = "SELECT u FROM Users u WHERE u.isBusy = :isBusy")
-    , @NamedQuery(name = "Users.findByIsIdle", query = "SELECT u FROM Users u WHERE u.isIdle = :isIdle")
-    , @NamedQuery(name = "Users.findByIsOffline", query = "SELECT u FROM Users u WHERE u.isOffline = :isOffline")
-    , @NamedQuery(name = "Users.findByPhonenumber", query = "SELECT u FROM Users u WHERE u.phonenumber = :phonenumber")})
+    , @NamedQuery(name = "Users.findByPhonenumber", query = "SELECT u FROM Users u WHERE u.phonenumber = :phonenumber")
+    , @NamedQuery(name = "Users.findByStatusCode", query = "SELECT u FROM Users u WHERE u.statusCode = :statusCode")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,19 +57,11 @@ public class Users implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "role")
     private String role;
-    @Column(name = "is_online")
-    private Boolean isOnline;
-    @Column(name = "is_busy")
-    private Boolean isBusy;
-    @Column(name = "is_idle")
-    private Boolean isIdle;
-    @Column(name = "is_offline")
-    private Boolean isOffline;
     @Size(max = 16)
     @Column(name = "phonenumber")
     private String phonenumber;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderId")
-    private Collection<Message> messageCollection;
+    @Column(name = "status_code")
+    private Integer statusCode;
 
     public Users() {
     }
@@ -124,38 +109,6 @@ public class Users implements Serializable {
         this.role = role;
     }
 
-    public Boolean getIsOnline() {
-        return isOnline;
-    }
-
-    public void setIsOnline(Boolean isOnline) {
-        this.isOnline = isOnline;
-    }
-
-    public Boolean getIsBusy() {
-        return isBusy;
-    }
-
-    public void setIsBusy(Boolean isBusy) {
-        this.isBusy = isBusy;
-    }
-
-    public Boolean getIsIdle() {
-        return isIdle;
-    }
-
-    public void setIsIdle(Boolean isIdle) {
-        this.isIdle = isIdle;
-    }
-
-    public Boolean getIsOffline() {
-        return isOffline;
-    }
-
-    public void setIsOffline(Boolean isOffline) {
-        this.isOffline = isOffline;
-    }
-
     public String getPhonenumber() {
         return phonenumber;
     }
@@ -164,13 +117,12 @@ public class Users implements Serializable {
         this.phonenumber = phonenumber;
     }
 
-    @XmlTransient
-    public Collection<Message> getMessageCollection() {
-        return messageCollection;
+    public Integer getStatusCode() {
+        return statusCode;
     }
 
-    public void setMessageCollection(Collection<Message> messageCollection) {
-        this.messageCollection = messageCollection;
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
     }
 
     @Override
