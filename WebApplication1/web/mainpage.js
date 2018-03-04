@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         fetch(url, {
           method: "POST"
-        }).then(response => response.json());
+        })
       }
     }
   });

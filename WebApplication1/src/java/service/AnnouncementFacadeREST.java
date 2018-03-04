@@ -45,25 +45,31 @@ public class AnnouncementFacadeREST extends AbstractFacade<Announcement> {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Announcement> create(@QueryParam("title") String title, @QueryParam("description") String description, @QueryParam("creator_id") int creator_id) {
+    
+    
+    public void create(@QueryParam("title") String title, @QueryParam("description") String description, @QueryParam("creator_id") int creator_id) {
         System.out.println(title);
         System.out.println(description);
         System.out.println(creator_id);
+       
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Announcement> q = cb.createQuery(Announcement.class);
-        Root<Announcement> c = q.from(Announcement.class);
-//        q.select(c);
-//  
-//        q.where(
-//            cb.and(
-//                cb.equal(c.get("username"), username),
-//                cb.equal(c.get("password"), password)
-//            )
-//        );
-        TypedQuery<Announcement> query = em.createQuery(q);
-        return query.getResultList();
-           
-    }
+        CriteriaQuery<Users> q = cb.createQuery(Users.class);
+        Root<Users> c = q.from(Users.class);
+        q.select(c);
+  
+        q.where(    
+            cb.equal(c.get("id"), creator_id)
+        );
+        TypedQuery<Users> query = em.createQuery(q);
+        
+        Users user = query.getSingleResult();
+        Announcement newAnnouncement =  new Announcement();        
+        newAnnouncement.setCreatorId(user);
+        newAnnouncement.setTitle(title);
+        newAnnouncement.setDescription(description);
+        
+        super.create(newAnnouncement);
+        }
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
