@@ -317,20 +317,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".ann-info").textContent = intro;
   });
 
-  document
-  .querySelector("#status-dropdown-content a")
-  .addEventListener("click", function(event) {
-    let color;
-    console.log(event.target.tagName);
-    if (event.target.tagName === "A") {
-      let child = event.target.childNodes;
-      let child2 = child[1].childNodes;
-      color = child2[0].style.color;
-      console.log(child[1]);
-    } else {
-      color = event.target.style.color;
-      console.log(event.target);
-    }
-    document.querySelector(".avatar .status").style.color = color;
-  });
+  var statusArray =  document
+  .querySelectorAll("#status-dropdown-content a");
+  var status_code;
+  for (let element of statusArray){
+    element.addEventListener("click", function(event) {
+      let text;
+      if (event.target.tagName === "A") {
+        text=event.target.childNodes[3].textContent;
+      } else {
+        text=event.target.parentElement.childNodes[3].textContent;
+      }
+
+      switch (text) {
+        case "Online":
+        document.querySelector('#status-dropdown .avatar svg').style.color = '#1bd139';
+        status_code=1;
+        break;
+        case "Idle":
+        document.querySelector('#status-dropdown .avatar svg').style.color = '#ccb80c';
+        status_code=2;
+        break;
+        case "Busy":
+        document.querySelector('#status-dropdown .avatar svg').style.color = '#cc0c0c';
+        status_code=3;
+        break;
+        default:
+        document.querySelector('#status-dropdown .avatar svg').style.color = '#adbabc';
+        status_code=4;
+
+      }
+    })
+  }
+
 });
