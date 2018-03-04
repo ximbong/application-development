@@ -92,9 +92,15 @@ public class AnnouncementFacadeREST extends AbstractFacade<Announcement> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Announcement> findAll() {
-        return super.findAll();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Announcement> q = cb.createQuery(Announcement.class);
+        Root<Announcement> c = q.from(Announcement.class);
+        q.select(c);
+         
+        TypedQuery<Announcement> query = em.createQuery(q);
+        return query.getResultList();
     }
 
     @GET

@@ -101,6 +101,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .querySelector(".id-displayer")
       .classList.remove("id-displayer-group");
     }
+
+    let list = document.querySelector(".ann-list");
+    list.innerHTML="";
+    let url = `http://localhost:8080/WebApplication1/ws/announcement`;
+
+    fetch(url, {
+      method: "GET",
+    }).then(response => response.json())
+      .then(function(response) {
+        console.log(response);
+        for (let element of response) {
+          let { creatorId, description, id , title } = element;
+          console.log(description);
+          console.log(title);
+
+            let boxDiv = document.createElement("div");
+            let titleDiv = document.createElement("div");
+            let introDiv = document.createElement("div");
+            boxDiv.classList.add("ann-box");
+            titleDiv.classList.add("ann-title");
+            introDiv.classList.add("ann-intro");
+            let textnode1 = document.createTextNode(title);
+            let textnode2 = document.createTextNode(description);
+            titleDiv.appendChild(textnode1);
+            introDiv.appendChild(textnode2);
+            boxDiv.appendChild(titleDiv);
+            boxDiv.appendChild(introDiv);
+
+
+            list.insertBefore(boxDiv, list.childNodes[0]);
+
+      }})
   });
 
   document.querySelector(".back-button").addEventListener("click", function() {
