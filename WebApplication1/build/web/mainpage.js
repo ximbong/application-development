@@ -379,6 +379,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         status_code=4;
 
       }
+      let url =   `http://localhost:8080/WebApplication1/ws/users/${JSON.parse(localStorage.user).id}/${status_code}`;
+
+      fetch(url, {
+        method: "PUT"
+      })
     })
   }
 

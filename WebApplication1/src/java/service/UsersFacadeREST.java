@@ -64,10 +64,25 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
 
     @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Users entity) {
-        super.edit(entity);
+    @Path("{id}/{status_code}")
+     @Consumes(MediaType.APPLICATION_JSON)
+    public void edit(@PathParam("id") int id, @PathParam("status_code") int status_code) {
+             System.out.println(id);
+        System.out.println(status_code);
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Users> q = cb.createQuery(Users.class);
+        Root<Users> c = q.from(Users.class);
+        q.select(c);
+  
+        q.where(
+                cb.equal(c.get("id"), id)
+        );
+        TypedQuery<Users> query = em.createQuery(q);
+        Users user = query.getSingleResult();
+        user.setStatusCode(status_code);
+        
+        super.edit(user);
+        
     }
 
     @DELETE
