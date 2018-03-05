@@ -16,6 +16,14 @@ id int NOT NULL auto_increment,
 primary key (id)
 );
 
+create table user_cvd (
+c_id int NOT NULL,
+u_id int NOT NULL,
+primary key (c_id, u_id),
+foreign key (c_id) references coversation(id),
+foreign key (u_id) references users(id)
+);
+
 create table message (
 id int NOT NULL auto_increment,
 coversation_id int NOT NULL,

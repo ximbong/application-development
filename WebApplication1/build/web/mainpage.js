@@ -77,6 +77,62 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .querySelector(".id-displayer")
       .classList.remove("id-displayer-group");
     }
+
+    let url =   `http://localhost:8080/WebApplication1/ws/users`;
+    let list = document.querySelector(".user-chat-column");
+    list.innerHTML="";
+    fetch(url, {
+      method: "GET"
+    }).then(response => response.json())
+    .then(function(response){
+      console.log(response)
+      for (let element of response) {
+        let { id, password, role, statusCode, username } = element;
+        let boxDiv = document.createElement("div");
+        let avatarDiv = document.createElement("div");
+        let chatInfoDiv = document.createElement("div");
+        let idDiv = document.createElement("div");
+        let timestampDiv= document.createElement("div");
+        let lastmsgDiv = document.createElement("div");
+        let usernameSpan = document.createElement("span");
+        let icon = document.createElement("i");
+
+        let classlist = ['fa','fa-circle','status'];
+        icon.classList.add(...classlist);
+        boxDiv.classList.add("user-box");
+        avatarDiv.classList.add("avatar");
+        chatInfoDiv.classList.add("chat-info");
+        idDiv.classList.add("id");
+        usernameSpan.classList.add("username");
+
+        switch (statusCode) {
+          case 1:
+            icon.classList.add('color-online')
+          break;
+          case 2:
+          icon.classList.add('color-idle')
+          break;
+          case 3:
+            icon.classList.add('color-busy');
+          break;
+          default:
+            icon.classList.add('color-invisible');
+        }
+
+        let textnode2 = document.createTextNode(username);
+        usernameSpan.appendChild(textnode2);
+        idDiv.appendChild(usernameSpan);
+        idDiv.appendChild(icon);
+        chatInfoDiv.appendChild(idDiv);
+        chatInfoDiv.appendChild(timestampDiv);
+        chatInfoDiv.appendChild(lastmsgDiv);
+        boxDiv.appendChild(avatarDiv);
+        boxDiv.appendChild(chatInfoDiv);
+
+
+        list.insertBefore(boxDiv, list.childNodes[0]);
+      }
+    })
   });
 
   document.getElementById("section2").addEventListener("click", function() {
@@ -109,282 +165,282 @@ document.addEventListener("DOMContentLoaded", function(event) {
     fetch(url, {
       method: "GET",
     }).then(response => response.json())
-      .then(function(response) {
-        console.log(response);
-        for (let element of response) {
-          let { creatorId, description, id , title } = element;
-          console.log(description);
-          console.log(title);
+    .then(function(response) {
+      console.log(response);
+      for (let element of response) {
+        let { creatorId, description, id , title } = element;
+        console.log(description);
+        console.log(title);
 
-            let boxDiv = document.createElement("div");
-            let titleDiv = document.createElement("div");
-            let introDiv = document.createElement("div");
-            boxDiv.classList.add("ann-box");
-            titleDiv.classList.add("ann-title");
-            introDiv.classList.add("ann-intro");
-            let textnode1 = document.createTextNode(title);
-            let textnode2 = document.createTextNode(description);
-            titleDiv.appendChild(textnode1);
-            introDiv.appendChild(textnode2);
-            boxDiv.appendChild(titleDiv);
-            boxDiv.appendChild(introDiv);
-
-
-            list.insertBefore(boxDiv, list.childNodes[0]);
-
-      }})
-  });
-
-  document.querySelector(".back-button").addEventListener("click", function() {
-    document.querySelector(".main").style.transform = "translateX(0)";
-    document.querySelector(".section-div").style.display = "block";
-  });
-
-  for (let val of document.getElementsByClassName("user-box")) {
-    val.addEventListener("click", function() {
-      let element = val.getElementsByTagName("span");
-      document.querySelector(".id-displayer").textContent =
-      element[0].textContent;
-
-      document.querySelector(".status-displayer").style.display = "block";
-      document.querySelector(".ann-info").style.display = "none";
-      document.querySelector(".message-box").style.display = "block";
-
-      if (window.innerWidth < 1000) {
-        document.querySelector(".main").style.transform = " translateX(-100%)";
-        document.querySelector(".section-div").style.display = "none";
-      }
-    });
-  }
-
-  for (let val of document.getElementsByClassName("group-box")) {
-    val.addEventListener("click", function() {
-      let element = val.getElementsByTagName("span");
-      document.querySelector(".id-displayer").textContent =
-      element[0].textContent;
-
-      document.querySelector(".status-displayer").style.display = "none";
-      document.querySelector(".ann-info").style.display = "none";
-      document.querySelector(".message-box").style.display = "block";
-
-      if (window.innerWidth < 1000) {
-        document.querySelector(".main").style.transform = " translateX(-100%)";
-        document.querySelector(".section-div").style.display = "none";
-      }
-    });
-  }
-
-  function openAnnContainer() {
-    document.getElementById("backdrop").style.display = "block";
-    document.querySelector(".wrap-div").style.display = "flex";
-    document.querySelector(".wrap-div").style.opacity = "1";
-    document.querySelector(".new-ann-container").style.display = "block";
-  }
-
-  function closeAnnContainer() {
-    document.getElementById("backdrop").style.display = "none";
-    document.querySelector(".wrap-div").style.display = "none";
-    document.querySelector(".wrap-div").style.opacity = "0";
-    document.querySelector(".new-ann-container").style.display = "none";
-  }
-
-  function openTaskContainer() {
-    document.getElementById("backdrop").style.display = "block";
-    document.querySelector(".wrap-div").style.display = "flex";
-    document.querySelector(".wrap-div").style.opacity = "1";
-    document.querySelector(".new-task-container").style.display = "block";
-  }
-
-  function closeTaskContainer() {
-    document.getElementById("backdrop").style.display = "none";
-    document.querySelector(".wrap-div").style.display = "none";
-    document.querySelector(".wrap-div").style.opacity = "0";
-    document.querySelector(".new-task-container").style.display = "none";
-  }
-
-  function sendMsg() {
-    let val = document.getElementById("inputbox").value;
-    console.log("val =" + val);
-    let textnode = document.createTextNode(val);
-
-    let innerDiv = document.createElement("div");
-    let outerDiv = document.createElement("div");
-    let classlist = [
-      "message-div",
-      "animated",
-      "slideInRight",
-      "new-msg",
-      "msg-send"
-    ];
-    innerDiv.classList.add("chat-message");
-    outerDiv.classList.add(...classlist);
-    innerDiv.appendChild(textnode);
-    outerDiv.appendChild(innerDiv);
-    document.querySelector(".chat-box").appendChild(outerDiv);
-
-    document.getElementById("inputbox").value = "";
-
-    var objDiv = document.getElementById("chat-box");
-    objDiv.scrollTop = objDiv.scrollHeight;
-  }
-  // var api = key + val;
-  // $.getJSON(api, function(data) {
-  //   var answer = data.response;
-  //   $(".chat-box").append(
-  //     '<div class="message-div animated new-msg slideInLeft msg-receive"> <div class="chat-message ">' +
-  //     answer +
-  //     "</div></div>"
-  //   );
-  // });
-
-  document.querySelector(".ann-button").addEventListener("click", function() {
-    openAnnContainer();
-  });
-
-  document.querySelector(".new-task-container").addEventListener("click", function(event) {
-    if (
-      event.target === document.getElementById("close2") ||
-      event.target === document.getElementById("close2").childNodes[0]
-    )
-    closeTaskContainer();
-  });
-
-  document
-  .querySelector(".new-ann-container")
-  .addEventListener("click", function(event) {
-    console.log(event.target);
-    if (
-      event.target === document.getElementById("close") ||
-      event.target === document.getElementById("close").childNodes[0]
-    )
-    closeAnnContainer();
-
-    if (event.target === document.querySelector(".ann-submit")) {
-      let annTitle = document.querySelector(".ann-input-title").value;
-      let annTextarea = document.getElementById("ann-textarea").value;
-      console.log(annTitle);
-      console.log(annTextarea);
-      if (annTitle !== "" && annTextarea !== "") {
         let boxDiv = document.createElement("div");
         let titleDiv = document.createElement("div");
         let introDiv = document.createElement("div");
         boxDiv.classList.add("ann-box");
         titleDiv.classList.add("ann-title");
         introDiv.classList.add("ann-intro");
-        let textnode1 = document.createTextNode(annTitle);
-        let textnode2 = document.createTextNode(annTextarea);
+        let textnode1 = document.createTextNode(title);
+        let textnode2 = document.createTextNode(description);
         titleDiv.appendChild(textnode1);
         introDiv.appendChild(textnode2);
         boxDiv.appendChild(titleDiv);
         boxDiv.appendChild(introDiv);
 
-        let list = document.querySelector(".ann-list");
+
         list.insertBefore(boxDiv, list.childNodes[0]);
-        closeAnnContainer();
-        document.querySelector(".ann-input-title").value = "";
-        document.getElementById("ann-textarea").value = "";
 
-        let url =
-        `http://localhost:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${JSON.parse(localStorage.user).id}`;
+      }})
+    });
 
+    document.querySelector(".back-button").addEventListener("click", function() {
+      document.querySelector(".main").style.transform = "translateX(0)";
+      document.querySelector(".section-div").style.display = "block";
+    });
+
+    for (let val of document.getElementsByClassName("user-box")) {
+      val.addEventListener("click", function() {
+        let element = val.getElementsByTagName("span");
+        document.querySelector(".id-displayer").textContent =
+        element[0].textContent;
+
+        document.querySelector(".status-displayer").style.display = "block";
+        document.querySelector(".ann-info").style.display = "none";
+        document.querySelector(".message-box").style.display = "block";
+
+        if (window.innerWidth < 1000) {
+          document.querySelector(".main").style.transform = " translateX(-100%)";
+          document.querySelector(".section-div").style.display = "none";
+        }
+      });
+    }
+
+    for (let val of document.getElementsByClassName("group-box")) {
+      val.addEventListener("click", function() {
+        let element = val.getElementsByTagName("span");
+        document.querySelector(".id-displayer").textContent =
+        element[0].textContent;
+
+        document.querySelector(".status-displayer").style.display = "none";
+        document.querySelector(".ann-info").style.display = "none";
+        document.querySelector(".message-box").style.display = "block";
+
+        if (window.innerWidth < 1000) {
+          document.querySelector(".main").style.transform = " translateX(-100%)";
+          document.querySelector(".section-div").style.display = "none";
+        }
+      });
+    }
+
+    function openAnnContainer() {
+      document.getElementById("backdrop").style.display = "block";
+      document.querySelector(".wrap-div").style.display = "flex";
+      document.querySelector(".wrap-div").style.opacity = "1";
+      document.querySelector(".new-ann-container").style.display = "block";
+    }
+
+    function closeAnnContainer() {
+      document.getElementById("backdrop").style.display = "none";
+      document.querySelector(".wrap-div").style.display = "none";
+      document.querySelector(".wrap-div").style.opacity = "0";
+      document.querySelector(".new-ann-container").style.display = "none";
+    }
+
+    function openTaskContainer() {
+      document.getElementById("backdrop").style.display = "block";
+      document.querySelector(".wrap-div").style.display = "flex";
+      document.querySelector(".wrap-div").style.opacity = "1";
+      document.querySelector(".new-task-container").style.display = "block";
+    }
+
+    function closeTaskContainer() {
+      document.getElementById("backdrop").style.display = "none";
+      document.querySelector(".wrap-div").style.display = "none";
+      document.querySelector(".wrap-div").style.opacity = "0";
+      document.querySelector(".new-task-container").style.display = "none";
+    }
+
+    function sendMsg() {
+      let val = document.getElementById("inputbox").value;
+      console.log("val =" + val);
+      let textnode = document.createTextNode(val);
+
+      let innerDiv = document.createElement("div");
+      let outerDiv = document.createElement("div");
+      let classlist = [
+        "message-div",
+        "animated",
+        "slideInRight",
+        "new-msg",
+        "msg-send"
+      ];
+      innerDiv.classList.add("chat-message");
+      outerDiv.classList.add(...classlist);
+      innerDiv.appendChild(textnode);
+      outerDiv.appendChild(innerDiv);
+      document.querySelector(".chat-box").appendChild(outerDiv);
+
+      document.getElementById("inputbox").value = "";
+
+      var objDiv = document.getElementById("chat-box");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+    // var api = key + val;
+    // $.getJSON(api, function(data) {
+    //   var answer = data.response;
+    //   $(".chat-box").append(
+    //     '<div class="message-div animated new-msg slideInLeft msg-receive"> <div class="chat-message ">' +
+    //     answer +
+    //     "</div></div>"
+    //   );
+    // });
+
+    document.querySelector(".ann-button").addEventListener("click", function() {
+      openAnnContainer();
+    });
+
+    document.querySelector(".new-task-container").addEventListener("click", function(event) {
+      if (
+        event.target === document.getElementById("close2") ||
+        event.target === document.getElementById("close2").childNodes[0]
+      )
+      closeTaskContainer();
+    });
+
+    document
+    .querySelector(".new-ann-container")
+    .addEventListener("click", function(event) {
+      console.log(event.target);
+      if (
+        event.target === document.getElementById("close") ||
+        event.target === document.getElementById("close").childNodes[0]
+      )
+      closeAnnContainer();
+
+      if (event.target === document.querySelector(".ann-submit")) {
+        let annTitle = document.querySelector(".ann-input-title").value;
+        let annTextarea = document.getElementById("ann-textarea").value;
+        console.log(annTitle);
+        console.log(annTextarea);
+        if (annTitle !== "" && annTextarea !== "") {
+          let boxDiv = document.createElement("div");
+          let titleDiv = document.createElement("div");
+          let introDiv = document.createElement("div");
+          boxDiv.classList.add("ann-box");
+          titleDiv.classList.add("ann-title");
+          introDiv.classList.add("ann-intro");
+          let textnode1 = document.createTextNode(annTitle);
+          let textnode2 = document.createTextNode(annTextarea);
+          titleDiv.appendChild(textnode1);
+          introDiv.appendChild(textnode2);
+          boxDiv.appendChild(titleDiv);
+          boxDiv.appendChild(introDiv);
+
+          let list = document.querySelector(".ann-list");
+          list.insertBefore(boxDiv, list.childNodes[0]);
+          closeAnnContainer();
+          document.querySelector(".ann-input-title").value = "";
+          document.getElementById("ann-textarea").value = "";
+
+          let url =
+          `http://localhost:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${JSON.parse(localStorage.user).id}`;
+
+
+          fetch(url, {
+            method: "POST"
+          })
+        }
+      }
+    });
+
+    document.querySelector('.input-box').addEventListener("click", function(event) {
+      console.log(event.target);
+      if (
+        event.target === document.getElementById("task") ||
+        event.target === document.getElementById("task").childNodes[0] ||
+        event.target === document.getElementById("task").parentElement
+      )
+      openTaskContainer();
+    });
+
+    document.querySelector("#inputbox").addEventListener("keypress", function(e) {
+      var key = e.which || e.keyCode;
+      if (key === 13) {
+        sendMsg();
+      }
+    });
+
+    document.querySelector("#send").addEventListener("click", function(e) {
+      sendMsg();
+    });
+
+    document
+    .querySelector(".ann-list")
+    .addEventListener("click", function(event) {
+      if (window.innerWidth < 1000) {
+        document.querySelector(".main").style.transform = " translateX(-100%)";
+        document
+        .querySelector(".id-displayer")
+        .classList.add("id-displayer-group");
+        document.querySelector(".section-div").style.display = "none";
+      }
+      let el;
+      console.log(event.target);
+      if (event.target.classList.contains("ann-box")) el = event.target;
+      if (
+        event.target.classList.contains("ann-title") ||
+        event.target.classList.contains("ann-intro")
+      )
+      el = event.target.parentElement;
+      let title, intro;
+      var children = el.childNodes;
+      title = children[0].textContent;
+      intro = children[1].textContent;
+      console.log("title = " + title);
+      console.log("intro = " + intro);
+      document.querySelector(".id-displayer").textContent = title;
+      document.querySelector(".status-displayer").style.display = "none";
+      document.querySelector(".message-box").style.display = "none";
+
+      document.querySelector(".ann-info").style.display = "block";
+
+      document.querySelector(".ann-info").textContent = intro;
+    });
+
+    var statusArray =  document
+    .querySelectorAll("#status-dropdown-content a");
+    var status_code;
+    for (let element of statusArray){
+      element.addEventListener("click", function(event) {
+        let text;
+        if (event.target.tagName === "A") {
+          text=event.target.childNodes[3].textContent;
+        } else {
+          text=event.target.parentElement.childNodes[3].textContent;
+        }
+
+        switch (text) {
+          case "Online":
+          document.querySelector('#status-dropdown .avatar svg').style.color = '#1bd139';
+          status_code=1;
+          break;
+          case "Idle":
+          document.querySelector('#status-dropdown .avatar svg').style.color = '#ccb80c';
+          status_code=2;
+          break;
+          case "Busy":
+          document.querySelector('#status-dropdown .avatar svg').style.color = '#cc0c0c';
+          status_code=3;
+          break;
+          default:
+          document.querySelector('#status-dropdown .avatar svg').style.color = '#adbabc';
+          status_code=4;
+
+        }
+        let url =   `http://localhost:8080/WebApplication1/ws/users/${JSON.parse(localStorage.user).id}/${status_code}`;
 
         fetch(url, {
-          method: "POST"
+          method: "PUT"
         })
-      }
-    }
-  });
-
-  document.querySelector('.input-box').addEventListener("click", function(event) {
-    console.log(event.target);
-    if (
-      event.target === document.getElementById("task") ||
-      event.target === document.getElementById("task").childNodes[0] ||
-      event.target === document.getElementById("task").parentElement
-    )
-    openTaskContainer();
-  });
-
-  document.querySelector("#inputbox").addEventListener("keypress", function(e) {
-    var key = e.which || e.keyCode;
-    if (key === 13) {
-      sendMsg();
-    }
-  });
-
-  document.querySelector("#send").addEventListener("click", function(e) {
-    sendMsg();
-  });
-
-  document
-  .querySelector(".ann-list")
-  .addEventListener("click", function(event) {
-    if (window.innerWidth < 1000) {
-      document.querySelector(".main").style.transform = " translateX(-100%)";
-      document
-      .querySelector(".id-displayer")
-      .classList.add("id-displayer-group");
-      document.querySelector(".section-div").style.display = "none";
-    }
-    let el;
-    console.log(event.target);
-    if (event.target.classList.contains("ann-box")) el = event.target;
-    if (
-      event.target.classList.contains("ann-title") ||
-      event.target.classList.contains("ann-intro")
-    )
-    el = event.target.parentElement;
-    let title, intro;
-    var children = el.childNodes;
-    title = children[0].textContent;
-    intro = children[1].textContent;
-    console.log("title = " + title);
-    console.log("intro = " + intro);
-    document.querySelector(".id-displayer").textContent = title;
-    document.querySelector(".status-displayer").style.display = "none";
-    document.querySelector(".message-box").style.display = "none";
-
-    document.querySelector(".ann-info").style.display = "block";
-
-    document.querySelector(".ann-info").textContent = intro;
-  });
-
-  var statusArray =  document
-  .querySelectorAll("#status-dropdown-content a");
-  var status_code;
-  for (let element of statusArray){
-    element.addEventListener("click", function(event) {
-      let text;
-      if (event.target.tagName === "A") {
-        text=event.target.childNodes[3].textContent;
-      } else {
-        text=event.target.parentElement.childNodes[3].textContent;
-      }
-
-      switch (text) {
-        case "Online":
-        document.querySelector('#status-dropdown .avatar svg').style.color = '#1bd139';
-        status_code=1;
-        break;
-        case "Idle":
-        document.querySelector('#status-dropdown .avatar svg').style.color = '#ccb80c';
-        status_code=2;
-        break;
-        case "Busy":
-        document.querySelector('#status-dropdown .avatar svg').style.color = '#cc0c0c';
-        status_code=3;
-        break;
-        default:
-        document.querySelector('#status-dropdown .avatar svg').style.color = '#adbabc';
-        status_code=4;
-
-      }
-      let url =   `http://localhost:8080/WebApplication1/ws/users/${JSON.parse(localStorage.user).id}/${status_code}`;
-
-      fetch(url, {
-        method: "PUT"
       })
-    })
-  }
+    }
 
-});
+  });

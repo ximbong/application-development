@@ -100,9 +100,16 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces( MediaType.APPLICATION_JSON)
     public List<Users> findAll() {
-        return super.findAll();
+         CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Users> q = cb.createQuery(Users.class);
+        Root<Users> c = q.from(Users.class);
+        q.select(c);
+        TypedQuery<Users> query = em.createQuery(q);
+        
+        return query.getResultList();
+        
     }
 
     @GET
