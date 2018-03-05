@@ -127,7 +127,7 @@ a {
   -o-animation: fadeInFromNone 0.5s ease-out;
   animation: fadeInFromNone 0.5s ease-out;
 }
-.new-ann-container,.admin-container,.new-task-container {
+.new-ann-container {
   position: relative;
   border: 1px solid #d8dfea;
   width: 500px;
@@ -139,7 +139,18 @@ a {
   display: none;
   border: 1px solid #1f6696;
 }
-
+.new-task-container {
+  position: relative;
+  border: 1px solid #d8dfea;
+  width: 400px;
+  padding: 30px 45px 35px 45px;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: "Roboto Condensed", sans-serif;
+  background: #e8eef2;
+  border: 1px solid #1f6696;
+  display: none;
+}
 /* close button for the previous container (box)*/
 .close {
   position: absolute;
@@ -206,7 +217,7 @@ a {
   background: white;
 }
 /* submit-button */
-.ann-submit,.admin-submit {
+.ann-submit {
   width: 70%;
   text-align: center;
   letter-spacing: 0.5px;
@@ -218,8 +229,6 @@ a {
   margin: 0 auto;
   cursor: pointer;
 }
-
-
 /* main-container */
 .container {
   position: relative;
