@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -32,6 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Coversation.findAll", query = "SELECT c FROM Coversation c")
     , @NamedQuery(name = "Coversation.findById", query = "SELECT c FROM Coversation c WHERE c.id = :id")})
 public class Coversation implements Serializable {
+
+    @JoinTable(name = "user_cvd", joinColumns = {
+        @JoinColumn(name = "c_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "u_id", referencedColumnName = "id")})
+    @ManyToMany
+    private Collection<Users> usersCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -89,6 +98,15 @@ public class Coversation implements Serializable {
     @Override
     public String toString() {
         return "Database.Coversation[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Users> getUsersCollection() {
+        return usersCollection;
+    }
+
+    public void setUsersCollection(Collection<Users> usersCollection) {
+        this.usersCollection = usersCollection;
     }
     
 }

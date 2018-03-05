@@ -42,12 +42,12 @@ public class Announcement implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+//    @NotNull
+//    @Size(min = 1, max = 30)
     @Column(name = "title")
     private String title;
     @Lob
-    @Size(max = 65535)
+//    @Size(max = 65535)
     @Column(name = "description")
     private String description;
     @JoinColumn(name = "creator_id", referencedColumnName = "id")

@@ -6,6 +6,7 @@
 package Database;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +20,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,6 +36,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m")
     , @NamedQuery(name = "Message.findById", query = "SELECT m FROM Message m WHERE m.id = :id")})
 public class Message implements Serializable {
+
+    @Basic(optional = false)
+//    @NotNull
+    @Column(name = "timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
+    @Column(name = "isGroupChat")
+    private Boolean isGroupChat;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -120,6 +132,22 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "Database.Message[ id=" + id + " ]";
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Boolean getIsGroupChat() {
+        return isGroupChat;
+    }
+
+    public void setIsGroupChat(Boolean isGroupChat) {
+        this.isGroupChat = isGroupChat;
     }
     
 }

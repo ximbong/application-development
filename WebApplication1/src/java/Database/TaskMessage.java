@@ -35,19 +35,19 @@ public class TaskMessage implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "message_id")
     private Integer messageId;
     @Lob
-    @Size(max = 65535)
+//    @Size(max = 65535)
     @Column(name = "location")
     private String location;
     @Lob
-    @Size(max = 65535)
+//    @Size(max = 65535)
     @Column(name = "description")
     private String description;
     @Lob
-    @Size(max = 65535)
+//    @Size(max = 65535)
     @Column(name = "details")
     private String details;
     @JoinColumn(name = "message_id", referencedColumnName = "id", insertable = false, updatable = false)
