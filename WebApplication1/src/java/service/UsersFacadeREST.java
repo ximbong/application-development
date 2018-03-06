@@ -42,7 +42,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Users> create(@QueryParam("username") String username, @QueryParam("password") String password) {
         System.out.println(username);
         System.out.println(password);
