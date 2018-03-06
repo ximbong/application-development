@@ -37,43 +37,44 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Message.findById", query = "SELECT m FROM Message m WHERE m.id = :id")})
 public class Message implements Serializable {
 
-    @Basic(optional = false)
-//    @NotNull
     @Column(name = "timestamp")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+    
     @Column(name = "isGroupChat")
     private Boolean isGroupChat;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "message")
+    private int id;
+    
+    @OneToOne(mappedBy = "message")
     private TaskMessage taskMessage;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "message")
+    
+    @OneToOne(mappedBy = "message")
     private TextMessage textMessage;
+    
     @JoinColumn(name = "coversation_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Coversation coversationId;
+    
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Users senderId;
 
     public Message() {
     }
 
-    public Message(Integer id) {
+    public Message(int id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -112,7 +113,7 @@ public class Message implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id >0 ? id : 0);
         return hash;
     }
 
@@ -123,7 +124,7 @@ public class Message implements Serializable {
             return false;
         }
         Message other = (Message) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id <0 && other.id >0) || (this.id >0 && this.id != other.id)) {
             return false;
         }
         return true;

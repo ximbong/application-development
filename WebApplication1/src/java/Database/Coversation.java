@@ -45,24 +45,24 @@ public class Coversation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private int id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "coversationId")
     private Collection<Message> messageCollection;
 
     public Coversation() {
     }
 
-    public Coversation(Integer id) {
+    public Coversation(int id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -78,7 +78,7 @@ public class Coversation implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (id >0 ? id : 0);
         return hash;
     }
 
@@ -89,7 +89,7 @@ public class Coversation implements Serializable {
             return false;
         }
         Coversation other = (Coversation) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id <0 && other.id >0) || (this.id >0 && this.id==other.id)) {
             return false;
         }
         return true;

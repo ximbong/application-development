@@ -177,6 +177,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
         list.insertBefore(boxDiv, list.childNodes[0]);
+
+
+
+
+      }
+      for (let val of document.getElementsByClassName("user-box")) {
+        val.addEventListener("click", function() {
+          let element = val.getElementsByTagName("span");
+          let usrname =  element[0].textContent;
+          let id2;
+          document.querySelector(".id-displayer").textContent = usrname;
+          console.log(usrname)
+          document.querySelector(".status-displayer").style.display = "block";
+          document.querySelector(".ann-info").style.display = "none";
+          document.querySelector(".message-box").style.display = "block";
+
+          if (window.innerWidth < 1000) {
+            document.querySelector(".main").style.transform = " translateX(-100%)";
+            document.querySelector(".section-div").style.display = "none";
+          }
+
+          for (let element of  response.userss.users){
+            if (element.username===usrname) id2 = element.id;
+          }
+           let url = `http://localhost:8080/WebApplication1/ws/cv?id1=${JSON.parse(localStorage.user).id}&id2=${id2}`;
+           fetch(url, {
+             method: "GET",
+           })
+        });
       }
     })
   });
@@ -244,22 +273,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       document.querySelector(".section-div").style.display = "block";
     });
 
-    for (let val of document.getElementsByClassName("user-box")) {
-      val.addEventListener("click", function() {
-        let element = val.getElementsByTagName("span");
-        document.querySelector(".id-displayer").textContent =
-        element[0].textContent;
 
-        document.querySelector(".status-displayer").style.display = "block";
-        document.querySelector(".ann-info").style.display = "none";
-        document.querySelector(".message-box").style.display = "block";
-
-        if (window.innerWidth < 1000) {
-          document.querySelector(".main").style.transform = " translateX(-100%)";
-          document.querySelector(".section-div").style.display = "none";
-        }
-      });
-    }
 
     for (let val of document.getElementsByClassName("group-box")) {
       val.addEventListener("click", function() {
