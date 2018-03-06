@@ -126,10 +126,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     list.innerHTML="";
     fetch(url, {
       method: "GET"
-    }).then(response => xmlToJson(response.text()))
+    })
+    .then(response => response.text())
+    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+    .then(data => xmlToJson(data))
     .then(function(response){
-      console.log(response)
-      for (let element of response) {
+      for (let element of response.userss.users) {
+        console.log(element);
         let { id, password, role, statusCode, username } = element;
         let boxDiv = document.createElement("div");
         let avatarDiv = document.createElement("div");
@@ -148,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         idDiv.classList.add("id");
         usernameSpan.classList.add("username");
 
-        switch (statusCode) {
+        switch (parseInt(statusCode)) {
           case 1:
             icon.classList.add('color-online')
           break;
@@ -207,10 +210,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     fetch(url, {
       method: "GET",
-    }).then(response => xmlToJson(response.text()))
+    })
+    .then(response => response.text())
+    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+    .then(data => xmlToJson(data))
     .then(function(response) {
-      console.log(response);
-      for (let element of response) {
+      for (let element of response.announcements.announcement) {
         let { creatorId, description, id , title } = element;
         console.log(description);
         console.log(title);

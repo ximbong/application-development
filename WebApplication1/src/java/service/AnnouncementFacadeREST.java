@@ -44,7 +44,7 @@ public class AnnouncementFacadeREST extends AbstractFacade<Announcement> {
     
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     
     
     public void create(@QueryParam("title") String title, @QueryParam("description") String description, @QueryParam("creator_id") int creator_id) {
@@ -92,7 +92,7 @@ public class AnnouncementFacadeREST extends AbstractFacade<Announcement> {
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Announcement> findAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Announcement> q = cb.createQuery(Announcement.class);

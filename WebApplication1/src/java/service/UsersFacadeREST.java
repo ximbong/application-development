@@ -42,7 +42,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
     public List<Users> create(@QueryParam("username") String username, @QueryParam("password") String password) {
         System.out.println(username);
         System.out.println(password);
@@ -93,14 +93,14 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
+     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
     public Users find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces( MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
     public List<Users> findAll() {
          CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Users> q = cb.createQuery(Users.class);

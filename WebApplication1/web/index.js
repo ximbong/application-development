@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // .then (response => console.log(response))
     .then(result => (result.userss.length===0)? alert('Wrong username or password.'):(
       window.location.replace("http://localhost:8080/WebApplication1/MainPage.html"),
-      localStorage.setItem("user", JSON.stringify(result[0]))
+      localStorage.setItem("user", JSON.stringify(result.userss.users))
     ))
   }
 
