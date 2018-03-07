@@ -2,9 +2,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var key =
   "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
 
+  var socket = new WebSocket("ws://10.114.32.77:8080/WebApplication1/actions");
+  socket.onmessage = onMessage;
+
   var objDiv = document.getElementById("chat-box");
   objDiv.scrollTop = objDiv.scrollHeight;
   // responsive nav
+
+  function onMessage(event) {
+    var mess = JSON.parse(event.data);
+    console.log(mess);
+
+  }
 
   function xmlToJson(xml) {
 
@@ -365,6 +374,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 method: "POST",
               })
               sendMsg();
+              let mess = {
+                content: value,
+                senderId: JSON.parse(localStorage.user).id
+              };
+              socket.send(JSON.stringify(mess));
             }
           });
 
@@ -527,17 +541,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".admin-container").addEventListener("click",function(event){
       if (event.target === document.querySelector(".admin-submit")) {
         let username = document.getElementById('admin-1').value;
-          let id = document.getElementById('admin-2').value;
-          let phone = document.getElementById('admin-3').value;
-          if( username!=='' && id!=='' && phone!==''){
-            let url =  `http://10.114.32.77:8080/WebApplication1/ws/users/new?username=${username}&dpm_id=${id}&phone=${phone}`;
-            fetch(url, {
-              method: "POST"
-            })
-          }
-         document.getElementById('admin-1').value = '';
-         document.getElementById('admin-2').value = '';
-         document.getElementById('admin-3').value = '';
+        let id = document.getElementById('admin-2').value;
+        let phone = document.getElementById('admin-3').value;
+        if( username!=='' && id!=='' && phone!==''){
+          let url =  `http://10.114.32.77:8080/WebApplication1/ws/users/new?username=${username}&dpm_id=${id}&phone=${phone}`;
+          fetch(url, {
+            method: "POST"
+          })
+        }
+        document.getElementById('admin-1').value = '';
+        document.getElementById('admin-2').value = '';
+        document.getElementById('admin-3').value = '';
         closeAdminContainer();
       }
     })

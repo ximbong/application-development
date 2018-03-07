@@ -121,7 +121,7 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
         TypedQuery<Department> query = em.createQuery(q);
         
         Department newDp = query.getSingleResult();
-        System.out.println(newDp.getId());
+        //System.out.println(newDp.getId());
         CriteriaQuery<Message> q2 = cb.createQuery(Message.class);
         Root<Message> c2 = q2.from(Message.class);
          

@@ -46,8 +46,8 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
     public List<Users> create(@QueryParam("username") String username, @QueryParam("password") String password) {
-        System.out.println(username);
-        System.out.println(password);
+//        System.out.println(username);
+//        System.out.println(password);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Users> q = cb.createQuery(Users.class);
         Root<Users> c = q.from(Users.class);
