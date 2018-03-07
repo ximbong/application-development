@@ -230,36 +230,66 @@ document.addEventListener("DOMContentLoaded", function(event) {
     .then(function(response){
       for (let element of response.departments.department) {
         console.log(element);
-        let { id, name } = element;
-        let boxDiv = document.createElement("div");
-        let chatInfoDiv = document.createElement("div");
-        let idDiv = document.createElement("div");
-        let timestampDiv= document.createElement("div");
-        let lastmsgDiv = document.createElement("div");
-        let usernameSpan = document.createElement("span");
+
+        if (JSON.parse(localStorage.user).departmentId.name==='Admin'){
+          let { id, name } = element;
+          let boxDiv = document.createElement("div");
+          let chatInfoDiv = document.createElement("div");
+          let idDiv = document.createElement("div");
+          let timestampDiv= document.createElement("div");
+          let lastmsgDiv = document.createElement("div");
+          let usernameSpan = document.createElement("span");
 
 
-        boxDiv.classList.add("group-box");
-        chatInfoDiv.classList.add("chat-info");
-        idDiv.classList.add("id");
-        usernameSpan.classList.add("groupname");
+          boxDiv.classList.add("group-box");
+          chatInfoDiv.classList.add("chat-info");
+          idDiv.classList.add("id");
+          usernameSpan.classList.add("groupname");
 
-        let textnode2 = document.createTextNode(name);
-        usernameSpan.appendChild(textnode2);
-        idDiv.appendChild(usernameSpan);
-        chatInfoDiv.appendChild(idDiv);
-        chatInfoDiv.appendChild(timestampDiv);
-        chatInfoDiv.appendChild(lastmsgDiv);
-        boxDiv.appendChild(chatInfoDiv);
+          let textnode2 = document.createTextNode(name);
+          usernameSpan.appendChild(textnode2);
+          idDiv.appendChild(usernameSpan);
+          chatInfoDiv.appendChild(idDiv);
+          chatInfoDiv.appendChild(timestampDiv);
+          chatInfoDiv.appendChild(lastmsgDiv);
+          boxDiv.appendChild(chatInfoDiv);
 
 
-        list.insertBefore(boxDiv, list.childNodes[0]);
+          list.insertBefore(boxDiv, list.childNodes[0]);
+        } else {
+          let { id, name } = element;
+          if (JSON.parse(localStorage.user).departmentId.name===name){
+            let boxDiv = document.createElement("div");
+            let chatInfoDiv = document.createElement("div");
+            let idDiv = document.createElement("div");
+            let timestampDiv= document.createElement("div");
+            let lastmsgDiv = document.createElement("div");
+            let usernameSpan = document.createElement("span");
+
+
+            boxDiv.classList.add("group-box");
+            chatInfoDiv.classList.add("chat-info");
+            idDiv.classList.add("id");
+            usernameSpan.classList.add("groupname");
+
+            let textnode2 = document.createTextNode(name);
+            usernameSpan.appendChild(textnode2);
+            idDiv.appendChild(usernameSpan);
+            chatInfoDiv.appendChild(idDiv);
+            chatInfoDiv.appendChild(timestampDiv);
+            chatInfoDiv.appendChild(lastmsgDiv);
+            boxDiv.appendChild(chatInfoDiv);
+
+
+            list.insertBefore(boxDiv, list.childNodes[0]);
+          }
+        }
 
       }
 
       for (let val of document.getElementsByClassName("group-box")) {
         val.addEventListener("click", function() {
-            document.querySelector(".message-box").innerHTML="";
+          document.querySelector(".message-box").innerHTML="";
           let element = val.getElementsByTagName("span");
           let groupname=element[0].textContent;
           document.querySelector(".id-displayer").textContent = groupname;
@@ -283,13 +313,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
           .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
           .then(data => xmlToJson(data))
           .then(function(response) {
+            console.log(response)
             for (let element of response.messages.message) {
               console.log(element)
               let {content,isTask,sendtime } = element;
               let senderId= element.senderId.id;
               let val = content;
               let textnode = document.createTextNode(val);
-              let classlist
+              let classlist;
               let innerDiv = document.createElement("div");
               let outerDiv = document.createElement("div");
               if (senderId===JSON.parse(localStorage.user).id){
@@ -318,6 +349,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
           })
 
+
+
+
+          document.querySelector("#inputbox").addEventListener("keypress", function(e) {
+            let value = document.getElementById("inputbox").value;
+            let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${JSON.parse(localStorage.user).id}&content=${value}`;
+
+            var key = e.which || e.keyCode;
+            if (key === 13 && value!=='') {
+              fetch(url2, {
+                method: "POST",
+              })
+              sendMsg();
+            }
+          });
+
+          document.querySelector("#send").addEventListener("click", function(e) {
+            let value = document.getElementById("inputbox").value;
+            let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${JSON.parse(localStorage.user).id}&content=${value}`;
+
+            if (value!==''){
+              fetch(url2, {
+                method: "POST",
+              })
+              sendMsg();
+            }
+          });
         });
       }
     })
@@ -410,7 +468,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     function sendMsg() {
       let val = document.getElementById("inputbox").value;
-      console.log("val =" + val);
       let textnode = document.createTextNode(val);
 
       let innerDiv = document.createElement("div");
@@ -432,6 +489,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       var objDiv = document.getElementById("chat-box");
       objDiv.scrollTop = objDiv.scrollHeight;
+
+
     }
     // var api = key + val;
     // $.getJSON(api, function(data) {
@@ -511,16 +570,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
       openTaskContainer();
     });
 
-    document.querySelector("#inputbox").addEventListener("keypress", function(e) {
-      var key = e.which || e.keyCode;
-      if (key === 13) {
-        sendMsg();
-      }
-    });
-
-    document.querySelector("#send").addEventListener("click", function(e) {
-      sendMsg();
-    });
+    // document.querySelector("#inputbox").addEventListener("keypress", function(e) {
+    //   var key = e.which || e.keyCode;
+    //   if (key === 13) {
+    //     sendMsg();
+    //   }
+    // });
+    //
+    // document.querySelector("#send").addEventListener("click", function(e) {
+    //   sendMsg();
+    // });
 
     document
     .querySelector(".ann-list")

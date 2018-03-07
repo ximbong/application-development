@@ -72,6 +72,7 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
         newMs.setDepartmentId(newDp);
         newMs.setContent(content);
         newMs.setSenderId(newUs);
+        newMs.setIsTask(false);
         super.create(newMs);
         
         
