@@ -439,19 +439,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
 
-  function openAdminContainer() {
-    document.getElementById("backdrop").style.display = "block";
-    document.querySelector(".wrap-div").style.display = "flex";
-    document.querySelector(".wrap-div").style.opacity = "1";
-    document.querySelector(".admin-container").style.display = "block";
-  }
+    function openAdminContainer() {
+      document.getElementById("backdrop").style.display = "block";
+      document.querySelector(".wrap-div").style.display = "flex";
+      document.querySelector(".wrap-div").style.opacity = "1";
+      document.querySelector(".admin-container").style.display = "block";
+    }
 
-  function closeAdminContainer() {
-    document.getElementById("backdrop").style.display = "none";
-    document.querySelector(".wrap-div").style.display = "none";
-    document.querySelector(".wrap-div").style.opacity = "0";
-    document.querySelector(".admin-container").style.display = "none";
-  }
+    function closeAdminContainer() {
+      document.getElementById("backdrop").style.display = "none";
+      document.querySelector(".wrap-div").style.display = "none";
+      document.querySelector(".wrap-div").style.opacity = "0";
+      document.querySelector(".admin-container").style.display = "none";
+    }
 
     function openAnnContainer() {
       document.getElementById("backdrop").style.display = "block";
@@ -524,6 +524,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
       openAdminContainer();
     });
 
+    document.querySelector(".admin-container").addEventListener("click",function(event){
+      if (event.target === document.querySelector(".admin-submit")) {
+        let username = document.getElementById('admin-1').value;
+          let id = document.getElementById('admin-2').value;
+          let phone = document.getElementById('admin-3').value;
+          if( username!=='' && id!=='' && phone!==''){
+            let url =  `http://10.114.32.77:8080/WebApplication1/ws/users/new?username=${username}&dpm_id=${id}&phone=${phone}`;
+            fetch(url, {
+              method: "POST"
+            })
+          }
+         document.getElementById('admin-1').value = '';
+         document.getElementById('admin-2').value = '';
+         document.getElementById('admin-3').value = '';
+        closeAdminContainer();
+      }
+    })
+
     document.querySelector(".new-task-container").addEventListener("click", function(event) {
       if (
         event.target === document.getElementById("close2") ||
@@ -536,6 +554,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         event.target === document.getElementById("close3") ||
         event.target === document.getElementById("close3").childNodes[0]
       )
+
       closeAdminContainer();
     });
 
@@ -559,20 +578,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
           let boxDiv = document.createElement("div");
           let titleDiv = document.createElement("div");
           let introDiv = document.createElement("div");
-          let creatorDiv = document.createElement("div");
+          // let creatorDiv = document.createElement("div");
           boxDiv.classList.add("ann-box");
           titleDiv.classList.add("ann-title");
           introDiv.classList.add("ann-intro");
-          creatorDiv.classList.add("ann-creator");
+          // creatorDiv.classList.add("ann-creator");
           let textnode1 = document.createTextNode(annTitle);
           let textnode2 = document.createTextNode(annTextarea);
           let textnode3 = document.createTextNode(annCreator);
           titleDiv.appendChild(textnode1);
           introDiv.appendChild(textnode2);
-          creatorDiv.appendChild(textnode3);
+          // creatorDiv.appendChild(textnode3);
           boxDiv.appendChild(titleDiv);
           boxDiv.appendChild(introDiv);
-          boxDiv.appendChild(creatorDiv)
+          // boxDiv.appendChild(creatorDiv)
 
           let list = document.querySelector(".ann-list");
           list.insertBefore(boxDiv, list.childNodes[0]);
@@ -634,7 +653,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var children = el.childNodes;
       title = children[0].textContent;
       intro = children[1].textContent;
-      creator = children[2].textContent;
+      // creator = children[2].textContent;
       console.log("title = " + title);
       console.log("intro = " + intro);
       document.querySelector(".id-displayer").textContent = title;
@@ -642,7 +661,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       document.querySelector(".message-box").style.display = "none";
 
       document.querySelector(".ann-info").style.display = "block";
-      document.querySelector(".ann-info").innerHTML = "5.3.2018, "+"Created by: "+creator+"<br><br>"+intro;
+      document.querySelector(".ann-info").innerHTML =intro;
     });
 
     var statusArray =  document
