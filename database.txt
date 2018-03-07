@@ -44,4 +44,4 @@ add column details text;
 alter table message
 add column place text ,
 add column content text ,
-add column isTask bool ;
+add column isTask bool

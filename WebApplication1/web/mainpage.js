@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .classList.remove("id-displayer-group");
     }
 
-    let url =   `http://10.114.32.77:8080/WebApplication1/ws/users`;
+    let url =   `http://localhost:8080/WebApplication1/ws/users`;
     let list = document.querySelector(".user-chat-column");
     list.innerHTML="";
     fetch(url, {
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           for (let element of  response.userss.users){
             if (element.username===usrname) id2 = element.id;
           }
-          let url = `http://10.114.32.77:8080/WebApplication1/ws/cv?id1=${JSON.parse(localStorage.user).id}&id2=${id2}`;
+          let url = `http://localhost:8080/WebApplication1/ws/cv?id1=${JSON.parse(localStorage.user).id}&id2=${id2}`;
           fetch(url, {
             method: "GET",
           })
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .classList.add("id-displayer-group");
     }
 
-    let url =   `http://10.114.32.77:8080/WebApplication1/ws/dpm`;
+    let url =   `http://localhost:8080/WebApplication1/ws/dpm`;
     let list = document.querySelector(".group-chat-column");
     list.innerHTML="";
     fetch(url, {
@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (element.name===groupname) id = element.id;
           }
 
-          let url = `http://10.114.32.77:8080/WebApplication1/ws/msg?id=${id}`;
+          let url = `http://localhost:8080/WebApplication1/ws/msg?id=${id}`;
           fetch(url, {
             method: "GET",
           }).then(response => response.text())
@@ -317,35 +317,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
             for (let element of response.messages.message) {
               console.log(element)
               let {content,isTask,sendtime } = element;
-              let senderId= element.senderId.id;
-              let val = content;
-              let textnode = document.createTextNode(val);
-              let classlist;
-              let innerDiv = document.createElement("div");
-              let outerDiv = document.createElement("div");
-              if (senderId===JSON.parse(localStorage.user).id){
-                classlist = [
-                  "message-div",
-                  "new-msg",
-                  "msg-send"
-                ];
-              } else {
-                classlist = [
-                  "message-div",
-                  "new-msg",
-                  "msg-receive"
-                ];
+              if (isTask==="false"){
+                let senderId= element.senderId.id;
+                let val = content;
+                let textnode = document.createTextNode(val);
+                let classlist;
+                let innerDiv = document.createElement("div");
+                let outerDiv = document.createElement("div");
+                if (senderId===JSON.parse(localStorage.user).id){
+                  classlist = [
+                    "message-div",
+                    "new-msg",
+                    "msg-send"
+                  ];
+                } else {
+                  classlist = [
+                    "message-div",
+                    "new-msg",
+                    "msg-receive"
+                  ];
+                }
+
+
+                innerDiv.classList.add("chat-message");
+                outerDiv.classList.add(...classlist);
+                innerDiv.appendChild(textnode);
+                outerDiv.appendChild(innerDiv);
+                document.querySelector(".message-box").appendChild(outerDiv);
+
+                var objDiv = document.getElementById("chat-box");
+                objDiv.scrollTop = objDiv.scrollHeight;
               }
 
-
-              innerDiv.classList.add("chat-message");
-              outerDiv.classList.add(...classlist);
-              innerDiv.appendChild(textnode);
-              outerDiv.appendChild(innerDiv);
-              document.querySelector(".message-box").appendChild(outerDiv);
-
-              var objDiv = document.getElementById("chat-box");
-              objDiv.scrollTop = objDiv.scrollHeight;
             }
           })
 
@@ -354,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
           document.querySelector("#inputbox").addEventListener("keypress", function(e) {
             let value = document.getElementById("inputbox").value;
-            let url2 = `http://10.114.32.77:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${JSON.parse(localStorage.user).id}&content=${value}`;
+            let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${JSON.parse(localStorage.user).id}&content=${value}`;
 
             var key = e.which || e.keyCode;
             if (key === 13 && value!=='') {
@@ -367,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
           document.querySelector("#send").addEventListener("click", function(e) {
             let value = document.getElementById("inputbox").value;
-            let url2 = `http://10.114.32.77:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${JSON.parse(localStorage.user).id}&content=${value}`;
+            let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${JSON.parse(localStorage.user).id}&content=${value}`;
 
             if (value!==''){
               fetch(url2, {
@@ -397,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     let list = document.querySelector(".ann-list");
     list.innerHTML="";
-    let url = `http://10.114.32.77:8080/WebApplication1/ws/announcement`;
+    let url = `http://localhost:8080/WebApplication1/ws/announcement`;
 
     fetch(url, {
       method: "GET",
@@ -550,7 +553,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.getElementById("ann-textarea").value = "";
 
           let url =
-          `http://10.114.32.77:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${JSON.parse(localStorage.user).id}`;
+          `http://localhost:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${JSON.parse(localStorage.user).id}`;
 
 
           fetch(url, {
@@ -644,7 +647,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           status_code=4;
 
         }
-        let url =   `http://10.114.32.77:8080/WebApplication1/ws/users/${JSON.parse(localStorage.user).id}/${status_code}`;
+        let url =   `http://localhost:8080/WebApplication1/ws/users/${JSON.parse(localStorage.user).id}/${status_code}`;
 
         fetch(url, {
           method: "PUT"

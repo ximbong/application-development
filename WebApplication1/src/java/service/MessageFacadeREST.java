@@ -44,13 +44,13 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(@QueryParam("dpm_id") int id1,@QueryParam("sender_id") int id2, @QueryParam("content") String content) {
+    public void create(@QueryParam("dpm_id") int id1,@QueryParam("sender_id") int id2, @QueryParam("content") String content,@QueryParam("description") String description, @QueryParam("details") String details, @QueryParam("place") String place) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         
         CriteriaQuery<Users> q = cb.createQuery(Users.class);
         Root<Users> c = q.from(Users.class);
         q.select(c);
-  
+ 
         q.where(  
                 cb.equal(c.get("id"), id2)
         );
@@ -69,15 +69,23 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
         Department newDp= query2.getSingleResult();
         
         Message newMs = new Message();
+        if ( content == null) {
+            newMs.setIsTask(true);
+} else {
+             newMs.setIsTask(false);
+        }
         newMs.setDepartmentId(newDp);
         newMs.setContent(content);
         newMs.setSenderId(newUs);
-        newMs.setIsTask(false);
+        newMs.setDescription(description);
+        newMs.setDetails(details);
+        newMs.setPlace(place);
         super.create(newMs);
         
-        
     }
-
+    
+   
+    
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
