@@ -439,7 +439,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
 
+  function openAdminContainer() {
+    document.getElementById("backdrop").style.display = "block";
+    document.querySelector(".wrap-div").style.display = "flex";
+    document.querySelector(".wrap-div").style.opacity = "1";
+    document.querySelector(".admin-container").style.display = "block";
+  }
 
+  function closeAdminContainer() {
+    document.getElementById("backdrop").style.display = "none";
+    document.querySelector(".wrap-div").style.display = "none";
+    document.querySelector(".wrap-div").style.opacity = "0";
+    document.querySelector(".admin-container").style.display = "none";
+  }
 
     function openAnnContainer() {
       document.getElementById("backdrop").style.display = "block";
@@ -508,6 +520,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".ann-button").addEventListener("click", function() {
       openAnnContainer();
     });
+    document.querySelector("#admin-nav").addEventListener("click", function() {
+      openAdminContainer();
+    });
 
     document.querySelector(".new-task-container").addEventListener("click", function(event) {
       if (
@@ -515,6 +530,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         event.target === document.getElementById("close2").childNodes[0]
       )
       closeTaskContainer();
+    });
+    document.querySelector(".admin-container").addEventListener("click", function(event) {
+      if (
+        event.target === document.getElementById("close3") ||
+        event.target === document.getElementById("close3").childNodes[0]
+      )
+      closeAdminContainer();
     });
 
     document
@@ -530,28 +552,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if (event.target === document.querySelector(".ann-submit")) {
         let annTitle = document.querySelector(".ann-input-title").value;
         let annTextarea = document.getElementById("ann-textarea").value;
+        let annCreator = document.getElementById("nav-username").innerHTML;
         console.log(annTitle);
         console.log(annTextarea);
         if (annTitle !== "" && annTextarea !== "") {
           let boxDiv = document.createElement("div");
           let titleDiv = document.createElement("div");
           let introDiv = document.createElement("div");
+          let creatorDiv = document.createElement("div");
           boxDiv.classList.add("ann-box");
           titleDiv.classList.add("ann-title");
           introDiv.classList.add("ann-intro");
+          creatorDiv.classList.add("ann-creator");
           let textnode1 = document.createTextNode(annTitle);
           let textnode2 = document.createTextNode(annTextarea);
+          let textnode3 = document.createTextNode(annCreator);
           titleDiv.appendChild(textnode1);
           introDiv.appendChild(textnode2);
+          creatorDiv.appendChild(textnode3);
           boxDiv.appendChild(titleDiv);
           boxDiv.appendChild(introDiv);
+          boxDiv.appendChild(creatorDiv)
 
           let list = document.querySelector(".ann-list");
           list.insertBefore(boxDiv, list.childNodes[0]);
           closeAnnContainer();
           document.querySelector(".ann-input-title").value = "";
           document.getElementById("ann-textarea").value = "";
-
+          document.getElementById("ann-creator").value = "";
           let url =
           `http://localhost:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${JSON.parse(localStorage.user).id}`;
 
@@ -602,10 +630,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         event.target.classList.contains("ann-intro")
       )
       el = event.target.parentElement;
-      let title, intro;
+      let title, intro, creator;
       var children = el.childNodes;
       title = children[0].textContent;
       intro = children[1].textContent;
+      creator = children[2].textContent;
       console.log("title = " + title);
       console.log("intro = " + intro);
       document.querySelector(".id-displayer").textContent = title;
@@ -613,8 +642,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       document.querySelector(".message-box").style.display = "none";
 
       document.querySelector(".ann-info").style.display = "block";
-
-      document.querySelector(".ann-info").textContent = intro;
+      document.querySelector(".ann-info").innerHTML = "5.3.2018, "+"Created by: "+creator+"<br><br>"+intro;
     });
 
     var statusArray =  document
