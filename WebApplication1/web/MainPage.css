@@ -494,11 +494,21 @@ a {
   vertical-align: middle;
   width: calc(100% - 60px);
 }
+.user-info-div{
+
+}
 .user-info-area{
-  
+  max-width: 50%;
+  margin-bottom: 1px;
+  border-radius: 20px;
+  padding: 6px 12px;
+  background: #d8dfea;
 }
 .user-info{
-
+font-weight: bold;
+}
+.user-col{
+  width: 50%;
 }
 
 .group-box .chat-info {
@@ -980,4 +990,7 @@ a {
   .input-box input {
     flex: 9;
   }
+
+
+
 }
