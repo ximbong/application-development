@@ -151,6 +151,21 @@ a {
   border: 1px solid #1f6696;
   display: none;
 }
+.task-div {
+    display: flex;
+    width: 100%: 
+}
+.chat-icon1{
+    display: inline-block;
+    justify-content: center;
+    color:limegreen;
+    text-shadow:2px 2px #ff0000;
+}
+.chat-icon2{
+    display: inline-block;
+    justify-content: center;
+    color:red;
+}
 /* close button for the previous container (box)*/
 .close {
   position: absolute;
@@ -653,15 +668,17 @@ a {
   background: #d6f4ff;
   box-shadow: 10px 9px 66px -11px rgba(0,0,0,0.52);
 }
-.task {
-  justify-content: center;
-  
+.task-send {
+  justify-content: right;
+}
+.task-receive {
+  justify-content: left;
 }
 /* chat input box */
-.input-box {
+.input-box, .task-box {
   display: flex;
 }
-.input-box input {
+.input-box input, .task-box {
   background: transparent;
   flex: 15;
   padding: 5px 10px;
@@ -669,7 +686,7 @@ a {
   vertical-align: middle;
   transition: 1s;
 }
-.input-box input:focus {
+.input-box input, .task-box:focus {
   background: #f9f9f9;
   border-radius: 5px;
 }
@@ -687,6 +704,36 @@ a {
 .icon:hover {
     background:#d5dfef;
 }
+.task-icon-send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 10%;
+  cursor: pointer;
+  color: #3c4a4f;
+  padding: 15px 5px;
+}
+.task-icon-send:hover {
+    background:#d5dfef;
+}
+.task-icon-receive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 10%;
+  cursor: pointer;
+  color: #3c4a4f;
+  padding: 15px 5px;
+}
+.task-icon-receive:hover {
+    background: white;
+}
+.task-span{
+    
+}
+
 #send {
   color: #16afe0 !important;
 }

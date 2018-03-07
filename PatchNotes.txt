@@ -1,3 +1,5 @@
+commit 32.
+
 admin nav button created
 	admin sendInfo function must be added.
 
@@ -7,6 +9,14 @@ task message html and css created
 removed announcement from userpage	
 
 announcement modification completed.
+
+
+commit 33.
+
+fixed task sending and other stuff related to tasks 
+task visual upgrade
+announcement small fix
+
 
 
 
