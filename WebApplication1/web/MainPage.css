@@ -655,7 +655,7 @@ a {
 }
 .task {
   justify-content: center;
-  
+
 }
 /* chat input box */
 .input-box {
@@ -705,7 +705,7 @@ a {
   font-size: 60%;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 /* make new ann div */
 .make-ann {

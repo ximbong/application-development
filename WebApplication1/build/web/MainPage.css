@@ -127,7 +127,7 @@ a {
   -o-animation: fadeInFromNone 0.5s ease-out;
   animation: fadeInFromNone 0.5s ease-out;
 }
-.new-ann-container {
+.new-ann-container, .admin-container {
   position: relative;
   border: 1px solid #d8dfea;
   width: 500px;
@@ -217,7 +217,7 @@ a {
   background: white;
 }
 /* submit-button */
-.ann-submit {
+.ann-submit,.admin-submit {
   width: 70%;
   text-align: center;
   letter-spacing: 0.5px;
@@ -645,6 +645,18 @@ a {
   padding: 6px 12px;
   background: #d8dfea;
 }
+.task-message {
+  max-width: 80%;
+  margin-bottom: 1px;
+  border-radius: 20px;
+  padding: 6px 12px;
+  background: #d6f4ff;
+  box-shadow: 10px 9px 66px -11px rgba(0,0,0,0.52);
+}
+.task {
+  justify-content: center;
+
+}
 /* chat input box */
 .input-box {
   display: flex;
@@ -688,6 +700,12 @@ a {
 /* announcement column */
 .ann-column {
   display: none;
+}
+.ann-creator{
+  font-size: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 /* make new ann div */
 .make-ann {

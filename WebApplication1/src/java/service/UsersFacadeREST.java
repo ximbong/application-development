@@ -5,6 +5,7 @@
  */
 package service;
 
+import Database.Department;
 import Database.Users;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -39,8 +40,8 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     public UsersFacadeREST() {
         super(Users.class);
     }
-
-   
+    
+    
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
@@ -61,6 +62,33 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         TypedQuery<Users> query = em.createQuery(q);
         return query.getResultList();
            
+    }
+    
+    @Path("new")
+     @POST
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+    public void createNew(@QueryParam("username") String username, @QueryParam("dpm_id") int id, @QueryParam("phone") String phone) {
+         CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Department> q2 = cb.createQuery(Department.class);
+        Root<Department> c2 = q2.from(Department.class);
+        q2.select(c2);
+  
+        q2.where(  
+                cb.equal(c2.get("id"), id)
+        );
+        TypedQuery<Department> query2 = em.createQuery(q2);
+        Department newDp= query2.getSingleResult();
+        
+        
+        Users newUs = new Users();
+        newUs.setUsername(username);
+        newUs.setDepartmentId(newDp);
+        newUs.setPassword("123");
+        newUs.setPhonenumber(phone);
+        newUs.setStatusCode(1);
+        super.create(newUs);   
     }
     @PUT
     @Path("{id}/{status_code}")
