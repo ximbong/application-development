@@ -5,7 +5,7 @@
  */
 package service;
 
-import Database.Coversation;
+import Database.Department;
 import Database.Message;
 import Database.Users;
 import java.util.List;
@@ -35,7 +35,7 @@ import javax.ws.rs.core.MediaType;
 @Path("msg")
 public class MessageFacadeREST extends AbstractFacade<Message> {
 
-    @PersistenceContext(unitName = "WebApplication1PU")
+    @PersistenceContext(unitName = "WebApplicationPU")
     private EntityManager em;
 
     public MessageFacadeREST() {
@@ -43,10 +43,38 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
     }
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Message entity) {
-        super.create(entity);
+    public void create(@QueryParam("dpm_id") int id1,@QueryParam("sender_id") int id2, @QueryParam("content") String content) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Users> q = cb.createQuery(Users.class);
+        Root<Users> c = q.from(Users.class);
+        q.select(c);
+  
+        q.where(  
+                cb.equal(c.get("id"), id2)
+        );
+        TypedQuery<Users> query = em.createQuery(q);
+        Users newUs= query.getSingleResult();
+        
+           
+        CriteriaQuery<Department> q2 = cb.createQuery(Department.class);
+        Root<Department> c2 = q2.from(Department.class);
+        q2.select(c2);
+  
+        q2.where(  
+                cb.equal(c2.get("id"), id1)
+        );
+        TypedQuery<Department> query2 = em.createQuery(q2);
+        Department newDp= query2.getSingleResult();
+        
+        Message newMs = new Message();
+        newMs.setDepartmentId(newDp);
+        newMs.setContent(content);
+        newMs.setSenderId(newUs);
+        super.create(newMs);
+        
+        
     }
 
     @PUT
@@ -71,41 +99,35 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Message> findAll(@QueryParam("cv_id") int id) {
-        
+    public List<Message> findAll(@QueryParam("id") int id) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Coversation> q = cb.createQuery(Coversation.class);
-        Root<Coversation> c = q.from(Coversation.class);
-        
-        
+        CriteriaQuery<Department> q = cb.createQuery(Department.class);
+        Root<Department> c = q.from(Department.class);
         q.select(c);
+  
         q.where(    
             cb.equal(c.get("id"), id)
         );
         
-        TypedQuery<Coversation> query = em.createQuery(q);
-
-        Coversation newCv = query.getSingleResult();
-
+        TypedQuery<Department> query = em.createQuery(q);
+        
+        Department newDp = query.getSingleResult();
+        System.out.println(newDp.getId());
         CriteriaQuery<Message> q2 = cb.createQuery(Message.class);
         Root<Message> c2 = q2.from(Message.class);
          
         q2.select(c2);
-//        q2.where(    
-//            cb.equal(c2.get("coversationId"), newCv)
-//        );
+        q2.where(    
+            cb.equal(c2.get("departmentId"), newDp)
+       );
         
         TypedQuery<Message> query2 = em.createQuery(q2);
-        List<Message> msg = query2.getResultList();
         
-//        for(Message m : msg){
-//            if(m.getCoversationId().getId() == id){
-//                return m;
-//            }
-//        }
+       
         return query2.getResultList();
     }
     
+
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

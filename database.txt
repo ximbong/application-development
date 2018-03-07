@@ -2,49 +2,28 @@ create table users (
 id int NOT NULL auto_increment,
 username VARCHAR(10) NOT NULL,
 password VARCHAR(40) NOT NULL,
-role VARCHAR(15) NOT NULL,
-is_online Bool,
-is_busy Bool,
-is_idle Bool,
-is_offline Bool,
+department_id int,
+status_code int,
 phonenumber VARCHAR(16),
-primary key (id)
+primary key (id),
+foreign key (department_id) references department(id)
 );
 
-create table coversation (
-id int NOT NULL auto_increment,
-primary key (id)
-);
-
-create table user_cvd (
-c_id int NOT NULL,
-u_id int NOT NULL,
-primary key (c_id, u_id),
-foreign key (c_id) references coversation(id),
-foreign key (u_id) references users(id)
-);
 
 create table message (
 id int NOT NULL auto_increment,
-coversation_id int NOT NULL,
+department_id int NOT NULL,
 sender_id int NOT NULL,
+sendtime timestamp,
 primary key (id),
-foreign key (coversation_id) references coversation(id),
+foreign key (department_id) references department(id),
 foreign key (sender_id) references users(id)
 );
 
-create table text_message (
-message_id int,
-content text,
-foreign key (message_id) references message(id)
-);
-
-create table task_message(
-message_id int,
-location text,
-description text,
-details text,
-foreign key (message_id) references message(id)
+create table department (
+id int,
+name VARCHAR(30),
+primary key (id)
 );
 
 create table announcement (
@@ -52,18 +31,17 @@ id int NOT NULL auto_increment,
 title VARCHAR(30) NOT NULL,
 description text,
 creator_id int NOT NULL,
+timemade timestamp,
 primary key (id),
 foreign key(creator_id) references users(id)
 );
 
-alter table users
-add status_code int;
+alter table message
+add column description text,
+add column status text,
+add column details text;
 
-alter table users
-drop column is_online,
-drop column is_offline,
-drop column is_busy,
-drop column is_idle;
-
-alter table message add timestamp timestamp;
-alter table message add isGroupChat bool;
+alter table message
+add column place text ,
+add column content text ,
+add column isTask bool ;

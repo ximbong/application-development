@@ -34,14 +34,13 @@ import javax.ws.rs.core.MediaType;
 @Path("announcement")
 public class AnnouncementFacadeREST extends AbstractFacade<Announcement> {
 
-    @PersistenceContext(unitName = "WebApplication1PU")
+    @PersistenceContext(unitName = "WebApplicationPU")
     private EntityManager em;
 
     public AnnouncementFacadeREST() {
         super(Announcement.class);
     }
 
-    
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -69,7 +68,8 @@ public class AnnouncementFacadeREST extends AbstractFacade<Announcement> {
         newAnnouncement.setDescription(description);
         
         super.create(newAnnouncement);
-        }
+    }
+
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -94,13 +94,7 @@ public class AnnouncementFacadeREST extends AbstractFacade<Announcement> {
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Announcement> findAll() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Announcement> q = cb.createQuery(Announcement.class);
-        Root<Announcement> c = q.from(Announcement.class);
-        q.select(c);
-         
-        TypedQuery<Announcement> query = em.createQuery(q);
-        return query.getResultList();
+        return super.findAll();
     }
 
     @GET

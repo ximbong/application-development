@@ -8,44 +8,44 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   function xmlToJson(xml) {
 
-  	// Create the return object
-  	var obj = {};
+    // Create the return object
+    var obj = {};
 
-  	if (xml.nodeType == 1) { // element
-  		// do attributes
-  		if (xml.attributes.length > 0) {
-  		obj["@attributes"] = {};
-  			for (var j = 0; j < xml.attributes.length; j++) {
-  				var attribute = xml.attributes.item(j);
-  				obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-  			}
-  		}
-  	} else if (xml.nodeType == 3) { // text
-  		obj = xml.nodeValue;
-  	}
+    if (xml.nodeType == 1) { // element
+      // do attributes
+      if (xml.attributes.length > 0) {
+        obj["@attributes"] = {};
+        for (var j = 0; j < xml.attributes.length; j++) {
+          var attribute = xml.attributes.item(j);
+          obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+        }
+      }
+    } else if (xml.nodeType == 3) { // text
+      obj = xml.nodeValue;
+    }
 
-  	// do children
-  	// If just one text node inside
-  	if (xml.hasChildNodes() && xml.childNodes.length === 1 && xml.childNodes[0].nodeType === 3) {
-  		obj = xml.childNodes[0].nodeValue;
-  	}
-  	else if (xml.hasChildNodes()) {
-  		for(var i = 0; i < xml.childNodes.length; i++) {
-  			var item = xml.childNodes.item(i);
-  			var nodeName = item.nodeName;
-  			if (typeof(obj[nodeName]) == "undefined") {
-  				obj[nodeName] = xmlToJson(item);
-  			} else {
-  				if (typeof(obj[nodeName].push) == "undefined") {
-  					var old = obj[nodeName];
-  					obj[nodeName] = [];
-  					obj[nodeName].push(old);
-  				}
-  				obj[nodeName].push(xmlToJson(item));
-  			}
-  		}
-  	}
-  	return obj;
+    // do children
+    // If just one text node inside
+    if (xml.hasChildNodes() && xml.childNodes.length === 1 && xml.childNodes[0].nodeType === 3) {
+      obj = xml.childNodes[0].nodeValue;
+    }
+    else if (xml.hasChildNodes()) {
+      for(var i = 0; i < xml.childNodes.length; i++) {
+        var item = xml.childNodes.item(i);
+        var nodeName = item.nodeName;
+        if (typeof(obj[nodeName]) == "undefined") {
+          obj[nodeName] = xmlToJson(item);
+        } else {
+          if (typeof(obj[nodeName].push) == "undefined") {
+            var old = obj[nodeName];
+            obj[nodeName] = [];
+            obj[nodeName].push(old);
+          }
+          obj[nodeName].push(xmlToJson(item));
+        }
+      }
+    }
+    return obj;
   }
 
 
@@ -153,16 +153,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         switch (parseInt(statusCode)) {
           case 1:
-            icon.classList.add('color-online')
+          icon.classList.add('color-online')
           break;
           case 2:
           icon.classList.add('color-idle')
           break;
           case 3:
-            icon.classList.add('color-busy');
+          icon.classList.add('color-busy');
           break;
           default:
-            icon.classList.add('color-invisible');
+          icon.classList.add('color-invisible');
         }
 
         let textnode2 = document.createTextNode(username);
@@ -177,9 +177,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
         list.insertBefore(boxDiv, list.childNodes[0]);
-
-
-
 
       }
       for (let val of document.getElementsByClassName("user-box")) {
@@ -201,10 +198,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
           for (let element of  response.userss.users){
             if (element.username===usrname) id2 = element.id;
           }
-           let url = `http://localhost:8080/WebApplication1/ws/cv?id1=${JSON.parse(localStorage.user).id}&id2=${id2}`;
-           fetch(url, {
-             method: "GET",
-           })
+          let url = `http://localhost:8080/WebApplication1/ws/cv?id1=${JSON.parse(localStorage.user).id}&id2=${id2}`;
+          fetch(url, {
+            method: "GET",
+          })
         });
       }
     })
@@ -220,6 +217,113 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .querySelector(".id-displayer")
       .classList.add("id-displayer-group");
     }
+
+    let url =   `http://localhost:8080/WebApplication1/ws/dpm`;
+    let list = document.querySelector(".group-chat-column");
+    list.innerHTML="";
+    fetch(url, {
+      method: "GET"
+    })
+    .then(response => response.text())
+    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+    .then(data => xmlToJson(data))
+    .then(function(response){
+      for (let element of response.departments.department) {
+        console.log(element);
+        let { id, name } = element;
+        let boxDiv = document.createElement("div");
+        let chatInfoDiv = document.createElement("div");
+        let idDiv = document.createElement("div");
+        let timestampDiv= document.createElement("div");
+        let lastmsgDiv = document.createElement("div");
+        let usernameSpan = document.createElement("span");
+
+
+        boxDiv.classList.add("group-box");
+        chatInfoDiv.classList.add("chat-info");
+        idDiv.classList.add("id");
+        usernameSpan.classList.add("groupname");
+
+        let textnode2 = document.createTextNode(name);
+        usernameSpan.appendChild(textnode2);
+        idDiv.appendChild(usernameSpan);
+        chatInfoDiv.appendChild(idDiv);
+        chatInfoDiv.appendChild(timestampDiv);
+        chatInfoDiv.appendChild(lastmsgDiv);
+        boxDiv.appendChild(chatInfoDiv);
+
+
+        list.insertBefore(boxDiv, list.childNodes[0]);
+
+      }
+
+      for (let val of document.getElementsByClassName("group-box")) {
+        val.addEventListener("click", function() {
+            document.querySelector(".message-box").innerHTML="";
+          let element = val.getElementsByTagName("span");
+          let groupname=element[0].textContent;
+          document.querySelector(".id-displayer").textContent = groupname;
+          let id;
+          document.querySelector(".status-displayer").style.display = "none";
+          document.querySelector(".ann-info").style.display = "none";
+          document.querySelector(".message-box").style.display = "block";
+
+          if (window.innerWidth < 1000) {
+            document.querySelector(".main").style.transform = " translateX(-100%)";
+            document.querySelector(".section-div").style.display = "none";
+          }
+          for (let element of  response.departments.department){
+            if (element.name===groupname) id = element.id;
+          }
+
+          let url = `http://localhost:8080/WebApplication1/ws/msg?id=${id}`;
+          fetch(url, {
+            method: "GET",
+          }).then(response => response.text())
+          .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+          .then(data => xmlToJson(data))
+          .then(function(response) {
+            for (let element of response.messages.message) {
+              console.log(element)
+              let {content,isTask,sendtime } = element;
+              let senderId= element.senderId.id;
+              let val = content;
+              let textnode = document.createTextNode(val);
+              let classlist
+              let innerDiv = document.createElement("div");
+              let outerDiv = document.createElement("div");
+              if (senderId===JSON.parse(localStorage.user).id){
+                classlist = [
+                  "message-div",
+                  "new-msg",
+                  "msg-send"
+                ];
+              } else {
+                classlist = [
+                  "message-div",
+                  "new-msg",
+                  "msg-receive"
+                ];
+              }
+
+
+              innerDiv.classList.add("chat-message");
+              outerDiv.classList.add(...classlist);
+              innerDiv.appendChild(textnode);
+              outerDiv.appendChild(innerDiv);
+              document.querySelector(".message-box").appendChild(outerDiv);
+
+              var objDiv = document.getElementById("chat-box");
+              objDiv.scrollTop = objDiv.scrollHeight;
+            }
+          })
+
+        });
+      }
+    })
+
+
+
   });
 
   document.getElementById("section3").addEventListener("click", function() {
@@ -275,22 +379,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-    for (let val of document.getElementsByClassName("group-box")) {
-      val.addEventListener("click", function() {
-        let element = val.getElementsByTagName("span");
-        document.querySelector(".id-displayer").textContent =
-        element[0].textContent;
-
-        document.querySelector(".status-displayer").style.display = "none";
-        document.querySelector(".ann-info").style.display = "none";
-        document.querySelector(".message-box").style.display = "block";
-
-        if (window.innerWidth < 1000) {
-          document.querySelector(".main").style.transform = " translateX(-100%)";
-          document.querySelector(".section-div").style.display = "none";
-        }
-      });
-    }
 
     function openAnnContainer() {
       document.getElementById("backdrop").style.display = "block";
@@ -338,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       outerDiv.classList.add(...classlist);
       innerDiv.appendChild(textnode);
       outerDiv.appendChild(innerDiv);
-      document.querySelector(".chat-box").appendChild(outerDiv);
+      document.querySelector(".message-box").appendChild(outerDiv);
 
       document.getElementById("inputbox").value = "";
 

@@ -6,7 +6,7 @@
 package Database;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,16 +32,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Announcement.findAll", query = "SELECT a FROM Announcement a")
     , @NamedQuery(name = "Announcement.findById", query = "SELECT a FROM Announcement a WHERE a.id = :id")
-    , @NamedQuery(name = "Announcement.findByTitle", query = "SELECT a FROM Announcement a WHERE a.title = :title")})
+    , @NamedQuery(name = "Announcement.findByTitle", query = "SELECT a FROM Announcement a WHERE a.title = :title")
+    , @NamedQuery(name = "Announcement.findByTimemade", query = "SELECT a FROM Announcement a WHERE a.timemade = :timemade")})
 public class Announcement implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
+//    @Basic(optional = false)
 //    @NotNull
 //    @Size(min = 1, max = 30)
     @Column(name = "title")
@@ -50,6 +51,11 @@ public class Announcement implements Serializable {
 //    @Size(max = 65535)
     @Column(name = "description")
     private String description;
+//    @Basic(optional = false)
+//    @NotNull
+    @Column(name = "timemade")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timemade;
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Users creatorId;
@@ -61,9 +67,10 @@ public class Announcement implements Serializable {
         this.id = id;
     }
 
-    public Announcement(Integer id, String title) {
+    public Announcement(Integer id, String title, Date timemade) {
         this.id = id;
         this.title = title;
+        this.timemade = timemade;
     }
 
     public Integer getId() {
@@ -88,6 +95,14 @@ public class Announcement implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getTimemade() {
+        return timemade;
+    }
+
+    public void setTimemade(Date timemade) {
+        this.timemade = timemade;
     }
 
     public Users getCreatorId() {

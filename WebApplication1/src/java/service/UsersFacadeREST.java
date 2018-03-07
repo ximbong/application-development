@@ -33,13 +33,14 @@ import javax.ws.rs.core.MediaType;
 @Path("users")
 public class UsersFacadeREST extends AbstractFacade<Users> {
 
-    @PersistenceContext(unitName = "WebApplication1PU")
+    @PersistenceContext(unitName = "WebApplicationPU")
     private EntityManager em;
 
     public UsersFacadeREST() {
         super(Users.class);
     }
 
+   
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
@@ -61,8 +62,6 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         return query.getResultList();
            
     }
-
-
     @PUT
     @Path("{id}/{status_code}")
      @Consumes(MediaType.APPLICATION_JSON)
@@ -93,23 +92,16 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @GET
     @Path("{id}")
-     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Users find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Users> findAll() {
-         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Users> q = cb.createQuery(Users.class);
-        Root<Users> c = q.from(Users.class);
-        q.select(c);
-        TypedQuery<Users> query = em.createQuery(q);
-        
-        return query.getResultList();
-        
+        return super.findAll();
     }
 
     @GET

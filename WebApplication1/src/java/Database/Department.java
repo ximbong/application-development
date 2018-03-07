@@ -7,16 +7,10 @@ package Database;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,41 +23,49 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author PLH
  */
 @Entity
-@Table(name = "coversation")
+@Table(name = "department")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Coversation.findAll", query = "SELECT c FROM Coversation c")
-    , @NamedQuery(name = "Coversation.findById", query = "SELECT c FROM Coversation c WHERE c.id = :id")})
-public class Coversation implements Serializable {
-
-    @JoinTable(name = "user_cvd", joinColumns = {
-        @JoinColumn(name = "c_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "u_id", referencedColumnName = "id")})
-    @ManyToMany
-    private Collection<Users> usersCollection;
+    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
+    , @NamedQuery(name = "Department.findById", query = "SELECT d FROM Department d WHERE d.id = :id")
+    , @NamedQuery(name = "Department.findByName", query = "SELECT d FROM Department d WHERE d.name = :name")})
+public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Basic(optional = false)
+//    @NotNull
     @Column(name = "id")
-    private int id;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coversationId")
+    private Integer id;
+//    @Size(max = 30)
+    @Column(name = "name")
+    private String name;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "departmentId")
     private Collection<Message> messageCollection;
+    @OneToMany(mappedBy = "departmentId")
+    private Collection<Users> usersCollection;
 
-    public Coversation() {
+    public Department() {
     }
 
-    public Coversation(int id) {
+    public Department(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @XmlTransient
@@ -75,31 +77,6 @@ public class Coversation implements Serializable {
         this.messageCollection = messageCollection;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id >0 ? id : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Coversation)) {
-            return false;
-        }
-        Coversation other = (Coversation) object;
-        if ((this.id <0 && other.id >0) || (this.id >0 && this.id==other.id)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Database.Coversation[ id=" + id + " ]";
-    }
-
     @XmlTransient
     public Collection<Users> getUsersCollection() {
         return usersCollection;
@@ -107,6 +84,31 @@ public class Coversation implements Serializable {
 
     public void setUsersCollection(Collection<Users> usersCollection) {
         this.usersCollection = usersCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Department)) {
+            return false;
+        }
+        Department other = (Department) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Database.Department[ id=" + id + " ]";
     }
     
 }

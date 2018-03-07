@@ -7,22 +7,19 @@ package Database;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,72 +31,109 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m")
-    , @NamedQuery(name = "Message.findById", query = "SELECT m FROM Message m WHERE m.id = :id")})
+    , @NamedQuery(name = "Message.findById", query = "SELECT m FROM Message m WHERE m.id = :id")
+    , @NamedQuery(name = "Message.findBySendtime", query = "SELECT m FROM Message m WHERE m.sendtime = :sendtime")})
 public class Message implements Serializable {
 
-    @Column(name = "timestamp")
-    private Date timestamp;
-    
-    @Column(name = "isGroupChat")
-    private Boolean isGroupChat;
+    @Lob
+//    @Size(max = 65535)
+    @Column(name = "place")
+    private String place;
+    @Lob
+//    @Size(max = 65535)
+    @Column(name = "content")
+    private String content;
+    @Column(name = "isTask")
+    private Boolean isTask;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Basic(optional = false)
     @Column(name = "id")
-    private int id;
-    
-    @OneToOne(mappedBy = "message")
-    private TaskMessage taskMessage;
-    
-    @OneToOne(mappedBy = "message")
-    private TextMessage textMessage;
-    
-    @JoinColumn(name = "coversation_id", referencedColumnName = "id")
-    @ManyToOne
-    private Coversation coversationId;
-    
+    private Integer id;
+//    @Basic(optional = false)
+//    @NotNull
+    @Column(name = "sendtime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date sendtime;
+    @Lob
+//    @Size(max = 65535)
+    @Column(name = "description")
+    private String description;
+    @Lob
+//    @Size(max = 65535)
+    @Column(name = "status")
+    private String status;
+    @Lob
+//    @Size(max = 65535)
+    @Column(name = "details")
+    private String details;
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Department departmentId;
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Users senderId;
 
     public Message() {
     }
 
-    public Message(int id) {
+    public Message(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Message(Integer id, Date sendtime) {
+        this.id = id;
+        this.sendtime = sendtime;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public TaskMessage getTaskMessage() {
-        return taskMessage;
+    public Date getSendtime() {
+        return sendtime;
     }
 
-    public void setTaskMessage(TaskMessage taskMessage) {
-        this.taskMessage = taskMessage;
+    public void setSendtime(Date sendtime) {
+        this.sendtime = sendtime;
     }
 
-    public TextMessage getTextMessage() {
-        return textMessage;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTextMessage(TextMessage textMessage) {
-        this.textMessage = textMessage;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Coversation getCoversationId() {
-        return coversationId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCoversationId(Coversation coversationId) {
-        this.coversationId = coversationId;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public Department getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Department departmentId) {
+        this.departmentId = departmentId;
     }
 
     public Users getSenderId() {
@@ -113,7 +147,7 @@ public class Message implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id >0 ? id : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -124,7 +158,7 @@ public class Message implements Serializable {
             return false;
         }
         Message other = (Message) object;
-        if ((this.id <0 && other.id >0) || (this.id >0 && this.id != other.id)) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -135,20 +169,28 @@ public class Message implements Serializable {
         return "Database.Message[ id=" + id + " ]";
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public String getPlace() {
+        return place;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
-    public Boolean getIsGroupChat() {
-        return isGroupChat;
+    public String getContent() {
+        return content;
     }
 
-    public void setIsGroupChat(Boolean isGroupChat) {
-        this.isGroupChat = isGroupChat;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Boolean getIsTask() {
+        return isTask;
+    }
+
+    public void setIsTask(Boolean isTask) {
+        this.isTask = isTask;
     }
     
 }

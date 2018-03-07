@@ -5,7 +5,7 @@
  */
 package service;
 
-import Database.TaskMessage;
+import Database.Department;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author PLH
  */
 @Stateless
-@Path("database.taskmessage")
-public class TaskMessageFacadeREST extends AbstractFacade<TaskMessage> {
+@Path("dpm")
+public class DepartmentFacadeREST extends AbstractFacade<Department> {
 
-    @PersistenceContext(unitName = "WebApplication1PU")
+    @PersistenceContext(unitName = "WebApplicationPU")
     private EntityManager em;
 
-    public TaskMessageFacadeREST() {
-        super(TaskMessage.class);
+    public DepartmentFacadeREST() {
+        super(Department.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(TaskMessage entity) {
+    public void create(Department entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, TaskMessage entity) {
+    public void edit(@PathParam("id") Integer id, Department entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class TaskMessageFacadeREST extends AbstractFacade<TaskMessage> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public TaskMessage find(@PathParam("id") Integer id) {
+    public Department find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TaskMessage> findAll() {
+    public List<Department> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TaskMessage> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Department> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
