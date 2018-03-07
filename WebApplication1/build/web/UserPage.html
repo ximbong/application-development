@@ -70,31 +70,27 @@ and open the template in the editor.
       <span class="box-title"> Add User</span>
 
       <div class="new-title">
-        <span>Real Name</span>
-        <input class="effect-1" type="text">
-        <span class="focus-border">
-
-
-  </div>
-        <div class="new-title">
         <span>Username</span>
-        <input class="effect-1" type="text" placeholder="">
+        <input class="effect-1" type="text" id="admin-1">
         <span class="focus-border">
 
 
   </div>
         <div class="new-title">
-        <span>Password</span>
-        <input class="effect-1" type="text">
+        <span>Department</span>
+        <input class="effect-1" type="text" placeholder="" id="admin-2">
         <span class="focus-border">
 
 
   </div>
         <div class="new-title">
-        <span>Role</span>
-        <input class="effect-1" type="text">
+        <span>Phone Number  </span>
+        <input class="effect-1" type="text" id="admin-3">
         <span class="focus-border">
+
+
   </div>
+
       <div class="admin-submit">Add</div>
     </div>
   </div>
@@ -109,7 +105,7 @@ and open the template in the editor.
       <div id="tabs">
         <div class="space"></div>
         <div class="navButton underline"><a href="#">Home</a></div>
-        <div class="navButton underline"><a id="admin-nav">Admin</a></div>
+        <div class="navButton underline" style="display:none;"><a id="admin-nav">Admin</a></div>
         <div class="navButton underline"><a href="#">Schedule</a></div>
         <div class="navButton underline"><a href="#">Help</a></div>
 
@@ -292,7 +288,7 @@ and open the template in the editor.
             </div>
           </div>
           <div class="ann-column">
-            <div class="make-ann">
+            <div class="make-ann" style="display:none;">
               <div class="ann-button">Make an announcement</div>
             </div>
             <div class="ann-list">
@@ -377,6 +373,13 @@ and open the template in the editor.
               </div>
             </div>
             <div class="ann-info"> </div>
+            <div class="user-info-area">
+              <span class="user-info">name:</span><span class="usr1">1</span>
+              <span class="user-info">online status:</span><span class="usr2">2</span>
+              <span class="user-info">deparment:</span><span class="usr3">3</span>
+              <span class="user-info">phone number:</span><span class="usr4">4</span>
+              <span class="user-info"></span><span class="usr5"></span>
+            </div>
           </div>
 
           <div class="input-box"><input id="inputbox" type="text" placeholder="Type a message">

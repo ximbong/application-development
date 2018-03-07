@@ -585,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           // creatorDiv.classList.add("ann-creator");
           let textnode1 = document.createTextNode(annTitle);
           let textnode2 = document.createTextNode(annTextarea);
-          let textnode3 = document.createTextNode(annCreator);
+          // let textnode3 = document.createTextNode(annCreator);
           titleDiv.appendChild(textnode1);
           introDiv.appendChild(textnode2);
           // creatorDiv.appendChild(textnode3);
@@ -649,11 +649,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         event.target.classList.contains("ann-intro")
       )
       el = event.target.parentElement;
-      let title, intro, creator;
+      let title, intro;
       var children = el.childNodes;
       title = children[0].textContent;
       intro = children[1].textContent;
-      // creator = children[2].textContent;
       console.log("title = " + title);
       console.log("intro = " + intro);
       document.querySelector(".id-displayer").textContent = title;
@@ -661,7 +660,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       document.querySelector(".message-box").style.display = "none";
 
       document.querySelector(".ann-info").style.display = "block";
-      document.querySelector(".ann-info").innerHTML =intro;
+
+      document.querySelector(".ann-info").textContent = intro;
     });
 
     var statusArray =  document
