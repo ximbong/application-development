@@ -494,6 +494,13 @@ a {
   vertical-align: middle;
   width: calc(100% - 60px);
 }
+.user-info-area{
+  
+}
+.user-info{
+
+}
+
 .group-box .chat-info {
   display: inline-block;
   position: relative;
