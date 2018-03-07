@@ -60,10 +60,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
     .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
     .then(data => xmlToJson(data))
     // .then (response => console.log(response))
-    .then(result => (result.userss.length===0)? alert('Wrong username or password.'):(
-      window.location.replace("http://localhost:8080/WebApplication1/MainPage.html"),
-      localStorage.setItem("user", JSON.stringify(result.userss.users))
-    ))
+    .then(
+      function(result){
+        if (result.userss.length===0){
+          alert('Wrong username or password');
+        }{
+          localStorage.setItem("user", JSON.stringify(result.userss.users))
+            if(JSON.parse(localStorage.user).departmentId.name==='Admin'){
+              window.location.replace("http://localhost:8080/WebApplication1/MainPage.html")
+            } else {
+              window.location.replace("http://localhost:8080/WebApplication1/UserPage.html")
+            }
+        }
+      }
+    )
   }
 
   document.getElementById('submit').addEventListener('click',function(){

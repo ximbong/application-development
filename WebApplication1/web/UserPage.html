@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1,  user-scalable=no">
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <script src="mainpage.js"></script>
+  <link rel="stylesheet" type="text/css" href="MainPage.css">
+</head>
+<body>
+  <div id="backdrop">
+
+  </div>
+
+  <div class="wrap-div">
+    <div class="new-ann-container">
+      <i class="fa fa-times close" id="close" aria-hidden="true"></i>
+      <span class="box-title"> New Announcement</span>
+      <div class="new-title">
+        <span>Title</span>
+        <input class="ann-input-title effect-1" type="text" placeholder="Announcement title">
+        <span class="focus-border">
+
+
+        </div>
+        <div class="new-info">
+          <span>Details</span>
+          <textarea name="" id="ann-textarea" cols="30" rows="8" placeholder="Announcement details"></textarea></div>
+          <div class="ann-submit">Submit</div>
+        </div>
+        <div class="new-task-container">
+          <i class="fa fa-times close" id="close2" aria-hidden="true"></i>
+          <span class="box-title"> New Task</span>
+          <div class="new-title">
+            <span>Task name</span>
+            <input class="effect-1" type="text">
+            <span class="focus-border">
+
+
+            </div>
+            <div class="new-title">
+              <span>Location</span>
+              <input class="effect-1" type="text" placeholder="">
+              <span class="focus-border">
+
+
+              </div>
+              <div class="new-title">
+                <span>Time</span>
+                <input class="effect-1" type="text">
+                <span class="focus-border">
+
+
+                </div>
+
+                <div class="new-info">
+                  <span>Details</span>
+                  <textarea name="" id="task-textarea" rows="3" placeholder="Announcement details"></textarea></div>
+                  <div class="ann-submit">Send</div>
+                </div>
+              </div>
+
+              <div class="container">
+
+                <div class="topnav">
+                  <div id="mobileNav">
+                    <img class="logo" src="http://vhotelmanila.com/wp-content/uploads/2016/05/V-Hotel-Logo-3.png">
+
+                  </div>
+                  <div id="tabs">
+                    <div class="space"></div>
+                    <div class="navButton underline"><a href="#">Home</a></div>
+                    <div class="navButton underline"><a href="#">Schedule</a></div>
+                    <div class="navButton underline"><a href="#">Help</a></div>
+
+                    <div class="navButton profile">
+                      <div id="status-dropdown">
+                        <div class="avatar"><i class="fa fa-circle status color-busy" aria-hidden="true"></i></div>
+                        <div id="status-dropdown-content">
+                          <a > <i class="fa fa-circle status color-online" aria-hidden="true"></i>Online</a>
+                          <a > <i class="fa fa-circle status color-idle" aria-hidden="true"></i>Idle</a>
+                          <a > <i class="fa fa-circle status color-busy" aria-hidden="true"></i>Busy</a>
+                          <a > <i class="fa fa-circle status color-invisible" aria-hidden="true"></i>Insivible</a>
+                        </div>
+                      </div>
+
+                      <div id="dropdown">
+                        <span id="nav-username">ximbong91023</span>
+
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+
+                        <div id="dropdown-content">
+
+                          <a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i>Account Info</a>
+                          <a href="#"><i class="fa fa-cog" aria-hidden="true"></i>Account Settings</a>
+                          <a href="#"><i class="fa fa-flag" aria-hidden="true"></i>Report a problem</a>
+                          <a href="#"><i class="fas fa-sign-out-alt"></i>Log out</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="app">
+                  <img id="menu-icon" src="http://vhotelmanila.com/wp-content/uploads/2016/05/V-Hotel-Logo-3.png">
+                  <div class="section-div">
+
+                    <div class="section pushed" id="section1">Users</div>
+                    <div class="section unpushed" id="section2">Groups</div>
+                    <div class="section unpushed" id="section3">Announcements</div>
+                  </div>
+                  <div class="main">
+                    <div class="main-left">
+                      <div class="user-chat-column">
+
+                        <div class="user-box">
+                          <div class="avatar"></div>
+                          <div class="chat-info">
+                            <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
+                            <div class="timestamp">17:30</div>
+                            <div class="last-msg">hello</div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="group-chat-column">
+                        <div class="group-box">
+                          <div class="chat-info">
+                            <div class="id"> <span class="groupname">ximbong91023, Imbamikko, shiryy, yadavr, ximbong91023</span> </div>
+                            <div class="timestamp">17:30</div>
+                            <div class="last-msg">hello</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ann-column">
+                        <div class="make-ann">
+                          <div class="ann-button">Make an announcement</div>
+                        </div>
+                        <div class="ann-list">
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="main-right">
+
+                      <div class="header-displayer">
+                        <div class="back-button"><i id="back-button" class="fa fa-chevron-left" aria-hidden="true"></i><span>Back</span> </div>
+                        <div class="id-status">
+
+                          <div class="id-displayer announcement">ximbong91023</div>
+                          <div class="status-displayer">Active now</div>
+                        </div>
+                      </div>
+                      <div class="chat-box" id="chat-box">
+                        <div class="message-box">
+                          <div class="message-div">
+
+                          </div>
+                        </div>
+                        <div class="ann-info"> </div>
+                      </div>
+
+                      <div class="input-box"><input id="inputbox" type="text" placeholder="Type a message">
+
+                        <div class="icon"><i id="task" class="fas fa-tasks"></i></div>
+                        <div class="icon"><i class="far fa-image"></i></div>
+                        <div class="icon"><i id="file" class="fa fa-file" aria-hidden="true"></i></div>
+                        <div class="icon"><i id="microphone" class="fa fa-microphone" aria-hidden="true"></i></div>
+                        <div class="icon">
+                          <i id="send" class="fa fa-paper-plane" aria-hidden="true"></i></div>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </body>
+              </html>
