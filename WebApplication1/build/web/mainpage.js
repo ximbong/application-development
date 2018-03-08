@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     .then(function(response) {
       for (let element of response.userss.users) {
         console.log(element);
-        let { id, password, role, statusCode, username } = element;
+        let { id,  departmentId, statusCode, username } = element;
         let boxDiv = document.createElement("div");
         let avatarDiv = document.createElement("div");
         let chatInfoDiv = document.createElement("div");
@@ -74,6 +74,42 @@ document.addEventListener("DOMContentLoaded", function(event) {
         chatInfoDiv.appendChild(lastmsgDiv);
         boxDiv.appendChild(avatarDiv);
         boxDiv.appendChild(chatInfoDiv);
+
+        boxDiv.addEventListener('click',function(){
+
+            document.querySelector(".user-info-area").innerHTML = "";
+
+            let outerDiv = document.querySelector(".user-info-area");
+            let textnode1 = document.createTextNode(id);
+            let textnode2 = document.createTextNode(username);
+            let textnode3 = document.createTextNode(departmentId.name);
+            let textnode4 = document.createTextNode(statusCode);
+
+            let div1 = document.createElement("div");
+            let div2 = document.createElement("div");
+            let div3 = document.createElement("div");
+            let div4 = document.createElement("div");
+
+            let text1 = document.createTextNode("ID: ");
+            let text2 = document.createTextNode("Username: ");
+            let text3 = document.createTextNode("Department: ");
+            let text4 = document.createTextNode("Status Code: ");
+
+            div1.appendChild(text1);
+            div1.appendChild(textnode1);
+            div2.appendChild(text2);
+            div2.appendChild(textnode2);
+            div3.appendChild(text3);
+            div3.appendChild(textnode3);
+            div4.appendChild(text4);
+            div4.appendChild(textnode4);
+            outerDiv.appendChild(div1);
+            outerDiv.appendChild(div2);
+            outerDiv.appendChild(div3);
+            outerDiv.appendChild(div4);
+
+
+        })
 
         list.insertBefore(boxDiv, list.childNodes[0]);
       }
@@ -1047,4 +1083,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       });
     });
   }
+
+  document.getElementById('logout').addEventListener('click',function(){
+      window.location.replace("http://localhost:8080/WebApplication1/")
+  })
 });

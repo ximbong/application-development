@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     .then(
       function(result){
         console.log(result)
-        if (result.userss.length===0){
+        if (Object.keys(result.userss).length ===0){
           alert('Wrong username or password');
         }{
           localStorage.setItem("user", JSON.stringify(result.userss.users))

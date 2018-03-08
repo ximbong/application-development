@@ -139,6 +139,11 @@ a {
   display: none;
   border: 1px solid #1f6696;
 }
+
+.admin-container {
+  max-width:400px;
+}
+
 .new-task-container {
   position: relative;
   border: 1px solid #d8dfea;
@@ -191,7 +196,7 @@ a {
 }
 
 .new-task-container > div {
-  margin-bottom:10px;
+  margin-bottom:30px;
 }
 .new-title input {
   width: 100%;
@@ -223,7 +228,7 @@ a {
   resize: vertical;
   border: 1px solid #ccc;
   transition: 0.4s;
-  margin-top: 7px;
+  margin-top: 15px;
   border-radius: 5px;
   padding: 3px;
   background: transparent;
@@ -498,7 +503,7 @@ a {
 
 .user-info-area{
   padding: 6px 12px;
-  display:none;
+  display:block;
 }
 .user-info{
 font-weight: bold;
