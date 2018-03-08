@@ -226,7 +226,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".group-chat-column").style.display = "none";
     document.querySelector(".ann-column").style.display = "none";
     document.querySelector(".input-box").style.display = "none";
-    document.querySelector(".chat-box").style.display = "none";
+    document.querySelector(".user-info-area").style.display="block";
+
+    document.querySelector(".message-box").style.display = "none";
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")
@@ -298,7 +300,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
             console.log(usrname);
             document.querySelector(".status-displayer").style.display = "block";
             document.querySelector(".ann-info").style.display = "none";
-            document.querySelector(".message-box").style.display = "block";
 
             if (window.innerWidth < 1000) {
               document.querySelector(".main").style.transform =
@@ -326,6 +327,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".ann-column").style.display = "none";
     document.querySelector(".input-box").style.display = "flex";
     document.querySelector(".chat-box").style.display = "block";
+    document.querySelector(".user-info-area").style.display="none";
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")
@@ -604,8 +606,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".group-chat-column").style.display = "none";
     document.querySelector(".ann-column").style.display = "block";
     document.querySelector(".input-box").style.display = "none";
-    document.querySelector(".chat-box").style.display = "none";
-
+    document.querySelector(".message-box").style.display = "none";
+    document.querySelector(".user-info-area").style.display="none";
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")

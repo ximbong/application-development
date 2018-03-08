@@ -494,15 +494,9 @@ a {
   vertical-align: middle;
   width: calc(100% - 60px);
 }
-.user-info-div{
 
-}
 .user-info-area{
-  max-width: 100%;
-  margin-bottom: 1px;
-  border-radius: 20px;
   padding: 6px 12px;
-  background: #d8dfea;
   display:none;
 }
 .user-info{
@@ -693,7 +687,11 @@ font-weight: bold;
   justify-content: left;
 }
 /* chat input box */
-.input-box, .task-box {
+.input-box {
+  display:none;
+}
+
+.task-box {
   display: flex;
 }
 .input-box input, .task-box {
