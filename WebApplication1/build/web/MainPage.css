@@ -722,16 +722,7 @@ font-weight: bold;
 .icon:hover {
     background:#d5dfef;
 }
-.task-icon-send {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  width: 10%;
-  cursor: pointer;
-  color: #3c4a4f;
-  padding: 15px 5px;
-}
+
 .task-icon-send:hover {
     background:#d5dfef;
 }
