@@ -71,6 +71,7 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
         Message newMs = new Message();
         if ( content == null) {
             newMs.setIsTask(true);
+            newMs.setStatus("0");
 } else {
              newMs.setIsTask(false);
         }

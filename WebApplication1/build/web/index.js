@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
   var submit = function(){
-    let  url = "http://10.114.32.77:8080/WebApplication1/ws/users?username="+data.username+"&password=" +data.password;
+    let  url = "http://localhost:8080/WebApplication1/ws/users?username="+data.username+"&password=" +data.password;
     fetch(url, {
       method: "POST",
       cache: 'no-cache'
@@ -62,14 +62,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // .then (response => console.log(response))
     .then(
       function(result){
+        console.log(result)
         if (result.userss.length===0){
           alert('Wrong username or password');
         }{
           localStorage.setItem("user", JSON.stringify(result.userss.users))
             if(JSON.parse(localStorage.user).departmentId.name==='Admin'){
-              window.location.replace("http://10.114.32.77:8080/WebApplication1/MainPage.html")
+              window.location.replace("http://localhost:8080/WebApplication1/MainPage.html")
             } else {
-              window.location.replace("http://10.114.32.77:8080/WebApplication1/UserPage.html")
+              window.location.replace("http://localhost:8080/WebApplication1/UserPage.html")
             }
         }
       }
