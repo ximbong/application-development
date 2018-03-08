@@ -154,6 +154,7 @@ a {
 .task-div {
     display: flex;
     width: 100%;
+    transition:2s;
 }
 .chat-icon1{
     display: inline-block;
@@ -693,8 +694,11 @@ font-weight: bold;
 
 .task-box {
   display: flex;
+  font-weight:900;
+  margin-top:5px;
 }
-.input-box input, .task-box {
+
+.input-box input {
   background: transparent;
   flex: 15;
   padding: 5px 10px;

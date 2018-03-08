@@ -88,10 +88,21 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
    
     
     @PUT
-    @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Message entity) {
-        super.edit(entity);
+    public void edit(@QueryParam("mid") int id, @QueryParam("uid") int id2) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        
+        CriteriaQuery<Message> q = cb.createQuery(Message.class);
+        Root<Message> c = q.from(Message.class);
+        q.select(c);
+ 
+        q.where(  
+                cb.equal(c.get("id"), id)
+        );
+        TypedQuery<Message> query = em.createQuery(q);
+        Message newMs= query.getSingleResult();
+        newMs.setStatus(Integer.toString(id2));
+        super.edit(newMs);
     }
 
     @DELETE

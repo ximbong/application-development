@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".group-chat-column").style.display = "none";
     document.querySelector(".ann-column").style.display = "none";
     document.querySelector(".input-box").style.display = "none";
-    document.querySelector(".user-info-area").style.display="block";
+    document.querySelector(".user-info-area").style.display = "block";
 
     document.querySelector(".message-box").style.display = "none";
     if (window.innerWidth < 1000) {
@@ -289,13 +289,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
           boxDiv.appendChild(avatarDiv);
           boxDiv.appendChild(chatInfoDiv);
 
-          list.insertBefore(boxDiv, list.childNodes[0]);
+          list.appendChild(boxDiv);
         }
         for (let val of document.getElementsByClassName("user-box")) {
           val.addEventListener("click", function() {
+            document.querySelector(".user-info-area").innerHTML = "";
             let element = val.getElementsByTagName("span");
             let usrname = element[0].textContent;
-            let id2;
+            let id2, usn, dpm, stt;
             document.querySelector(".id-displayer").textContent = usrname;
             console.log(usrname);
             document.querySelector(".status-displayer").style.display = "block";
@@ -308,14 +309,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
             for (let element of response.userss.users) {
-              if (element.username === usrname) id2 = element.id;
+              if (element.username === usrname) {
+                id2 = element.id;
+                usn = element.username;
+                dpm = element.departmentId.name;
+                stt = element.statusCode;
+              }
             }
-            let url = `http://localhost:8080/WebApplication1/ws/cv?id1=${
-              JSON.parse(localStorage.user).id
-            }&id2=${id2}`;
-            fetch(url, {
-              method: "GET"
-            });
+            let outerDiv = document.querySelector(".user-info-area");
+            let textnode1 = document.createTextNode(id2);
+            let textnode2 = document.createTextNode(usn);
+            let textnode3 = document.createTextNode(dpm);
+            let textnode4 = document.createTextNode(stt);
+            let div1 = document.createElement("div");
+            let div2 = document.createElement("div");
+            let div3 = document.createElement("div");
+            let div4 = document.createElement("div");
+            let text1 = document.createTextNode("ID: ");
+            let text2 = document.createTextNode("Username: ");
+            let text3 = document.createTextNode("Department: ");
+            let text4 = document.createTextNode("Status Code: ");
+            div1.appendChild(text1);
+            div1.appendChild(textnode1);
+            div2.appendChild(text2);
+            div2.appendChild(textnode2);
+            div3.appendChild(text3);
+            div3.appendChild(textnode3);
+            div4.appendChild(text4);
+            div4.appendChild(textnode4);
+            outerDiv.appendChild(div1);
+            outerDiv.appendChild(div2);
+            outerDiv.appendChild(div3);
+            outerDiv.appendChild(div4);
           });
         }
       });
@@ -327,7 +352,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".ann-column").style.display = "none";
     document.querySelector(".input-box").style.display = "flex";
     document.querySelector(".chat-box").style.display = "block";
-    document.querySelector(".user-info-area").style.display="none";
+    document.querySelector(".user-info-area").style.display = "none";
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")
@@ -428,10 +453,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
               )
               .then(data => xmlToJson(data))
               .then(function(response) {
-                console.log(response);
                 for (let element of response.messages.message) {
                   console.log(element);
                   let {
+                    id,
                     content,
                     isTask,
                     sendtime,
@@ -440,6 +465,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     place,
                     description
                   } = element;
+                  let senderId = element.senderId.id;
                   if (isTask === "false") {
                     let senderId = element.senderId.id;
                     let val = content;
@@ -466,11 +492,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
                   }
 
                   if (isTask === "true") {
-                    let senderId = element.senderId.id;
+                    let textnode0 = document.createTextNode(
+                      "You've sent this task"
+                    );
                     let textnode1 = document.createTextNode(description);
                     let textnode2 = document.createTextNode(place);
                     let textnode3 = document.createTextNode(details);
                     let textnode4 = document.createTextNode(sendtime);
+                    let div0 = document.createElement("div");
                     let div1 = document.createElement("div");
                     let div2 = document.createElement("div");
                     let div3 = document.createElement("div");
@@ -483,6 +512,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     let text3 = document.createTextNode("Details: ");
                     let text4 = document.createTextNode("Time: ");
 
+                    if (senderId === JSON.parse(localStorage.user).id) {
+                      outerDiv.classList.add("task-div", "msg-send");
+                      div0.appendChild(textnode0);
+                      innerDiv.appendChild(div0);
+                    } else {
+                      outerDiv.classList.add("task-div", "msg-receive");
+                    }
+                    div1.style.marginTop = "10px";
                     div1.appendChild(text1);
                     div1.appendChild(textnode1);
                     div2.appendChild(text2);
@@ -493,37 +530,72 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     div4.appendChild(textnode4);
                     innerDiv.classList.add("chat-message");
 
-                    if (senderId === JSON.parse(localStorage.user).id) {
-                      outerDiv.classList.add("task-div", "msg-send");
-                    } else {
-                      outerDiv.classList.add("task-div", "msg-receive");
-                    }
-
                     innerDiv.appendChild(div1);
                     innerDiv.appendChild(div2);
                     innerDiv.appendChild(div3);
                     innerDiv.appendChild(div4);
 
-                    if (
-                      status === "0" &&
-                      senderId !== JSON.parse(localStorage.user).id
-                    ) {
-                      let e1 = document.createElement("i");
-                      let e2 = document.createElement("i");
-                      let d1 = document.createElement("div");
-                      let d2 = document.createElement("div");
-                      let d3 = document.createElement("div");
-                      e1.classList.add("fas", "fa-check", "chat-icon1");
-                      e2.classList.add("fas", "fa-times", "chat-icon2");
-                      d1.classList.add("task-icon-receive");
-                      d2.classList.add("task-icon-receive");
-                      d3.classList.add("task-box");
-                      d1.appendChild(e1);
-                      d2.appendChild(e2);
-                      d3.appendChild(d1);
-                      d3.appendChild(d2);
-                      innerDiv.appendChild(d3);
+                    if (senderId !== JSON.parse(localStorage.user).id) {
+                      if (status === "0") {
+                        let e1 = document.createElement("i");
+                        let e2 = document.createElement("i");
+                        let d1 = document.createElement("div");
+                        let d2 = document.createElement("div");
+                        let d3 = document.createElement("div");
+                        e1.classList.add("fas", "fa-check", "chat-icon1");
+                        e2.classList.add("fas", "fa-times", "chat-icon2");
+                        d1.classList.add("task-icon-receive");
+                        d2.classList.add("task-icon-receive");
+                        d3.classList.add("task-box");
+                        d1.appendChild(e1);
+                        d2.appendChild(e2);
+                        d3.appendChild(d1);
+                        d3.appendChild(d2);
+                        innerDiv.appendChild(d3);
+
+                        d1.addEventListener("click", function() {
+                          let putURL = `http://localhost:8080/WebApplication1/ws/msg?mid=${id}&uid=${
+                            JSON.parse(localStorage.user).id
+                          }`;
+
+                          fetch(putURL, {
+                            method: "PUT"
+                          });
+                          d3.innerHTML = "You accepted this task";
+                        });
+
+                        d2.addEventListener("click", function() {
+                          d3.innerHTML = "You temporarily declined this task";
+                        });
+                      } else {
+                        let d1 = document.createElement("div");
+                        d1.classList.add("task-box");
+                        let t1 = document.createTextNode(
+                          `User with ID ${status} has taken the task.`
+                        );
+                        d1.appendChild(t1);
+                        innerDiv.appendChild(d1);
+                      }
+                    } else {
+                      if (status !== "0") {
+                        let d1 = document.createElement("div");
+                        d1.classList.add("task-box");
+                        let t1 = document.createTextNode(
+                          `User with ID ${status} has taken the task.`
+                        );
+                        d1.appendChild(t1);
+                        innerDiv.appendChild(d1);
+                      } else {
+                        let d1 = document.createElement("div");
+                        d1.classList.add("task-box");
+                        let t1 = document.createTextNode(
+                          `No one has taken the task yet.`
+                        );
+                        d1.appendChild(t1);
+                        innerDiv.appendChild(d1);
+                      }
                     }
+
                     outerDiv.appendChild(innerDiv);
                     document
                       .querySelector(".message-box")
@@ -607,7 +679,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".ann-column").style.display = "block";
     document.querySelector(".input-box").style.display = "none";
     document.querySelector(".message-box").style.display = "none";
-    document.querySelector(".user-info-area").style.display="none";
+    document.querySelector(".user-info-area").style.display = "none";
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")
@@ -733,7 +805,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let textnode3 = document.createTextNode(
       document.getElementById("task-textarea").value
     );
-    let textnode0 = document.createTextNode("Task sent.");
+    let textnode0 = document.createTextNode("You've sent this task.");
     let div0 = document.createElement("div");
     let div1 = document.createElement("div");
     let div2 = document.createElement("div");
@@ -745,6 +817,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let text3 = document.createTextNode("Details: ");
 
     div0.appendChild(textnode0);
+    div1.style.marginTop = "10px";
     div1.appendChild(text1);
     div1.appendChild(textnode1);
     div2.appendChild(text2);
