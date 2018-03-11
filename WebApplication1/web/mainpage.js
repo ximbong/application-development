@@ -1,155 +1,4 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-  var key =
-    "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
-  var username = JSON.parse(localStorage.user).username;
-  var status = parseInt(JSON.parse(localStorage.user).statusCode);
-
-  switch (status) {
-    case 1:
-      document.getElementById("nav-status").classList.add("color-online");
-      break;
-    case 2:
-      document.getElementById("nav-status").classList.add("color-idle");
-      break;
-    case 3:
-      document.getElementById("nav-status").classList.add("color-busy");
-      break;
-    default:
-      document.getElementById("nav-status").classList.add("color-invisible");
-  }
-
-  document.getElementById("nav-username").textContent = username;
-
-  /////////////// define the function GETLIST later
-  let url = `http://localhost:8080/WebApplication1/ws/users`;
-  let list = document.querySelector(".user-chat-column");
-  list.innerHTML = "";
-  fetch(url, {
-    method: "GET"
-  })
-    .then(response => response.text())
-    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then(data => xmlToJson(data))
-    .then(function(response) {
-      for (let element of response.userss.users) {
-        console.log(element);
-        let { id,  departmentId, statusCode, username } = element;
-        let boxDiv = document.createElement("div");
-        let avatarDiv = document.createElement("div");
-        let chatInfoDiv = document.createElement("div");
-        let idDiv = document.createElement("div");
-        let timestampDiv = document.createElement("div");
-        let lastmsgDiv = document.createElement("div");
-        let usernameSpan = document.createElement("span");
-        let icon = document.createElement("i");
-
-        let classlist = ["fa", "fa-circle", "status"];
-        icon.classList.add(...classlist);
-        boxDiv.classList.add("user-box");
-        avatarDiv.classList.add("avatar");
-        chatInfoDiv.classList.add("chat-info");
-        idDiv.classList.add("id");
-        usernameSpan.classList.add("username");
-
-        switch (parseInt(statusCode)) {
-          case 1:
-            icon.classList.add("color-online");
-            break;
-          case 2:
-            icon.classList.add("color-idle");
-            break;
-          case 3:
-            icon.classList.add("color-busy");
-            break;
-          default:
-            icon.classList.add("color-invisible");
-        }
-
-        let textnode2 = document.createTextNode(username);
-        usernameSpan.appendChild(textnode2);
-        idDiv.appendChild(usernameSpan);
-        idDiv.appendChild(icon);
-        chatInfoDiv.appendChild(idDiv);
-        chatInfoDiv.appendChild(timestampDiv);
-        chatInfoDiv.appendChild(lastmsgDiv);
-        boxDiv.appendChild(avatarDiv);
-        boxDiv.appendChild(chatInfoDiv);
-
-        boxDiv.addEventListener('click',function(){
-
-            document.querySelector(".user-info-area").innerHTML = "";
-
-            let outerDiv = document.querySelector(".user-info-area");
-            let textnode1 = document.createTextNode(id);
-            let textnode2 = document.createTextNode(username);
-            let textnode3 = document.createTextNode(departmentId.name);
-            let textnode4 = document.createTextNode(statusCode);
-
-            let div1 = document.createElement("div");
-            let div2 = document.createElement("div");
-            let div3 = document.createElement("div");
-            let div4 = document.createElement("div");
-
-            let text1 = document.createTextNode("ID: ");
-            let text2 = document.createTextNode("Username: ");
-            let text3 = document.createTextNode("Department: ");
-            let text4 = document.createTextNode("Status Code: ");
-
-            div1.appendChild(text1);
-            div1.appendChild(textnode1);
-            div2.appendChild(text2);
-            div2.appendChild(textnode2);
-            div3.appendChild(text3);
-            div3.appendChild(textnode3);
-            div4.appendChild(text4);
-            div4.appendChild(textnode4);
-            outerDiv.appendChild(div1);
-            outerDiv.appendChild(div2);
-            outerDiv.appendChild(div3);
-            outerDiv.appendChild(div4);
-
-
-        })
-
-        list.insertBefore(boxDiv, list.childNodes[0]);
-      }
-    });
-
-  var socket = new WebSocket("ws://localhost:8080/WebApplication1/actions");
-  socket.onmessage = onMessage;
-
-  var objDiv = document.getElementById("chat-box");
-  objDiv.scrollTop = objDiv.scrollHeight;
-  // responsive nav
-
-  function onMessage(event) {
-    var mess = JSON.parse(event.data);
-
-    console.log(mess);
-    if (parseInt(JSON.parse(localStorage.user).id) !== mess.senderId) {
-      let val = mess.content;
-      let textnode = document.createTextNode(val);
-
-      let innerDiv = document.createElement("div");
-      let outerDiv = document.createElement("div");
-      let classlist = [
-        "message-div",
-        "animated",
-        "slideInLeft",
-        "new-msg",
-        "msg-receive"
-      ];
-      innerDiv.classList.add("chat-message");
-      outerDiv.classList.add(...classlist);
-      innerDiv.appendChild(textnode);
-      outerDiv.appendChild(innerDiv);
-      document.querySelector(".message-box").appendChild(outerDiv);
-
-      var objDiv = document.getElementById("chat-box");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    }
-  }
-
   function xmlToJson(xml) {
     // Create the return object
     var obj = {};
@@ -196,27 +45,208 @@ document.addEventListener("DOMContentLoaded", function(event) {
     return obj;
   }
 
+  // var key =
+  //   "http://sandbox.api.simsimi.com/request.p?key=ebf0dfaf-719b-440c-9b30-4d7ead297e2e&lc=en&ft=1.0&text=";
+  var username = JSON.parse(localStorage.user).username;
+  var status = parseInt(JSON.parse(localStorage.user).statusCode);
+
+  //display status when login
+  switch (status) {
+    case 1:
+      document.getElementById("nav-status").classList.add("color-online");
+      break;
+    case 2:
+      document.getElementById("nav-status").classList.add("color-idle");
+      break;
+    case 3:
+      document.getElementById("nav-status").classList.add("color-busy");
+      break;
+    default:
+      document.getElementById("nav-status").classList.add("color-invisible");
+  }
+  //display the username when login
+  document.getElementById("nav-username").textContent = username;
+
+  //empty the user-chat-column innerHTML
+  let list = document.querySelector(".user-chat-column");
+  let url = `http://localhost:8080/WebApplication1/ws/users`;
+  list.innerHTML = "";
+
+  //make fetch call which will receive info under XML file
+  fetch(url, {
+    method: "GET"
+  })
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => xmlToJson(data))
+    .then(function(response) {
+      for (let element of response.userss.users) {
+        let { id, departmentId, statusCode, username } = element;
+
+        /* basically display this
+
+        <div class="user-box">
+          <div class="avatar"></div>
+          <div class="chat-info">
+            <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
+            <div class="timestamp">17:30</div>
+            <div class="last-msg">hello</div>
+          </div>
+        </div>
+
+        */
+
+        let boxDiv = document.createElement("div");
+        let avatarDiv = document.createElement("div");
+        let chatInfoDiv = document.createElement("div");
+        let idDiv = document.createElement("div");
+        let timestampDiv = document.createElement("div");
+        let lastmsgDiv = document.createElement("div");
+        let usernameSpan = document.createElement("span");
+        let icon = document.createElement("i");
+
+        let classlist = ["fa", "fa-circle", "status"];
+        icon.classList.add(...classlist);
+        boxDiv.classList.add("user-box");
+        avatarDiv.classList.add("avatar");
+        chatInfoDiv.classList.add("chat-info");
+        idDiv.classList.add("id");
+        usernameSpan.classList.add("username");
+
+        switch (parseInt(statusCode)) {
+          case 1:
+            icon.classList.add("color-online");
+            break;
+          case 2:
+            icon.classList.add("color-idle");
+            break;
+          case 3:
+            icon.classList.add("color-busy");
+            break;
+          default:
+            icon.classList.add("color-invisible");
+        }
+
+        let textnode2 = document.createTextNode(username);
+        usernameSpan.appendChild(textnode2);
+        idDiv.appendChild(usernameSpan);
+        idDiv.appendChild(icon);
+        chatInfoDiv.appendChild(idDiv);
+        chatInfoDiv.appendChild(timestampDiv);
+        chatInfoDiv.appendChild(lastmsgDiv);
+        boxDiv.appendChild(avatarDiv);
+        boxDiv.appendChild(chatInfoDiv);
+
+        // add event listener for elements that just have been created
+
+        boxDiv.addEventListener("click", function() {
+          document.querySelector(".user-info-area").innerHTML = "";
+
+          /*basically will display this
+
+            <div class="user-info-area">
+
+               <div>Name: <span >1</span></div>
+                <div>Online status: <span>2</span></div>
+                <div>Department: <span >3</span></div>
+                <div>Phone number: <span>4</span></div>
+
+            </div>
+
+            */
+
+          let outerDiv = document.querySelector(".user-info-area");
+          let textnode1 = document.createTextNode(id);
+          let textnode2 = document.createTextNode(username);
+          let textnode3 = document.createTextNode(departmentId.name);
+          let textnode4 = document.createTextNode(statusCode);
+
+          let div1 = document.createElement("div");
+          let div2 = document.createElement("div");
+          let div3 = document.createElement("div");
+          let div4 = document.createElement("div");
+
+          let text1 = document.createTextNode("ID: ");
+          let text2 = document.createTextNode("Username: ");
+          let text3 = document.createTextNode("Department: ");
+          let text4 = document.createTextNode("Status Code: ");
+
+          div1.appendChild(text1);
+          div1.appendChild(textnode1);
+          div2.appendChild(text2);
+          div2.appendChild(textnode2);
+          div3.appendChild(text3);
+          div3.appendChild(textnode3);
+          div4.appendChild(text4);
+          div4.appendChild(textnode4);
+          outerDiv.appendChild(div1);
+          outerDiv.appendChild(div2);
+          outerDiv.appendChild(div3);
+          outerDiv.appendChild(div4);
+        });
+
+        //add new item into the user-chat-column declare earlier
+
+        list.insertBefore(boxDiv, list.childNodes[0]);
+      }
+    });
+
+  //message socket
+
+  var socket = new WebSocket("ws://localhost:8080/WebApplication1/actions");
+  socket.onmessage = onMessage;
+
+  function onMessage(event) {
+    var mess = JSON.parse(event.data);
+
+    //compare to check if the user is the sender, then display if it's wrong, because the sender's won't be displayed this way
+
+    if (parseInt(JSON.parse(localStorage.user).id) !== mess.senderId) {
+      //basically will display this
+
+      /*
+      <div class="message-div msg-receive">
+        <div class="chat-message float-right">Hello ximbong91023</div>
+      </div>
+      */
+
+      let val = mess.content;
+      let textnode = document.createTextNode(val);
+      let innerDiv = document.createElement("div");
+      let outerDiv = document.createElement("div");
+      let classlist = [
+        "message-div",
+        "animated",
+        "slideInLeft",
+        "new-msg",
+        "msg-receive"
+      ];
+      innerDiv.classList.add("chat-message");
+      outerDiv.classList.add(...classlist);
+      innerDiv.appendChild(textnode);
+      outerDiv.appendChild(innerDiv);
+      document.querySelector(".message-box").appendChild(outerDiv);
+
+      //scroll to the bottom if the div if new there's a new message
+      var objDiv = document.getElementById("chat-box");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+  }
+
+  //responsive setting
+
   document.getElementById("menu-icon").onclick = function() {
     let displayValue = document.getElementById("tabs").style.display;
     if (displayValue !== "flex") {
-      console.log("display tabs");
+      //set backdrop to block if tabs aren't displayed as flex
       document.getElementById("backdrop").style.display = "block";
+      //and set display of tabs to flex
       document.getElementById("tabs").style.display = "flex";
     }
   };
 
-  // $(window).resize(function() {
-  //   if (window.innerWidth > 1000) {
-  //     $(".navButton").css("display", "inline-block");
-  //   } else {
-  //     $(".navButton").css("display", "none");
-  //   }
-  // });
-
-  var navUsername = document.getElementById("nav-username");
-
+  //onclick behaviour of 2 dropdowns
   window.onclick = function(event) {
-    // console.log(event.target);
     if (document.getElementById("dropdown").contains(event.target))
       document.getElementById("dropdown-content").style.display = "block";
     else document.getElementById("dropdown-content").style.display = "none";
@@ -234,11 +264,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
   };
-  //button push
+
+  //button push behaviour
 
   var lastButtonPushed = document.getElementById("section1");
   var section = document.getElementsByClassName("section");
 
+  //modify css if one of the 3 section buttons is clicked
   for (var i = 0; i < section.length; i++) {
     // Here we have the same onclick
 
@@ -255,16 +287,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
   }
 
-  //section display
+  //behaviour if section 1 is clicked
 
   document.getElementById("section1").addEventListener("click", function() {
+    //basically display user-chat-column and user-info-area, hide others fields
     document.querySelector(".user-chat-column").style.display = "block";
+    document.querySelector(".user-info-area").style.display = "block";
     document.querySelector(".group-chat-column").style.display = "none";
     document.querySelector(".ann-column").style.display = "none";
     document.querySelector(".input-box").style.display = "none";
-    document.querySelector(".user-info-area").style.display = "block";
-
     document.querySelector(".message-box").style.display = "none";
+
+    //if screen width <1000, modify the dislayer
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")
@@ -274,6 +308,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let url = `http://localhost:8080/WebApplication1/ws/users`;
     let list = document.querySelector(".user-chat-column");
     list.innerHTML = "";
+
+    //fetch user list if the section 1 button is clicked
     fetch(url, {
       method: "GET"
     })
@@ -284,6 +320,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
         for (let element of response.userss.users) {
           console.log(element);
           let { id, password, role, statusCode, username } = element;
+
+          /* This part is redundant to the code on line 88-190
+          <div class="user-box">
+            <div class="avatar"></div>
+            <div class="chat-info">
+              <div class="id"> <span class="username">ximbong91023</span> <i class="fa fa-circle status color-online" aria-hidden="true"></i></div>
+              <div class="timestamp">17:30</div>
+              <div class="last-msg">hello</div>
+            </div>
+          </div>
+          */
+
           let boxDiv = document.createElement("div");
           let avatarDiv = document.createElement("div");
           let chatInfoDiv = document.createElement("div");
@@ -327,17 +375,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
           list.appendChild(boxDiv);
         }
+
         for (let val of document.getElementsByClassName("user-box")) {
           val.addEventListener("click", function() {
             document.querySelector(".user-info-area").innerHTML = "";
             let element = val.getElementsByTagName("span");
             let usrname = element[0].textContent;
+
+            // id,username,department, status code of the clicked user
+
             let id2, usn, dpm, stt;
             document.querySelector(".id-displayer").textContent = usrname;
             console.log(usrname);
             document.querySelector(".status-displayer").style.display = "block";
             document.querySelector(".ann-info").style.display = "none";
 
+            //animation on mobile
             if (window.innerWidth < 1000) {
               document.querySelector(".main").style.transform =
                 " translateX(-100%)";
@@ -352,6 +405,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 stt = element.statusCode;
               }
             }
+
+            //display the user info
+
             let outerDiv = document.querySelector(".user-info-area");
             let textnode1 = document.createTextNode(id2);
             let textnode2 = document.createTextNode(usn);
@@ -382,19 +438,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
       });
   });
 
+  //behaviour if section 2 is clicked
   document.getElementById("section2").addEventListener("click", function() {
+    //display group-chat-column, chat-box (chat msg area), and chat inputbox
     document.querySelector(".user-chat-column").style.display = "none";
-    document.querySelector(".group-chat-column").style.display = "block";
     document.querySelector(".ann-column").style.display = "none";
-    document.querySelector(".input-box").style.display = "flex";
-    document.querySelector(".chat-box").style.display = "block";
     document.querySelector(".user-info-area").style.display = "none";
+    document.querySelector(".group-chat-column").style.display = "block";
+    document.querySelector(".chat-box").style.display = "block";
+    document.querySelector(".input-box").style.display = "flex";
+
+    //mobile css change to fit the width
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")
         .classList.add("id-displayer-group");
     }
 
+    //get call to get the department list
     let url = `http://localhost:8080/WebApplication1/ws/dpm`;
     let list = document.querySelector(".group-chat-column");
     list.innerHTML = "";
@@ -406,10 +467,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .then(data => xmlToJson(data))
       .then(function(response) {
         for (let element of response.departments.department) {
-          console.log(element);
+          //check if the user belongs to the group admin, which can see every groups
 
           if (JSON.parse(localStorage.user).departmentId.name === "Admin") {
             let { id, name } = element;
+
+            /*
+            <div class="group-box">
+              <div class="chat-info">
+                <div class="id"> <span class="groupname">Group name here</span> </div>
+                <div class="timestamp">17:30</div>
+                <div class="last-msg">hello</div>
+              </div>
+            </div>
+            */
+
             let boxDiv = document.createElement("div");
             let chatInfoDiv = document.createElement("div");
             let idDiv = document.createElement("div");
@@ -433,6 +505,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             list.insertBefore(boxDiv, list.childNodes[0]);
           } else {
             let { id, name } = element;
+
+            //normal users can only see their groups
+
             if (JSON.parse(localStorage.user).departmentId.name === name) {
               let boxDiv = document.createElement("div");
               let chatInfoDiv = document.createElement("div");
@@ -459,13 +534,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
           }
         }
 
+        //group-box onclick listener
         for (let val of document.getElementsByClassName("group-box")) {
           val.addEventListener("click", function() {
+            //empty  the message box
             document.querySelector(".message-box").innerHTML = "";
             let element = val.getElementsByTagName("span");
+            //get the group name displayed through the span earlier
             let groupname = element[0].textContent;
-            document.querySelector(".id-displayer").textContent = groupname;
             let id;
+
+            //display the group name in the displayer div
+            document.querySelector(".id-displayer").textContent = groupname;
+
             document.querySelector(".status-displayer").style.display = "none";
             document.querySelector(".ann-info").style.display = "none";
             document.querySelector(".message-box").style.display = "block";
@@ -475,10 +556,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 " translateX(-100%)";
               document.querySelector(".section-div").style.display = "none";
             }
+
+            //get id of the department for the fetch call later
             for (let element of response.departments.department) {
               if (element.name === groupname) id = element.id;
             }
 
+            //fetch call to get the messages in the department
             let url = `http://localhost:8080/WebApplication1/ws/msg?id=${id}`;
             fetch(url, {
               method: "GET"
@@ -491,17 +575,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
               .then(function(response) {
                 for (let element of response.messages.message) {
                   console.log(element);
+
+                  //destructure the array to get the needed values to display the message later
+
                   let {
                     id,
                     content,
                     isTask,
-                    sendtime,
                     status,
                     details,
                     place,
-                    description
+                    description,
+                    sendtime
                   } = element;
+
                   let senderId = element.senderId.id;
+
+                  //check if the that message is a task message or not (there are 2 types of msg: text msg and task msg)
+
+                  //display text msg
                   if (isTask === "false") {
                     let senderId = element.senderId.id;
                     let val = content;
@@ -527,7 +619,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     objDiv.scrollTop = objDiv.scrollHeight;
                   }
 
+                  //display task msg
                   if (isTask === "true") {
+                    /*
+                    <div class="task-div msg-receive">
+                      <div class="chat-message float-left">
+                        <p><span class="task-span">Task Name: </span><span class="task-span1">first line</span></p>
+                        <p><span class="task-span">location: </span><span class="task-span2"> Main Lobby</span> </p>
+                        <p><span class="task-span">time: </span><span class="task-span3"> 1.1.2019 15:00</span> <br> <br></p>
+                        <p> <span class="task-span">details: </span><span class="task-span4"> detailed explanation.</span></p>
+                        <div class = "task-box">
+                          <div class="task-icon-receive"><i class="fas fa-check chat-icon1"></i></div>
+                          <div class="task-icon-receive"><i class="fas fa-times chat-icon2"></i></div>
+                        </div>
+                      </div>
+                    */
                     let textnode0 = document.createTextNode(
                       "You've sent this task"
                     );
@@ -547,6 +653,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     let text2 = document.createTextNode("Location: ");
                     let text3 = document.createTextNode("Details: ");
                     let text4 = document.createTextNode("Time: ");
+
+                    //check if the user is the sender
 
                     if (senderId === JSON.parse(localStorage.user).id) {
                       outerDiv.classList.add("task-div", "msg-send");
@@ -572,6 +680,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     innerDiv.appendChild(div4);
 
                     if (senderId !== JSON.parse(localStorage.user).id) {
+                      //if the user is not the sender, check if the task has been done
                       if (status === "0") {
                         let e1 = document.createElement("i");
                         let e2 = document.createElement("i");
@@ -606,9 +715,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
                       } else {
                         let d1 = document.createElement("div");
                         d1.classList.add("task-box");
-                        let t1 = document.createTextNode(
-                          `User with ID ${status} has taken the task.`
-                        );
+                        let t1;
+
+                        //check if the task is done by this user
+
+                        if (status !== JSON.parse(localStorage.user).id) {
+                          t1 = document.createTextNode(
+                            `User with ID ${status} has taken the task.`
+                          );
+                        } else {
+                          t1 = document.createTextNode(
+                            `You has taken the task.`
+                          );
+                        }
+
                         d1.appendChild(t1);
                         innerDiv.appendChild(d1);
                       }
@@ -617,7 +737,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         let d1 = document.createElement("div");
                         d1.classList.add("task-box");
                         let t1 = document.createTextNode(
-                          `User with ID ${status} has taken the task.`
+                          `User with ID ${status} has taken the task. `
                         );
                         d1.appendChild(t1);
                         innerDiv.appendChild(d1);
@@ -650,6 +770,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 let value2 = document.getElementById("task-2").value;
                 let value3 = document.getElementById("task-textarea").value;
 
+                //send task
                 let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${
                   JSON.parse(localStorage.user).id
                 }&description=${value1}&details=${value3}&place=${value2}`;
@@ -667,6 +788,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 closeTaskContainer();
               });
 
+            //send msg if the enter key is pressed
             document
               .querySelector("#inputbox")
               .addEventListener("keypress", function(e) {
@@ -689,6 +811,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 }
               });
 
+            //or the button send is pressed
             document
               .querySelector("#send")
               .addEventListener("click", function(e) {
@@ -709,6 +832,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       });
   });
 
+  //behaviour if section 3 button is clicked
   document.getElementById("section3").addEventListener("click", function() {
     document.querySelector(".user-chat-column").style.display = "none";
     document.querySelector(".group-chat-column").style.display = "none";
@@ -716,6 +840,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector(".input-box").style.display = "none";
     document.querySelector(".message-box").style.display = "none";
     document.querySelector(".user-info-area").style.display = "none";
+
+    //same as section 2
     if (window.innerWidth < 1000) {
       document
         .querySelector(".id-displayer")
@@ -726,6 +852,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     list.innerHTML = "";
     let url = `http://localhost:8080/WebApplication1/ws/announcement`;
 
+    //get the announcement list if the section 3 button is clicked
     fetch(url, {
       method: "GET"
     })
@@ -735,8 +862,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .then(function(response) {
         for (let element of response.announcements.announcement) {
           let { creatorId, description, id, title } = element;
-          console.log(description);
-          console.log(title);
+
+          //display announcements list
 
           let boxDiv = document.createElement("div");
           let titleDiv = document.createElement("div");
@@ -756,6 +883,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       });
   });
 
+  //back button on mobile
   document.querySelector(".back-button").addEventListener("click", function() {
     document.querySelector(".main").style.transform = "translateX(0)";
     document.querySelector(".section-div").style.display = "block";
@@ -873,16 +1001,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     objDiv.scrollTop = objDiv.scrollHeight;
   }
 
-  // var api = key + val;
-  // $.getJSON(api, function(data) {
-  //   var answer = data.response;
-  //   $(".chat-box").append(
-  //     '<div class="message-div animated new-msg slideInLeft msg-receive"> <div class="chat-message ">' +
-  //     answer +
-  //     "</div></div>"
-  //   );
-  // });
-
   document.querySelector(".ann-button").addEventListener("click", function() {
     openAnnContainer();
   });
@@ -897,6 +1015,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         let username = document.getElementById("admin-1").value;
         let id = document.getElementById("admin-2").value;
         let phone = document.getElementById("admin-3").value;
+
+        //check if the fields are empty, get info and make fetch POST call
+
         if (username !== "" && id !== "" && phone !== "") {
           let url = `http://localhost:8080/WebApplication1/ws/users/new?username=${username}&dpm_id=${id}&phone=${phone}`;
           fetch(url, {
@@ -907,6 +1028,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     });
 
+  //close buttons behaviours
   document
     .querySelector(".new-task-container")
     .addEventListener("click", function(event) {
@@ -940,8 +1062,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         let annTitle = document.querySelector(".ann-input-title").value;
         let annTextarea = document.getElementById("ann-textarea").value;
         let annCreator = document.getElementById("nav-username").innerHTML;
-        console.log(annTitle);
-        console.log(annTextarea);
+
+        //check if the fields are empty, create a div with the info get earlier
         if (annTitle !== "" && annTextarea !== "") {
           let boxDiv = document.createElement("div");
           let titleDiv = document.createElement("div");
@@ -990,17 +1112,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         openTaskContainer();
     });
 
-  // document.querySelector("#inputbox").addEventListener("keypress", function(e) {
-  //   var key = e.which || e.keyCode;
-  //   if (key === 13) {
-  //     sendMsg();
-  //   }
-  // });
-  //
-  // document.querySelector("#send").addEventListener("click", function(e) {
-  //   sendMsg();
-  // });
-
+  //display annnouncement if the ann box is clicked
   document
     .querySelector(".ann-list")
     .addEventListener("click", function(event) {
@@ -1023,8 +1135,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var children = el.childNodes;
       title = children[0].textContent;
       intro = children[1].textContent;
-      console.log("title = " + title);
-      console.log("intro = " + intro);
       document.querySelector(".id-displayer").textContent = title;
       document.querySelector(".status-displayer").style.display = "none";
       document.querySelector(".message-box").style.display = "none";
@@ -1037,6 +1147,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var statusArray = document.querySelectorAll("#status-dropdown-content a");
   var status_code;
 
+  //change status and make fetch PUT call to the server
   for (let element of statusArray) {
     element.addEventListener("click", function(event) {
       let text;
@@ -1084,7 +1195,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
   }
 
-  document.getElementById('logout').addEventListener('click',function(){
-      window.location.replace("http://localhost:8080/WebApplication1/")
-  })
+  //logout if the button is clicked
+  document.getElementById("logout").addEventListener("click", function() {
+    window.location.replace("http://localhost:8080/WebApplication1/");
+  });
 });

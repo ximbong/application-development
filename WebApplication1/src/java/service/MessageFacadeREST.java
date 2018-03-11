@@ -8,6 +8,7 @@ package service;
 import Database.Department;
 import Database.Message;
 import Database.Users;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -81,6 +82,8 @@ public class MessageFacadeREST extends AbstractFacade<Message> {
         newMs.setDescription(description);
         newMs.setDetails(details);
         newMs.setPlace(place);
+        Date date = new Date();
+        newMs.setSendtime(date);
         super.create(newMs);
         
     }
