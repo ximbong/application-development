@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //empty the user-chat-column innerHTML
   let list = document.querySelector(".user-chat-column");
-  let url = `http://localhost:8080/WebApplication1/ws/users`;
+  let url = `http://10.114.32.77:8080/WebApplication1/ws/users`;
   list.innerHTML = "";
 
   //make fetch call which will receive info under XML file
@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //message socket
 
-  var socket = new WebSocket("ws://localhost:8080/WebApplication1/actions");
+  var socket = new WebSocket("ws://10.114.32.77:8080/WebApplication1/actions");
   socket.onmessage = onMessage;
 
   function onMessage(event) {
@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         .classList.remove("id-displayer-group");
     }
 
-    let url = `http://localhost:8080/WebApplication1/ws/users`;
+    let url = `http://10.114.32.77:8080/WebApplication1/ws/users`;
     let list = document.querySelector(".user-chat-column");
     list.innerHTML = "";
 
@@ -456,7 +456,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     //get call to get the department list
-    let url = `http://localhost:8080/WebApplication1/ws/dpm`;
+    let url = `http://10.114.32.77:8080/WebApplication1/ws/dpm`;
     let list = document.querySelector(".group-chat-column");
     list.innerHTML = "";
     fetch(url, {
@@ -563,7 +563,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
             //fetch call to get the messages in the department
-            let url = `http://localhost:8080/WebApplication1/ws/msg?id=${id}`;
+            let url = `http://10.114.32.77:8080/WebApplication1/ws/msg?id=${id}`;
             fetch(url, {
               method: "GET"
             })
@@ -699,7 +699,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         innerDiv.appendChild(d3);
 
                         d1.addEventListener("click", function() {
-                          let putURL = `http://localhost:8080/WebApplication1/ws/msg?mid=${id}&uid=${
+                          let putURL = `http://10.114.32.77:8080/WebApplication1/ws/msg?mid=${id}&uid=${
                             JSON.parse(localStorage.user).id
                           }`;
 
@@ -771,7 +771,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 let value3 = document.getElementById("task-textarea").value;
 
                 //send task
-                let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${
+                let url2 = `http://10.114.32.77:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${
                   JSON.parse(localStorage.user).id
                 }&description=${value1}&details=${value3}&place=${value2}`;
                 if (value1 !== "" && value2 !== "" && value3 !== "") {
@@ -793,7 +793,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
               .querySelector("#inputbox")
               .addEventListener("keypress", function(e) {
                 let value = document.getElementById("inputbox").value;
-                let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${
+                let url2 = `http://10.114.32.77:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${
                   JSON.parse(localStorage.user).id
                 }&content=${value}`;
 
@@ -816,7 +816,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
               .querySelector("#send")
               .addEventListener("click", function(e) {
                 let value = document.getElementById("inputbox").value;
-                let url2 = `http://localhost:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${
+                let url2 = `http://10.114.32.77:8080/WebApplication1/ws/msg?dpm_id=${id}&sender_id=${
                   JSON.parse(localStorage.user).id
                 }&content=${value}`;
 
@@ -850,7 +850,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     let list = document.querySelector(".ann-list");
     list.innerHTML = "";
-    let url = `http://localhost:8080/WebApplication1/ws/announcement`;
+    let url = `http://10.114.32.77:8080/WebApplication1/ws/announcement`;
 
     //get the announcement list if the section 3 button is clicked
     fetch(url, {
@@ -1019,7 +1019,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         //check if the fields are empty, get info and make fetch POST call
 
         if (username !== "" && id !== "" && phone !== "") {
-          let url = `http://localhost:8080/WebApplication1/ws/users/new?username=${username}&dpm_id=${id}&phone=${phone}`;
+          let url = `http://10.114.32.77:8080/WebApplication1/ws/users/new?username=${username}&dpm_id=${id}&phone=${phone}`;
           fetch(url, {
             method: "POST"
           });
@@ -1089,7 +1089,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           document.querySelector(".ann-input-title").value = "";
           document.getElementById("ann-textarea").value = "";
           // document.getElementById("ann-creator").value = "";
-          let url = `http://localhost:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${
+          let url = `http://10.114.32.77:8080/WebApplication1/ws/announcement?title=${annTitle}&description=${annTextarea}&creator_id=${
             JSON.parse(localStorage.user).id
           }`;
 
@@ -1185,7 +1185,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       userObj.statusCode = status_code;
       localStorage.setItem("user", JSON.stringify(userObj));
 
-      let url = `http://localhost:8080/WebApplication1/ws/users/${
+      let url = `http://10.114.32.77:8080/WebApplication1/ws/users/${
         JSON.parse(localStorage.user).id
       }/${status_code}`;
 
@@ -1197,6 +1197,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   //logout if the button is clicked
   document.getElementById("logout").addEventListener("click", function() {
-    window.location.replace("http://localhost:8080/WebApplication1/");
+    window.location.replace("http://10.114.32.77:8080/WebApplication1/");
   });
 });
